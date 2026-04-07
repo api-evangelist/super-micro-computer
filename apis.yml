@@ -1,7 +1,12 @@
 aid: super-micro-computer
-url: https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/apis.yml
 modified: '2026-03-21'
 apis: []
 common:
   - type: Website
     url: https://www.super-micro-computer.com
+description: >-
+  Super Micro Computer (Supermicro) is a global leader in high-performance, high-efficiency
+  server technology and innovation, providing complete server, storage, and networking
+  solutions for data center, cloud, AI, and edge applications.
