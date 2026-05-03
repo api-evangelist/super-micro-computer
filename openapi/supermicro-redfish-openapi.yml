@@ -1,0 +1,1202 @@
+openapi: 3.0.3
+info:
+  title: Supermicro Redfish API
+  description: >-
+    Supermicro's implementation of the DMTF Redfish RESTful API standard for
+    out-of-band server management via BMC (Baseboard Management Controller).
+    Provides programmatic access to server health monitoring, power management,
+    BIOS/BMC firmware updates, storage configuration, network configuration,
+    user account management, and event logging across Supermicro server platforms
+    (X10 and later Intel-based, H11 and later AMD-based platforms).
+  version: '1.0'
+  contact:
+    name: Supermicro Support
+    url: https://www.supermicro.com/en/support
+    email: support@supermicro.com
+  license:
+    name: Proprietary
+    url: https://www.supermicro.com/en/solutions/management-software/redfish
+servers:
+  - url: https://{bmc-ip}/redfish/v1
+    description: Supermicro BMC Redfish endpoint
+    variables:
+      bmc-ip:
+        description: IP address or hostname of the BMC
+        default: 192.168.1.100
+tags:
+  - name: Service Root
+    description: Root service discovery and metadata
+  - name: Systems
+    description: Computer system management and health monitoring
+  - name: Chassis
+    description: Chassis management including power and thermal
+  - name: Managers
+    description: BMC manager configuration and management
+  - name: Sessions
+    description: Session authentication and management
+  - name: Accounts
+    description: User account management
+  - name: Event Service
+    description: Event subscription and notification management
+  - name: Update Service
+    description: Firmware and BIOS update management
+  - name: Storage
+    description: Storage controller and drive management
+  - name: Network
+    description: Network interface management
+paths:
+  /:
+    get:
+      operationId: getServiceRoot
+      summary: Get Service Root
+      description: Returns the service root resource containing links to all top-level collections.
+      tags:
+        - Service Root
+      responses:
+        '200':
+          description: Service root resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceRoot'
+  /Systems:
+    get:
+      operationId: listSystems
+      summary: List Computer Systems
+      description: Returns the collection of computer systems managed by this BMC.
+      tags:
+        - Systems
+      responses:
+        '200':
+          description: Collection of computer systems
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /Systems/{systemId}:
+    get:
+      operationId: getSystem
+      summary: Get Computer System
+      description: Returns detailed information about a specific computer system including CPU, memory, and health status.
+      tags:
+        - Systems
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          description: Unique identifier for the computer system
+          schema:
+            type: string
+            example: "1"
+      responses:
+        '200':
+          description: Computer system resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComputerSystem'
+    patch:
+      operationId: updateSystem
+      summary: Update Computer System
+      description: Updates properties of a specific computer system such as boot order or asset tag.
+      tags:
+        - Systems
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          description: Unique identifier for the computer system
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComputerSystemPatch'
+      responses:
+        '200':
+          description: Updated computer system resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComputerSystem'
+  /Systems/{systemId}/Actions/ComputerSystem.Reset:
+    post:
+      operationId: resetSystem
+      summary: Reset Computer System
+      description: Performs a reset action on the computer system (power on, off, restart, etc.).
+      tags:
+        - Systems
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          description: Unique identifier for the computer system
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetAction'
+      responses:
+        '200':
+          description: Reset action accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResponse'
+        '204':
+          description: Reset action accepted, no content
+  /Systems/{systemId}/Processors:
+    get:
+      operationId: listProcessors
+      summary: List Processors
+      description: Returns the collection of processors in the computer system.
+      tags:
+        - Systems
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Collection of processors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /Systems/{systemId}/Memory:
+    get:
+      operationId: listMemory
+      summary: List Memory Modules
+      description: Returns the collection of memory modules in the computer system.
+      tags:
+        - Systems
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Collection of memory modules
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /Systems/{systemId}/Storage:
+    get:
+      operationId: listStorage
+      summary: List Storage Controllers
+      description: Returns the collection of storage controllers in the computer system.
+      tags:
+        - Storage
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Collection of storage controllers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /Systems/{systemId}/Storage/{storageId}:
+    get:
+      operationId: getStorageController
+      summary: Get Storage Controller
+      description: Returns detailed information about a specific storage controller.
+      tags:
+        - Storage
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: storageId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Storage controller resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Storage'
+  /Systems/{systemId}/EthernetInterfaces:
+    get:
+      operationId: listEthernetInterfaces
+      summary: List Ethernet Interfaces
+      description: Returns the collection of network interfaces in the computer system.
+      tags:
+        - Network
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Collection of Ethernet interfaces
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /Chassis:
+    get:
+      operationId: listChassis
+      summary: List Chassis
+      description: Returns the collection of chassis managed by this BMC.
+      tags:
+        - Chassis
+      responses:
+        '200':
+          description: Collection of chassis
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /Chassis/{chassisId}:
+    get:
+      operationId: getChassis
+      summary: Get Chassis
+      description: Returns detailed information about a specific chassis including power and thermal data.
+      tags:
+        - Chassis
+      parameters:
+        - name: chassisId
+          in: path
+          required: true
+          description: Unique identifier for the chassis
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Chassis resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chassis'
+  /Chassis/{chassisId}/Power:
+    get:
+      operationId: getChassispower
+      summary: Get Chassis Power
+      description: Returns power supply status, power consumption readings, and power control settings.
+      tags:
+        - Chassis
+      parameters:
+        - name: chassisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Power resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Power'
+  /Chassis/{chassisId}/Thermal:
+    get:
+      operationId: getChassisThermal
+      summary: Get Chassis Thermal
+      description: Returns temperature sensor readings and fan speed data for the chassis.
+      tags:
+        - Chassis
+      parameters:
+        - name: chassisId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Thermal resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Thermal'
+  /Managers:
+    get:
+      operationId: listManagers
+      summary: List Managers
+      description: Returns the collection of management controllers (BMCs) available.
+      tags:
+        - Managers
+      responses:
+        '200':
+          description: Collection of managers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /Managers/{managerId}:
+    get:
+      operationId: getManager
+      summary: Get Manager
+      description: Returns detailed information about a specific BMC manager including firmware version and network settings.
+      tags:
+        - Managers
+      parameters:
+        - name: managerId
+          in: path
+          required: true
+          description: Unique identifier for the manager
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Manager resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Manager'
+    patch:
+      operationId: updateManager
+      summary: Update Manager
+      description: Updates properties of the BMC manager such as network configuration or time settings.
+      tags:
+        - Managers
+      parameters:
+        - name: managerId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated manager resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Manager'
+  /Managers/{managerId}/Actions/Manager.Reset:
+    post:
+      operationId: resetManager
+      summary: Reset Manager
+      description: Resets the BMC manager (restarts the BMC).
+      tags:
+        - Managers
+      parameters:
+        - name: managerId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManagerResetAction'
+      responses:
+        '200':
+          description: Reset action accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResponse'
+  /SessionService/Sessions:
+    get:
+      operationId: listSessions
+      summary: List Sessions
+      description: Returns all active Redfish sessions.
+      tags:
+        - Sessions
+      responses:
+        '200':
+          description: Collection of sessions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+    post:
+      operationId: createSession
+      summary: Create Session
+      description: Creates a new Redfish session for authentication. Returns an auth token in the X-Auth-Token header.
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionCreate'
+      responses:
+        '201':
+          description: Session created
+          headers:
+            X-Auth-Token:
+              description: Authentication token for subsequent requests
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+  /SessionService/Sessions/{sessionId}:
+    get:
+      operationId: getSession
+      summary: Get Session
+      description: Returns details about a specific active session.
+      tags:
+        - Sessions
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Session resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+    delete:
+      operationId: deleteSession
+      summary: Delete Session
+      description: Deletes (logs out) a specific Redfish session.
+      tags:
+        - Sessions
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Session deleted
+  /AccountService/Accounts:
+    get:
+      operationId: listAccounts
+      summary: List Accounts
+      description: Returns all user accounts configured on the BMC.
+      tags:
+        - Accounts
+      responses:
+        '200':
+          description: Collection of user accounts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+    post:
+      operationId: createAccount
+      summary: Create Account
+      description: Creates a new user account on the BMC.
+      tags:
+        - Accounts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountCreate'
+      responses:
+        '201':
+          description: Account created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+  /AccountService/Accounts/{accountId}:
+    get:
+      operationId: getAccount
+      summary: Get Account
+      description: Returns details about a specific user account.
+      tags:
+        - Accounts
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Account resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+    patch:
+      operationId: updateAccount
+      summary: Update Account
+      description: Updates properties of a user account such as password or role.
+      tags:
+        - Accounts
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountPatch'
+      responses:
+        '200':
+          description: Updated account resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+    delete:
+      operationId: deleteAccount
+      summary: Delete Account
+      description: Deletes a user account from the BMC.
+      tags:
+        - Accounts
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Account deleted
+  /EventService:
+    get:
+      operationId: getEventService
+      summary: Get Event Service
+      description: Returns the event service resource with subscription management capabilities.
+      tags:
+        - Event Service
+      responses:
+        '200':
+          description: Event service resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventService'
+  /EventService/Subscriptions:
+    get:
+      operationId: listEventSubscriptions
+      summary: List Event Subscriptions
+      description: Returns all event subscriptions configured for this BMC.
+      tags:
+        - Event Service
+      responses:
+        '200':
+          description: Collection of event subscriptions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+    post:
+      operationId: createEventSubscription
+      summary: Create Event Subscription
+      description: Creates a new event subscription to receive server event notifications via webhook.
+      tags:
+        - Event Service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventSubscriptionCreate'
+      responses:
+        '201':
+          description: Event subscription created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+  /EventService/Subscriptions/{subscriptionId}:
+    get:
+      operationId: getEventSubscription
+      summary: Get Event Subscription
+      description: Returns details about a specific event subscription.
+      tags:
+        - Event Service
+      parameters:
+        - name: subscriptionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Event subscription resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+    delete:
+      operationId: deleteEventSubscription
+      summary: Delete Event Subscription
+      description: Deletes an event subscription.
+      tags:
+        - Event Service
+      parameters:
+        - name: subscriptionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Subscription deleted
+  /UpdateService:
+    get:
+      operationId: getUpdateService
+      summary: Get Update Service
+      description: Returns the firmware update service resource.
+      tags:
+        - Update Service
+      responses:
+        '200':
+          description: Update service resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateService'
+  /UpdateService/FirmwareInventory:
+    get:
+      operationId: listFirmwareInventory
+      summary: List Firmware Inventory
+      description: Returns the current firmware inventory for all managed components.
+      tags:
+        - Update Service
+      responses:
+        '200':
+          description: Firmware inventory collection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /UpdateService/Actions/UpdateService.SimpleUpdate:
+    post:
+      operationId: simpleUpdate
+      summary: Perform Simple Firmware Update
+      description: Initiates a firmware update for a target component using a specified firmware image URI.
+      tags:
+        - Update Service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SimpleUpdateAction'
+      responses:
+        '200':
+          description: Update initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResponse'
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication using BMC username and password
+    SessionAuth:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+      description: Redfish session token obtained from POST /redfish/v1/SessionService/Sessions
+  schemas:
+    ServiceRoot:
+      type: object
+      description: The root service resource exposing links to all top-level collections
+      properties:
+        '@odata.type':
+          type: string
+          example: '#ServiceRoot.v1_5_0.ServiceRoot'
+        Id:
+          type: string
+          example: RootService
+        Name:
+          type: string
+          example: Root Service
+        RedfishVersion:
+          type: string
+          example: '1.9.0'
+        Systems:
+          $ref: '#/components/schemas/ODataId'
+        Chassis:
+          $ref: '#/components/schemas/ODataId'
+        Managers:
+          $ref: '#/components/schemas/ODataId'
+        SessionService:
+          $ref: '#/components/schemas/ODataId'
+        AccountService:
+          $ref: '#/components/schemas/ODataId'
+        EventService:
+          $ref: '#/components/schemas/ODataId'
+        UpdateService:
+          $ref: '#/components/schemas/ODataId'
+    Collection:
+      type: object
+      description: A collection of resources with navigation links
+      properties:
+        '@odata.type':
+          type: string
+        Name:
+          type: string
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
+    ComputerSystem:
+      type: object
+      description: A computer system managed by this BMC
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        Status:
+          $ref: '#/components/schemas/Status'
+        PowerState:
+          type: string
+          enum: [On, Off, PoweringOn, PoweringOff]
+        ProcessorSummary:
+          type: object
+          properties:
+            Count:
+              type: integer
+            Model:
+              type: string
+            Status:
+              $ref: '#/components/schemas/Status'
+        MemorySummary:
+          type: object
+          properties:
+            TotalSystemMemoryGiB:
+              type: number
+            Status:
+              $ref: '#/components/schemas/Status'
+        Manufacturer:
+          type: string
+        Model:
+          type: string
+        SerialNumber:
+          type: string
+        AssetTag:
+          type: string
+        BIOSVersion:
+          type: string
+        Boot:
+          type: object
+          properties:
+            BootSourceOverrideEnabled:
+              type: string
+              enum: [Disabled, Once, Continuous]
+            BootSourceOverrideTarget:
+              type: string
+    ComputerSystemPatch:
+      type: object
+      description: Updatable properties of a computer system
+      properties:
+        AssetTag:
+          type: string
+          description: Asset tag for the system
+        Boot:
+          type: object
+          properties:
+            BootSourceOverrideEnabled:
+              type: string
+              enum: [Disabled, Once, Continuous]
+            BootSourceOverrideTarget:
+              type: string
+              enum: [None, Pxe, Floppy, Cd, Usb, Hdd, BiosSetup]
+    ResetAction:
+      type: object
+      description: Reset action parameters
+      required:
+        - ResetType
+      properties:
+        ResetType:
+          type: string
+          enum: [On, ForceOff, GracefulShutdown, GracefulRestart, ForceRestart, Nmi, ForceOn, PushPowerButton]
+          description: The type of reset to perform
+    ManagerResetAction:
+      type: object
+      description: Manager reset action parameters
+      required:
+        - ResetType
+      properties:
+        ResetType:
+          type: string
+          enum: [GracefulRestart, ForceRestart]
+          description: The type of manager reset
+    ActionResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+    Chassis:
+      type: object
+      description: A physical chassis container
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        ChassisType:
+          type: string
+          enum: [RackMount, Tower, Blade, Sidecar]
+        Status:
+          $ref: '#/components/schemas/Status'
+        Manufacturer:
+          type: string
+        Model:
+          type: string
+        SerialNumber:
+          type: string
+        Power:
+          $ref: '#/components/schemas/ODataId'
+        Thermal:
+          $ref: '#/components/schemas/ODataId'
+    Power:
+      type: object
+      description: Power supply and consumption data for a chassis
+      properties:
+        '@odata.type':
+          type: string
+        PowerControl:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+              PowerConsumedWatts:
+                type: number
+              PowerCapacityWatts:
+                type: number
+        PowerSupplies:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+              Status:
+                $ref: '#/components/schemas/Status'
+              PowerInputWatts:
+                type: number
+              PowerOutputWatts:
+                type: number
+              FirmwareVersion:
+                type: string
+    Thermal:
+      type: object
+      description: Temperature and fan data for a chassis
+      properties:
+        '@odata.type':
+          type: string
+        Temperatures:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+              ReadingCelsius:
+                type: number
+              Status:
+                $ref: '#/components/schemas/Status'
+              UpperThresholdCritical:
+                type: number
+        Fans:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+              Reading:
+                type: integer
+              ReadingUnits:
+                type: string
+                enum: [RPM, Percent]
+              Status:
+                $ref: '#/components/schemas/Status'
+    Manager:
+      type: object
+      description: A BMC management controller
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        ManagerType:
+          type: string
+          enum: [BMC, ManagementController, EnclosureManager]
+        Status:
+          $ref: '#/components/schemas/Status'
+        FirmwareVersion:
+          type: string
+        NetworkProtocol:
+          $ref: '#/components/schemas/ODataId'
+        EthernetInterfaces:
+          $ref: '#/components/schemas/ODataId'
+        DateTime:
+          type: string
+          format: date-time
+    Session:
+      type: object
+      description: An active Redfish session
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        UserName:
+          type: string
+        CreatedTime:
+          type: string
+          format: date-time
+    SessionCreate:
+      type: object
+      required:
+        - UserName
+        - Password
+      properties:
+        UserName:
+          type: string
+          description: BMC username
+          example: admin
+        Password:
+          type: string
+          description: BMC password
+          format: password
+    Account:
+      type: object
+      description: A user account configured on the BMC
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        UserName:
+          type: string
+        RoleId:
+          type: string
+          enum: [Administrator, Operator, ReadOnly]
+        Enabled:
+          type: boolean
+    AccountCreate:
+      type: object
+      required:
+        - UserName
+        - Password
+        - RoleId
+      properties:
+        UserName:
+          type: string
+        Password:
+          type: string
+          format: password
+        RoleId:
+          type: string
+          enum: [Administrator, Operator, ReadOnly]
+        Enabled:
+          type: boolean
+          default: true
+    AccountPatch:
+      type: object
+      properties:
+        Password:
+          type: string
+          format: password
+        RoleId:
+          type: string
+          enum: [Administrator, Operator, ReadOnly]
+        Enabled:
+          type: boolean
+    EventService:
+      type: object
+      description: The event service for managing event subscriptions
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        Status:
+          $ref: '#/components/schemas/Status'
+        Subscriptions:
+          $ref: '#/components/schemas/ODataId'
+        EventTypesForSubscription:
+          type: array
+          items:
+            type: string
+            enum: [StatusChange, ResourceUpdated, ResourceAdded, ResourceRemoved, Alert]
+    EventSubscription:
+      type: object
+      description: An event subscription definition
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        Destination:
+          type: string
+          format: uri
+          description: Webhook URL to receive event notifications
+        EventTypes:
+          type: array
+          items:
+            type: string
+        Protocol:
+          type: string
+          enum: [Redfish]
+        Context:
+          type: string
+    EventSubscriptionCreate:
+      type: object
+      required:
+        - Destination
+        - Protocol
+      properties:
+        Destination:
+          type: string
+          format: uri
+          description: Webhook URL to receive event notifications
+        EventTypes:
+          type: array
+          items:
+            type: string
+            enum: [StatusChange, ResourceUpdated, ResourceAdded, ResourceRemoved, Alert]
+        Protocol:
+          type: string
+          enum: [Redfish]
+        Context:
+          type: string
+          description: Optional context string returned with each event
+    UpdateService:
+      type: object
+      description: The firmware update service
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        Status:
+          $ref: '#/components/schemas/Status'
+        FirmwareInventory:
+          $ref: '#/components/schemas/ODataId'
+    SimpleUpdateAction:
+      type: object
+      required:
+        - ImageURI
+        - Targets
+      properties:
+        ImageURI:
+          type: string
+          format: uri
+          description: URI of the firmware image to install
+        Targets:
+          type: array
+          items:
+            type: string
+          description: Target component IDs to update
+        TransferProtocol:
+          type: string
+          enum: [TFTP, HTTPS, HTTP, SCP, SFTP, FTP, NSF]
+    Storage:
+      type: object
+      description: A storage controller and its drives
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        Status:
+          $ref: '#/components/schemas/Status'
+        StorageControllers:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+              Manufacturer:
+                type: string
+              Model:
+                type: string
+              FirmwareVersion:
+                type: string
+              Status:
+                $ref: '#/components/schemas/Status'
+        Drives:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
+    Status:
+      type: object
+      description: Health and operational status
+      properties:
+        State:
+          type: string
+          enum: [Enabled, Disabled, StandbyOffline, StandbySpare, InTest, Starting, Absent, UnavailableOffline, Deferring, Quiescing, Updating]
+        Health:
+          type: string
+          enum: [OK, Warning, Critical]
+        HealthRollup:
+          type: string
+          enum: [OK, Warning, Critical]
+security:
+  - BasicAuth: []
+  - SessionAuth: []

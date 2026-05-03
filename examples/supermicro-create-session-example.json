@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://192.168.1.100/redfish/v1/SessionService/Sessions",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "UserName": "admin",
+      "Password": "your-bmc-password"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json",
+      "X-Auth-Token": "a6e5b2f8c43d1e7096f4b812a3c5d0e9",
+      "Location": "/redfish/v1/SessionService/Sessions/7"
+    },
+    "body": {
+      "@odata.type": "#Session.v1_0_0.Session",
+      "@odata.id": "/redfish/v1/SessionService/Sessions/7",
+      "Id": "7",
+      "Name": "User Session",
+      "UserName": "admin"
+    }
+  }
+}

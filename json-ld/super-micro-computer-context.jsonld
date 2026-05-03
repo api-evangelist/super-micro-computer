@@ -1,0 +1,75 @@
+{
+  "@context": {
+    "@vocab": "https://www.supermicro.com/vocab/",
+    "schema": "https://schema.org/",
+    "dmtf": "https://redfish.dmtf.org/schemas/v1/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "ComputerSystem": "dmtf:ComputerSystem",
+    "Chassis": "dmtf:Chassis",
+    "Manager": "dmtf:Manager",
+    "Session": "dmtf:Session",
+    "Account": "dmtf:ManagerAccount",
+    "Storage": "dmtf:Storage",
+    "EventSubscription": "dmtf:EventSubscription",
+    "SoftwareInventory": "dmtf:SoftwareInventory",
+    "Id": {
+      "@id": "dmtf:Resource.Id",
+      "@type": "xsd:string"
+    },
+    "Name": {
+      "@id": "dmtf:Resource.Name",
+      "@type": "xsd:string"
+    },
+    "Description": {
+      "@id": "dmtf:Resource.Description",
+      "@type": "xsd:string"
+    },
+    "Status": "dmtf:Resource.Status",
+    "Health": "dmtf:Resource.Health",
+    "PowerState": "dmtf:ComputerSystem.PowerState",
+    "Manufacturer": {
+      "@id": "schema:manufacturer",
+      "@type": "xsd:string"
+    },
+    "Model": {
+      "@id": "schema:model",
+      "@type": "xsd:string"
+    },
+    "SerialNumber": {
+      "@id": "schema:serialNumber",
+      "@type": "xsd:string"
+    },
+    "BIOSVersion": {
+      "@id": "dmtf:ComputerSystem.BiosVersion",
+      "@type": "xsd:string"
+    },
+    "FirmwareVersion": {
+      "@id": "dmtf:SoftwareInventory.Version",
+      "@type": "xsd:string"
+    },
+    "PowerConsumedWatts": {
+      "@id": "dmtf:Power.PowerConsumedWatts",
+      "@type": "xsd:decimal"
+    },
+    "ReadingCelsius": {
+      "@id": "dmtf:Thermal.ReadingCelsius",
+      "@type": "xsd:decimal"
+    },
+    "UserName": {
+      "@id": "dmtf:ManagerAccount.UserName",
+      "@type": "xsd:string"
+    },
+    "RoleId": {
+      "@id": "dmtf:ManagerAccount.RoleId",
+      "@type": "xsd:string"
+    },
+    "Destination": {
+      "@id": "dmtf:EventDestination.Destination",
+      "@type": "xsd:anyURI"
+    },
+    "RedfishVersion": {
+      "@id": "dmtf:ServiceRoot.RedfishVersion",
+      "@type": "xsd:string"
+    }
+  }
+}

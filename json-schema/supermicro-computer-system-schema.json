@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/super-micro-computer/main/json-schema/supermicro-computer-system-schema.json",
+  "title": "Supermicro Computer System",
+  "description": "JSON Schema for a Supermicro Redfish ComputerSystem resource representing a managed server.",
+  "type": "object",
+  "properties": {
+    "@odata.type": {
+      "type": "string",
+      "description": "Redfish OData type identifier",
+      "example": "#ComputerSystem.v1_5_0.ComputerSystem"
+    },
+    "@odata.id": {
+      "type": "string",
+      "description": "OData resource URI"
+    },
+    "Id": {
+      "type": "string",
+      "description": "Unique identifier for the computer system"
+    },
+    "Name": {
+      "type": "string",
+      "description": "Human-readable name of the system"
+    },
+    "Description": {
+      "type": "string",
+      "description": "Description of the system"
+    },
+    "Status": {
+      "$ref": "#/$defs/Status"
+    },
+    "PowerState": {
+      "type": "string",
+      "enum": ["On", "Off", "PoweringOn", "PoweringOff"],
+      "description": "Current power state of the system"
+    },
+    "Manufacturer": {
+      "type": "string",
+      "description": "System manufacturer",
+      "example": "Supermicro"
+    },
+    "Model": {
+      "type": "string",
+      "description": "System model identifier"
+    },
+    "SerialNumber": {
+      "type": "string",
+      "description": "System serial number"
+    },
+    "AssetTag": {
+      "type": "string",
+      "description": "Asset tag for inventory management"
+    },
+    "BIOSVersion": {
+      "type": "string",
+      "description": "Current BIOS version string"
+    },
+    "ProcessorSummary": {
+      "type": "object",
+      "description": "Summary of processors installed",
+      "properties": {
+        "Count": {
+          "type": "integer",
+          "description": "Number of processors"
+        },
+        "Model": {
+          "type": "string",
+          "description": "Processor model name"
+        },
+        "Status": {
+          "$ref": "#/$defs/Status"
+        }
+      }
+    },
+    "MemorySummary": {
+      "type": "object",
+      "description": "Summary of memory installed",
+      "properties": {
+        "TotalSystemMemoryGiB": {
+          "type": "number",
+          "description": "Total system memory in GiB"
+        },
+        "Status": {
+          "$ref": "#/$defs/Status"
+        }
+      }
+    },
+    "Boot": {
+      "type": "object",
+      "description": "Boot configuration",
+      "properties": {
+        "BootSourceOverrideEnabled": {
+          "type": "string",
+          "enum": ["Disabled", "Once", "Continuous"],
+          "description": "Whether boot override is enabled"
+        },
+        "BootSourceOverrideTarget": {
+          "type": "string",
+          "enum": ["None", "Pxe", "Floppy", "Cd", "Usb", "Hdd", "BiosSetup"],
+          "description": "Boot device target"
+        }
+      }
+    }
+  },
+  "required": ["@odata.type", "Id", "Name"],
+  "$defs": {
+    "Status": {
+      "type": "object",
+      "description": "Health and operational status",
+      "properties": {
+        "State": {
+          "type": "string",
+          "enum": ["Enabled", "Disabled", "StandbyOffline", "StandbySpare", "InTest", "Starting", "Absent", "UnavailableOffline"],
+          "description": "Operational state"
+        },
+        "Health": {
+          "type": "string",
+          "enum": ["OK", "Warning", "Critical"],
+          "description": "Current health status"
+        },
+        "HealthRollup": {
+          "type": "string",
+          "enum": ["OK", "Warning", "Critical"],
+          "description": "Rolled-up health from subordinate resources"
+        }
+      }
+    }
+  }
+}

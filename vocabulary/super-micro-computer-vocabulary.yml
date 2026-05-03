@@ -1,0 +1,193 @@
+vocabulary:
+  title: Super Micro Computer (Supermicro) API Vocabulary
+  description: >-
+    Domain vocabulary for Supermicro Redfish API covering server management,
+    hardware monitoring, firmware lifecycle, and BMC administration concepts.
+  version: '1.0'
+  created: '2026-05-02'
+  modified: '2026-05-02'
+  tags:
+    - Supermicro
+    - Redfish
+    - Server Management
+    - Data Center
+    - Hardware
+  terms:
+    - term: BMC
+      label: Baseboard Management Controller
+      definition: >-
+        A dedicated microcontroller embedded on the server motherboard that
+        provides out-of-band management capabilities independently of the
+        main CPU and OS. Supermicro BMCs implement the Redfish API.
+      related:
+        - IPMI
+        - Redfish
+        - Manager
+
+    - term: Redfish
+      label: Redfish API Standard
+      definition: >-
+        DMTF's open industry standard specification for a RESTful API
+        for server management. Uses JSON over HTTPS and replaces legacy
+        IPMI for modern server management. Supermicro supports Redfish on
+        X10 and later platforms.
+      related:
+        - BMC
+        - OData
+        - DMTF
+
+    - term: IPMI
+      label: Intelligent Platform Management Interface
+      definition: >-
+        Legacy server management standard for out-of-band monitoring and
+        control. Supermicro supports IPMI 2.0 alongside Redfish. Being
+        superseded by Redfish for modern deployments.
+      related:
+        - BMC
+        - Redfish
+
+    - term: ComputerSystem
+      label: Computer System
+      definition: >-
+        A Redfish resource representing a managed server. Contains information
+        about processors, memory, storage, power state, and boot configuration.
+      related:
+        - Chassis
+        - Manager
+
+    - term: Chassis
+      label: Chassis
+      definition: >-
+        A Redfish resource representing the physical enclosure (rack mount,
+        tower, or blade). Exposes power and thermal sub-resources.
+      related:
+        - ComputerSystem
+        - Power
+        - Thermal
+
+    - term: Power
+      label: Power Resource
+      definition: >-
+        A Redfish sub-resource of Chassis containing power supply status,
+        input/output wattage, and power consumption readings for the chassis.
+      related:
+        - Chassis
+        - PowerControl
+
+    - term: Thermal
+      label: Thermal Resource
+      definition: >-
+        A Redfish sub-resource of Chassis containing temperature sensor
+        readings (in Celsius) and fan speed data (in RPM or percentage).
+      related:
+        - Chassis
+        - Temperature
+        - Fan
+
+    - term: Manager
+      label: BMC Manager
+      definition: >-
+        A Redfish resource representing the BMC management controller.
+        Contains firmware version, network configuration, and management
+        capabilities. Each BMC is a Manager in Redfish terms.
+      related:
+        - BMC
+        - Firmware
+
+    - term: Session
+      label: Redfish Session
+      definition: >-
+        A Redfish authentication session. Created via POST to SessionService/Sessions
+        with credentials; returns an X-Auth-Token for subsequent API calls.
+        Supports up to 16 concurrent sessions.
+      related:
+        - SessionService
+        - Authentication
+
+    - term: Account
+      label: Manager Account
+      definition: >-
+        A user account configured on the BMC for Redfish and IPMI access.
+        Roles include Administrator, Operator, and ReadOnly.
+      related:
+        - AccountService
+        - RoleId
+
+    - term: EventSubscription
+      label: Event Subscription
+      definition: >-
+        A webhook subscription for receiving Redfish event notifications.
+        Events include StatusChange, ResourceUpdated, ResourceAdded,
+        ResourceRemoved, and Alert types.
+      related:
+        - EventService
+        - Webhook
+
+    - term: ResetType
+      label: Reset Type
+      definition: >-
+        The type of reset action to perform on a system or manager. Options
+        include On, ForceOff, GracefulShutdown, GracefulRestart, ForceRestart,
+        Nmi, ForceOn, and PushPowerButton.
+      related:
+        - ComputerSystem
+        - Reset
+
+    - term: SimpleUpdate
+      label: Simple Update
+      definition: >-
+        A Redfish UpdateService action that updates firmware on target components
+        by fetching an image from a specified URI via TFTP, HTTPS, HTTP, or other
+        transfer protocols.
+      related:
+        - UpdateService
+        - FirmwareInventory
+        - BIOS
+
+    - term: OData
+      label: Open Data Protocol
+      definition: >-
+        The web protocol for querying and updating data that Redfish leverages for
+        resource navigation. OData @odata.id, @odata.type, and @odata.context
+        annotations are present on all Redfish resources.
+      related:
+        - Redfish
+        - JSON
+
+    - term: HealthRollup
+      label: Health Rollup
+      definition: >-
+        A composite health status representing the worst health state from
+        a resource and all its subordinate resources. Values: OK, Warning, Critical.
+      related:
+        - Status
+        - Health
+
+    - term: AST2600
+      label: AST2600 BMC Chip
+      definition: >-
+        The ASPEED AST2600 BMC SoC used in Supermicro's latest generation
+        servers, supporting full Redfish API implementation and HTML5 remote
+        console access.
+      related:
+        - BMC
+        - Redfish
+
+    - term: SFT-DCMS-SINGLE
+      label: Data Center Management Suite Single License
+      definition: >-
+        The Supermicro software license covering end-to-end Redfish management
+        functionality for a single server via Supermicro Server Manager (SSM).
+      related:
+        - SSM
+        - Licensing
+
+    - term: SSM
+      label: Supermicro Server Manager
+      definition: >-
+        An all-in-one solution to manage and monitor Supermicro servers from
+        a single console. Built on top of the Redfish API and supports REST API
+        and WebUI interfaces.
+      related:
+        - Redfish
+        - Management

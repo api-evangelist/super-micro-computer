@@ -1,0 +1,423 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Supermicro Server Management"
+  description: >-
+    Unified server management workflow combining Supermicro Redfish API capabilities
+    for data center operations teams. Covers server health monitoring, power and
+    thermal management, firmware lifecycle, user account administration, and event
+    alerting across Supermicro server infrastructure.
+  tags:
+    - Supermicro
+    - Server Management
+    - Data Center
+    - Redfish
+    - BMC
+    - Infrastructure
+    - Hardware
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      SUPERMICRO_BMC_HOST: SUPERMICRO_BMC_HOST
+      SUPERMICRO_AUTH_TOKEN: SUPERMICRO_AUTH_TOKEN
+
+capability:
+  consumes:
+    - import: supermicro-redfish
+      location: ./shared/redfish.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: supermicro-server-management-api
+      description: "Unified REST API for Supermicro server management operations."
+      resources:
+        - path: /v1/systems
+          name: systems
+          description: "Computer system inventory and management"
+          operations:
+            - method: GET
+              name: list-systems
+              description: "List all computer systems"
+              call: "supermicro-redfish.list-systems"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: get-system
+              description: "Get details of a specific computer system"
+              call: "supermicro-redfish.get-system"
+              with:
+                systemId: "rest.systemId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/systems/{systemId}/reset
+          name: system-reset
+          description: "System power control"
+          operations:
+            - method: POST
+              name: reset-system
+              description: "Reset or power cycle a computer system"
+              call: "supermicro-redfish.reset-system"
+              with:
+                systemId: "rest.systemId"
+                reset_type: "rest.reset_type"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/chassis
+          name: chassis
+          description: "Chassis inventory"
+          operations:
+            - method: GET
+              name: list-chassis
+              description: "List all chassis"
+              call: "supermicro-redfish.list-chassis"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: get-chassis
+              description: "Get a specific chassis"
+              call: "supermicro-redfish.get-chassis"
+              with:
+                chassisId: "rest.chassisId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/chassis/{chassisId}/power
+          name: chassis-power
+          description: "Chassis power data"
+          operations:
+            - method: GET
+              name: get-chassis-power
+              description: "Get power consumption and supply data"
+              call: "supermicro-redfish.get-chassis-power"
+              with:
+                chassisId: "rest.chassisId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/chassis/{chassisId}/thermal
+          name: chassis-thermal
+          description: "Chassis thermal data"
+          operations:
+            - method: GET
+              name: get-chassis-thermal
+              description: "Get temperature and fan speed data"
+              call: "supermicro-redfish.get-chassis-thermal"
+              with:
+                chassisId: "rest.chassisId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/managers
+          name: managers
+          description: "BMC manager management"
+          operations:
+            - method: GET
+              name: list-managers
+              description: "List all BMC managers"
+              call: "supermicro-redfish.list-managers"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: get-manager
+              description: "Get a specific BMC manager"
+              call: "supermicro-redfish.get-manager"
+              with:
+                managerId: "rest.managerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/firmware
+          name: firmware
+          description: "Firmware lifecycle management"
+          operations:
+            - method: GET
+              name: list-firmware-inventory
+              description: "List current firmware versions"
+              call: "supermicro-redfish.list-firmware-inventory"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: perform-firmware-update
+              description: "Initiate firmware update"
+              call: "supermicro-redfish.perform-firmware-update"
+              with:
+                image_uri: "rest.image_uri"
+                targets: "rest.targets"
+                transfer_protocol: "rest.transfer_protocol"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/accounts
+          name: accounts
+          description: "BMC user account management"
+          operations:
+            - method: GET
+              name: list-accounts
+              description: "List all BMC user accounts"
+              call: "supermicro-redfish.list-accounts"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-account
+              description: "Create a new BMC user account"
+              call: "supermicro-redfish.create-account"
+              with:
+                username: "rest.username"
+                password: "rest.password"
+                role_id: "rest.role_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: get-account
+              description: "Get a specific user account"
+              call: "supermicro-redfish.get-account"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: update-account
+              description: "Update a user account"
+              call: "supermicro-redfish.update-account"
+              with:
+                accountId: "rest.accountId"
+                password: "rest.password"
+                role_id: "rest.role_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: delete-account
+              description: "Delete a user account"
+              call: "supermicro-redfish.delete-account"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/events/subscriptions
+          name: event-subscriptions
+          description: "Event notification subscriptions"
+          operations:
+            - method: GET
+              name: list-event-subscriptions
+              description: "List all event subscriptions"
+              call: "supermicro-redfish.list-event-subscriptions"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-event-subscription
+              description: "Create an event notification subscription"
+              call: "supermicro-redfish.create-event-subscription"
+              with:
+                destination: "rest.destination"
+                context: "rest.context"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: supermicro-server-management-mcp
+      transport: http
+      description: "MCP server for AI-assisted Supermicro server management and data center operations."
+      tools:
+        - name: list-systems
+          description: "List all computer systems managed by this BMC"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "supermicro-redfish.list-systems"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-system
+          description: "Get health status and details of a specific computer system"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "supermicro-redfish.get-system"
+          with:
+            systemId: "tools.systemId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: reset-system
+          description: "Reset or power cycle a server (On, ForceOff, GracefulRestart, etc.)"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "supermicro-redfish.reset-system"
+          with:
+            systemId: "tools.systemId"
+            reset_type: "tools.reset_type"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-chassis
+          description: "List all chassis in the data center"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "supermicro-redfish.list-chassis"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-chassis-power
+          description: "Get real-time power consumption and supply status for a chassis"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "supermicro-redfish.get-chassis-power"
+          with:
+            chassisId: "tools.chassisId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-chassis-thermal
+          description: "Get temperature sensor readings and fan speeds for a chassis"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "supermicro-redfish.get-chassis-thermal"
+          with:
+            chassisId: "tools.chassisId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-managers
+          description: "List all BMC managers"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "supermicro-redfish.list-managers"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-manager
+          description: "Get BMC manager details including firmware version"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "supermicro-redfish.get-manager"
+          with:
+            managerId: "tools.managerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: reset-manager
+          description: "Restart the BMC management controller"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "supermicro-redfish.reset-manager"
+          with:
+            managerId: "tools.managerId"
+            reset_type: "tools.reset_type"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-firmware-inventory
+          description: "List current firmware versions for BIOS, BMC, and components"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "supermicro-redfish.list-firmware-inventory"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: perform-firmware-update
+          description: "Initiate a BIOS or BMC firmware update from a specified URI"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "supermicro-redfish.perform-firmware-update"
+          with:
+            image_uri: "tools.image_uri"
+            targets: "tools.targets"
+            transfer_protocol: "tools.transfer_protocol"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-accounts
+          description: "List all BMC user accounts and their roles"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "supermicro-redfish.list-accounts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-account
+          description: "Create a new BMC user account with specified role"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "supermicro-redfish.create-account"
+          with:
+            username: "tools.username"
+            password: "tools.password"
+            role_id: "tools.role_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: delete-account
+          description: "Delete a BMC user account"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "supermicro-redfish.delete-account"
+          with:
+            accountId: "tools.accountId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-event-subscriptions
+          description: "List all server event notification subscriptions"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "supermicro-redfish.list-event-subscriptions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-event-subscription
+          description: "Subscribe to server events via webhook"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "supermicro-redfish.create-event-subscription"
+          with:
+            destination: "tools.destination"
+            context: "tools.context"
+          outputParameters:
+            - type: object
+              mapping: "$."

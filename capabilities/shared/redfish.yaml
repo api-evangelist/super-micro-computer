@@ -1,0 +1,576 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Supermicro Redfish API"
+  description: "BMC server management via the DMTF Redfish RESTful API standard. Covers system health, power, thermal, storage, accounts, sessions, events, and firmware updates."
+  tags:
+    - Supermicro
+    - Redfish
+    - Server Management
+    - BMC
+    - Data Center
+    - Hardware
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      SUPERMICRO_BMC_HOST: SUPERMICRO_BMC_HOST
+      SUPERMICRO_USERNAME: SUPERMICRO_USERNAME
+      SUPERMICRO_PASSWORD: SUPERMICRO_PASSWORD
+      SUPERMICRO_AUTH_TOKEN: SUPERMICRO_AUTH_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: supermicro-redfish
+      baseUri: "https://{{SUPERMICRO_BMC_HOST}}/redfish/v1"
+      description: "Supermicro BMC Redfish REST API"
+      authentication:
+        type: apikey
+        key: X-Auth-Token
+        value: "{{SUPERMICRO_AUTH_TOKEN}}"
+        placement: header
+      resources:
+        - name: service-root
+          path: /
+          description: "Root service discovery"
+          operations:
+            - name: get-service-root
+              method: GET
+              description: "Get service root with links to all top-level collections"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: systems
+          path: /Systems
+          description: "Computer system management"
+          operations:
+            - name: list-systems
+              method: GET
+              description: "List all computer systems"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-system
+              method: GET
+              description: "Get a specific computer system"
+              inputParameters:
+                - name: systemId
+                  in: path
+                  type: string
+                  required: true
+                  description: "System identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-system
+              method: PATCH
+              description: "Update computer system properties"
+              inputParameters:
+                - name: systemId
+                  in: path
+                  type: string
+                  required: true
+                  description: "System identifier"
+              body:
+                type: json
+                data:
+                  AssetTag: "{{tools.asset_tag}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: reset-system
+              method: POST
+              description: "Reset computer system (power on/off/restart)"
+              inputParameters:
+                - name: systemId
+                  in: path
+                  type: string
+                  required: true
+                  description: "System identifier"
+              body:
+                type: json
+                data:
+                  ResetType: "{{tools.reset_type}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: chassis
+          path: /Chassis
+          description: "Chassis management"
+          operations:
+            - name: list-chassis
+              method: GET
+              description: "List all chassis"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-chassis
+              method: GET
+              description: "Get a specific chassis"
+              inputParameters:
+                - name: chassisId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Chassis identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-chassis-power
+              method: GET
+              description: "Get chassis power supply and consumption data"
+              inputParameters:
+                - name: chassisId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Chassis identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-chassis-thermal
+              method: GET
+              description: "Get chassis temperature and fan data"
+              inputParameters:
+                - name: chassisId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Chassis identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: managers
+          path: /Managers
+          description: "BMC manager configuration"
+          operations:
+            - name: list-managers
+              method: GET
+              description: "List all BMC managers"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-manager
+              method: GET
+              description: "Get a specific BMC manager"
+              inputParameters:
+                - name: managerId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Manager identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: reset-manager
+              method: POST
+              description: "Reset the BMC manager"
+              inputParameters:
+                - name: managerId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Manager identifier"
+              body:
+                type: json
+                data:
+                  ResetType: "{{tools.reset_type}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: sessions
+          path: /SessionService/Sessions
+          description: "Session authentication management"
+          operations:
+            - name: list-sessions
+              method: GET
+              description: "List all active sessions"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-session
+              method: POST
+              description: "Create a new Redfish session"
+              body:
+                type: json
+                data:
+                  UserName: "{{tools.username}}"
+                  Password: "{{tools.password}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-session
+              method: DELETE
+              description: "Delete a specific session"
+              inputParameters:
+                - name: sessionId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Session identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: accounts
+          path: /AccountService/Accounts
+          description: "User account management"
+          operations:
+            - name: list-accounts
+              method: GET
+              description: "List all BMC user accounts"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-account
+              method: POST
+              description: "Create a new BMC user account"
+              body:
+                type: json
+                data:
+                  UserName: "{{tools.username}}"
+                  Password: "{{tools.password}}"
+                  RoleId: "{{tools.role_id}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-account
+              method: GET
+              description: "Get a specific user account"
+              inputParameters:
+                - name: accountId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Account identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-account
+              method: PATCH
+              description: "Update a user account"
+              inputParameters:
+                - name: accountId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Account identifier"
+              body:
+                type: json
+                data:
+                  Password: "{{tools.password}}"
+                  RoleId: "{{tools.role_id}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-account
+              method: DELETE
+              description: "Delete a user account"
+              inputParameters:
+                - name: accountId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Account identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: events
+          path: /EventService
+          description: "Event notification management"
+          operations:
+            - name: get-event-service
+              method: GET
+              description: "Get event service configuration"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: list-event-subscriptions
+              method: GET
+              description: "List all event subscriptions"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-event-subscription
+              method: POST
+              description: "Create an event notification subscription"
+              body:
+                type: json
+                data:
+                  Destination: "{{tools.destination}}"
+                  Protocol: "Redfish"
+                  Context: "{{tools.context}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-event-subscription
+              method: DELETE
+              description: "Delete an event subscription"
+              inputParameters:
+                - name: subscriptionId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Subscription identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: firmware
+          path: /UpdateService
+          description: "Firmware update management"
+          operations:
+            - name: get-update-service
+              method: GET
+              description: "Get firmware update service"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: list-firmware-inventory
+              method: GET
+              description: "List current firmware inventory"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: perform-firmware-update
+              method: POST
+              description: "Initiate a firmware update"
+              body:
+                type: json
+                data:
+                  ImageURI: "{{tools.image_uri}}"
+                  Targets: "{{tools.targets}}"
+                  TransferProtocol: "{{tools.transfer_protocol}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: supermicro-redfish-api
+      resources:
+        - path: /v1/systems
+          name: systems
+          description: "Computer system management"
+          operations:
+            - method: GET
+              name: list-systems
+              description: "List all computer systems"
+              call: "supermicro-redfish.list-systems"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: get-system
+              description: "Get a specific computer system"
+              call: "supermicro-redfish.get-system"
+              with:
+                systemId: "rest.systemId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/chassis
+          name: chassis
+          description: "Chassis management"
+          operations:
+            - method: GET
+              name: list-chassis
+              description: "List all chassis"
+              call: "supermicro-redfish.list-chassis"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/firmware
+          name: firmware
+          description: "Firmware inventory"
+          operations:
+            - method: GET
+              name: list-firmware-inventory
+              description: "List firmware inventory"
+              call: "supermicro-redfish.list-firmware-inventory"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: supermicro-redfish-mcp
+      transport: http
+      tools:
+        - name: list-systems
+          description: "List all computer systems managed by this BMC"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "supermicro-redfish.list-systems"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-system
+          description: "Get details of a specific computer system"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "supermicro-redfish.get-system"
+          with:
+            systemId: "tools.systemId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: reset-system
+          description: "Reset/power cycle a computer system"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "supermicro-redfish.reset-system"
+          with:
+            systemId: "tools.systemId"
+            reset_type: "tools.reset_type"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-chassis-power
+          description: "Get power supply and consumption data for a chassis"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "supermicro-redfish.get-chassis-power"
+          with:
+            chassisId: "tools.chassisId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-chassis-thermal
+          description: "Get temperature and fan data for a chassis"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "supermicro-redfish.get-chassis-thermal"
+          with:
+            chassisId: "tools.chassisId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-firmware-inventory
+          description: "List current firmware versions for all components"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "supermicro-redfish.list-firmware-inventory"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: perform-firmware-update
+          description: "Initiate a firmware update for target components"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "supermicro-redfish.perform-firmware-update"
+          with:
+            image_uri: "tools.image_uri"
+            targets: "tools.targets"
+            transfer_protocol: "tools.transfer_protocol"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-accounts
+          description: "List all BMC user accounts"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "supermicro-redfish.list-accounts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-account
+          description: "Create a new BMC user account"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "supermicro-redfish.create-account"
+          with:
+            username: "tools.username"
+            password: "tools.password"
+            role_id: "tools.role_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-event-subscription
+          description: "Subscribe to BMC server event notifications"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "supermicro-redfish.create-event-subscription"
+          with:
+            destination: "tools.destination"
+            context: "tools.context"
+          outputParameters:
+            - type: object
+              mapping: "$."

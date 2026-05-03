@@ -1,0 +1,53 @@
+{
+  "title": "Supermicro Computer System Structure",
+  "description": "Hierarchical structure of a Supermicro Redfish ComputerSystem resource",
+  "structure": {
+    "@odata.type": "string — Redfish OData type (e.g. #ComputerSystem.v1_5_0.ComputerSystem)",
+    "@odata.id": "string — URI path to this resource",
+    "Id": "string — unique identifier (e.g. '1')",
+    "Name": "string — human-readable name",
+    "Description": "string — system description",
+    "Status": {
+      "State": "string — Enabled | Disabled | StandbyOffline | Absent | ...",
+      "Health": "string — OK | Warning | Critical",
+      "HealthRollup": "string — OK | Warning | Critical"
+    },
+    "PowerState": "string — On | Off | PoweringOn | PoweringOff",
+    "Manufacturer": "string — e.g. 'Supermicro'",
+    "Model": "string — server model (e.g. 'SYS-620C-TN12R')",
+    "SerialNumber": "string — chassis serial number",
+    "AssetTag": "string — asset management tag",
+    "BIOSVersion": "string — current BIOS version",
+    "ProcessorSummary": {
+      "Count": "integer — number of processors",
+      "Model": "string — processor model name",
+      "Status": {
+        "State": "string",
+        "Health": "string"
+      }
+    },
+    "MemorySummary": {
+      "TotalSystemMemoryGiB": "number — total RAM in GiB",
+      "Status": {
+        "State": "string",
+        "Health": "string"
+      }
+    },
+    "Boot": {
+      "BootSourceOverrideEnabled": "string — Disabled | Once | Continuous",
+      "BootSourceOverrideTarget": "string — None | Pxe | Cd | Usb | Hdd | BiosSetup"
+    },
+    "Processors": {
+      "@odata.id": "string — link to processors collection"
+    },
+    "Memory": {
+      "@odata.id": "string — link to memory collection"
+    },
+    "Storage": {
+      "@odata.id": "string — link to storage collection"
+    },
+    "EthernetInterfaces": {
+      "@odata.id": "string — link to network interfaces collection"
+    }
+  }
+}

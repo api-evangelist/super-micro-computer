@@ -1,0 +1,85 @@
+rules:
+  supermicro-odata-type-required:
+    description: All Supermicro Redfish resources must include @odata.type
+    severity: error
+    given: $.paths[*][get].responses[200].content.application/json.schema.properties
+    then:
+      field: '@odata.type'
+      function: truthy
+
+  supermicro-operation-id-required:
+    description: All operations must have an operationId
+    severity: error
+    given: $.paths[*][*]
+    then:
+      field: operationId
+      function: truthy
+
+  supermicro-summary-title-case:
+    description: Operation summaries must use Title Case
+    severity: warn
+    given: $.paths[*][*].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[A-Z][a-zA-Z0-9]*([ ][A-Z][a-zA-Z0-9]*)*$'
+
+  supermicro-redfish-path-prefix:
+    description: All Supermicro Redfish paths should be nested under /redfish/v1
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: '/redfish/v[0-9]+'
+
+  supermicro-tags-required:
+    description: All operations must have at least one tag
+    severity: warn
+    given: $.paths[*][*]
+    then:
+      field: tags
+      function: truthy
+
+  supermicro-path-parameters-described:
+    description: All path parameters must have a description
+    severity: warn
+    given: $.paths[*][*].parameters[?(@.in == 'path')]
+    then:
+      field: description
+      function: truthy
+
+  supermicro-security-defined:
+    description: Security schemes must include BasicAuth and SessionAuth
+    severity: error
+    given: $.components.securitySchemes
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          required:
+            - BasicAuth
+            - SessionAuth
+
+  supermicro-reset-action-typed:
+    description: Reset action paths should include ActionResponse in their response schema
+    severity: warn
+    given: $.paths[*Actions*][post].responses
+    then:
+      field: '200'
+      function: truthy
+
+  supermicro-status-schema-health:
+    description: Status objects should use the defined Status schema
+    severity: warn
+    given: $.components.schemas.*.properties.Status
+    then:
+      function: truthy
+
+  supermicro-collection-members-count:
+    description: Collection responses must include Members@odata.count
+    severity: error
+    given: $.components.schemas.Collection.properties
+    then:
+      field: 'Members@odata.count'
+      function: truthy
