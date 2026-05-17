@@ -59,7 +59,7 @@ apis:
         url: https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/capabilities/server-management.yaml
       - type: Vocabulary
         url: https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/vocabulary/super-micro-computer-vocabulary.yml
-      - type: GitHub Repository
+      - type: GitHubRepository
         url: https://github.com/supermicro/redfish
     contact:
       - FN: Supermicro Support
@@ -72,7 +72,7 @@ common:
     url: https://www.supermicro.com/en/solutions/management-software
   - type: Documentation
     url: https://www.supermicro.com/manuals/other/redfish-ref-guide-html/Content/general-content/introduction.htm
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/supermicro
   - type: Blog
     url: https://www.supermicro.com/en/newsroom
