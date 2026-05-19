@@ -1,0 +1,203 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Supermicro Redfish API — Managers
+  description: 'Supermicro Redfish API — Managers. 4 operations. Lead operation: List Managers. Self-contained Naftiko capability
+    covering one Super Micro Computer business surface.'
+  tags:
+  - Super Micro Computer
+  - Managers
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SUPER_MICRO_COMPUTER_API_KEY: SUPER_MICRO_COMPUTER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: supermicro-redfish-managers
+    baseUri: https://{bmc-ip}/redfish/v1
+    description: Supermicro Redfish API — Managers business capability. Self-contained, no shared references.
+    resources:
+    - name: Managers
+      path: /Managers
+      operations:
+      - name: listmanagers
+        method: GET
+        description: List Managers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: Managers-managerId
+      path: /Managers/{managerId}
+      operations:
+      - name: getmanager
+        method: GET
+        description: Get Manager
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: managerId
+          in: path
+          type: string
+          description: Unique identifier for the manager
+          required: true
+      - name: updatemanager
+        method: PATCH
+        description: Update Manager
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: managerId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: Managers-managerId-Actions-Manager.Reset
+      path: /Managers/{managerId}/Actions/Manager.Reset
+      operations:
+      - name: resetmanager
+        method: POST
+        description: Reset Manager
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: managerId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SUPER_MICRO_COMPUTER_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: supermicro-redfish-managers-rest
+    port: 8080
+    description: REST adapter for Supermicro Redfish API — Managers. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/managers
+      name: managers
+      description: REST surface for Managers.
+      operations:
+      - method: GET
+        name: listmanagers
+        description: List Managers
+        call: supermicro-redfish-managers.listmanagers
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/managers/{managerid}
+      name: managers-managerid
+      description: REST surface for Managers-managerId.
+      operations:
+      - method: GET
+        name: getmanager
+        description: Get Manager
+        call: supermicro-redfish-managers.getmanager
+        with:
+          managerId: rest.managerId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatemanager
+        description: Update Manager
+        call: supermicro-redfish-managers.updatemanager
+        with:
+          managerId: rest.managerId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/managers/{managerid}/actions/manager-reset
+      name: managers-managerid-actions-manager-reset
+      description: REST surface for Managers-managerId-Actions-Manager.Reset.
+      operations:
+      - method: POST
+        name: resetmanager
+        description: Reset Manager
+        call: supermicro-redfish-managers.resetmanager
+        with:
+          managerId: rest.managerId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: supermicro-redfish-managers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Supermicro Redfish API — Managers. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-managers
+      description: List Managers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: supermicro-redfish-managers.listmanagers
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-manager
+      description: Get Manager
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: supermicro-redfish-managers.getmanager
+      with:
+        managerId: tools.managerId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-manager
+      description: Update Manager
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: supermicro-redfish-managers.updatemanager
+      with:
+        managerId: tools.managerId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: reset-manager
+      description: Reset Manager
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: supermicro-redfish-managers.resetmanager
+      with:
+        managerId: tools.managerId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

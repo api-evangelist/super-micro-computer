@@ -1,0 +1,287 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Supermicro Redfish API — Systems
+  description: 'Supermicro Redfish API — Systems. 6 operations. Lead operation: List Computer Systems. Self-contained Naftiko
+    capability covering one Super Micro Computer business surface.'
+  tags:
+  - Super Micro Computer
+  - Systems
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SUPER_MICRO_COMPUTER_API_KEY: SUPER_MICRO_COMPUTER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: supermicro-redfish-systems
+    baseUri: https://{bmc-ip}/redfish/v1
+    description: Supermicro Redfish API — Systems business capability. Self-contained, no shared references.
+    resources:
+    - name: Systems
+      path: /Systems
+      operations:
+      - name: listsystems
+        method: GET
+        description: List Computer Systems
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: Systems-systemId
+      path: /Systems/{systemId}
+      operations:
+      - name: getsystem
+        method: GET
+        description: Get Computer System
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          description: Unique identifier for the computer system
+          required: true
+      - name: updatesystem
+        method: PATCH
+        description: Update Computer System
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          description: Unique identifier for the computer system
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: Systems-systemId-Actions-ComputerSystem.Reset
+      path: /Systems/{systemId}/Actions/ComputerSystem.Reset
+      operations:
+      - name: resetsystem
+        method: POST
+        description: Reset Computer System
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          description: Unique identifier for the computer system
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: Systems-systemId-Memory
+      path: /Systems/{systemId}/Memory
+      operations:
+      - name: listmemory
+        method: GET
+        description: List Memory Modules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          required: true
+    - name: Systems-systemId-Processors
+      path: /Systems/{systemId}/Processors
+      operations:
+      - name: listprocessors
+        method: GET
+        description: List Processors
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SUPER_MICRO_COMPUTER_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: supermicro-redfish-systems-rest
+    port: 8080
+    description: REST adapter for Supermicro Redfish API — Systems. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/systems
+      name: systems
+      description: REST surface for Systems.
+      operations:
+      - method: GET
+        name: listsystems
+        description: List Computer Systems
+        call: supermicro-redfish-systems.listsystems
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/systems/{systemid}
+      name: systems-systemid
+      description: REST surface for Systems-systemId.
+      operations:
+      - method: GET
+        name: getsystem
+        description: Get Computer System
+        call: supermicro-redfish-systems.getsystem
+        with:
+          systemId: rest.systemId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatesystem
+        description: Update Computer System
+        call: supermicro-redfish-systems.updatesystem
+        with:
+          systemId: rest.systemId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/systems/{systemid}/actions/computersystem-reset
+      name: systems-systemid-actions-computersystem-reset
+      description: REST surface for Systems-systemId-Actions-ComputerSystem.Reset.
+      operations:
+      - method: POST
+        name: resetsystem
+        description: Reset Computer System
+        call: supermicro-redfish-systems.resetsystem
+        with:
+          systemId: rest.systemId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/systems/{systemid}/memory
+      name: systems-systemid-memory
+      description: REST surface for Systems-systemId-Memory.
+      operations:
+      - method: GET
+        name: listmemory
+        description: List Memory Modules
+        call: supermicro-redfish-systems.listmemory
+        with:
+          systemId: rest.systemId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/systems/{systemid}/processors
+      name: systems-systemid-processors
+      description: REST surface for Systems-systemId-Processors.
+      operations:
+      - method: GET
+        name: listprocessors
+        description: List Processors
+        call: supermicro-redfish-systems.listprocessors
+        with:
+          systemId: rest.systemId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: supermicro-redfish-systems-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Supermicro Redfish API — Systems. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-computer-systems
+      description: List Computer Systems
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: supermicro-redfish-systems.listsystems
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-computer-system
+      description: Get Computer System
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: supermicro-redfish-systems.getsystem
+      with:
+        systemId: tools.systemId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-computer-system
+      description: Update Computer System
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: supermicro-redfish-systems.updatesystem
+      with:
+        systemId: tools.systemId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: reset-computer-system
+      description: Reset Computer System
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: supermicro-redfish-systems.resetsystem
+      with:
+        systemId: tools.systemId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-memory-modules
+      description: List Memory Modules
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: supermicro-redfish-systems.listmemory
+      with:
+        systemId: tools.systemId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-processors
+      description: List Processors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: supermicro-redfish-systems.listprocessors
+      with:
+        systemId: tools.systemId
+      outputParameters:
+      - type: object
+        mapping: $.

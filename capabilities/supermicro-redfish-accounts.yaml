@@ -1,0 +1,223 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Supermicro Redfish API — Accounts
+  description: 'Supermicro Redfish API — Accounts. 5 operations. Lead operation: List Accounts. Self-contained Naftiko capability
+    covering one Super Micro Computer business surface.'
+  tags:
+  - Super Micro Computer
+  - Accounts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SUPER_MICRO_COMPUTER_API_KEY: SUPER_MICRO_COMPUTER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: supermicro-redfish-accounts
+    baseUri: https://{bmc-ip}/redfish/v1
+    description: Supermicro Redfish API — Accounts business capability. Self-contained, no shared references.
+    resources:
+    - name: AccountService-Accounts
+      path: /AccountService/Accounts
+      operations:
+      - name: listaccounts
+        method: GET
+        description: List Accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createaccount
+        method: POST
+        description: Create Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: AccountService-Accounts-accountId
+      path: /AccountService/Accounts/{accountId}
+      operations:
+      - name: getaccount
+        method: GET
+        description: Get Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: accountId
+          in: path
+          type: string
+          required: true
+      - name: updateaccount
+        method: PATCH
+        description: Update Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: accountId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteaccount
+        method: DELETE
+        description: Delete Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: accountId
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: apikey
+      key: X-Auth-Token
+      value: '{{env.SUPER_MICRO_COMPUTER_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: supermicro-redfish-accounts-rest
+    port: 8080
+    description: REST adapter for Supermicro Redfish API — Accounts. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/accountservice/accounts
+      name: accountservice-accounts
+      description: REST surface for AccountService-Accounts.
+      operations:
+      - method: GET
+        name: listaccounts
+        description: List Accounts
+        call: supermicro-redfish-accounts.listaccounts
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createaccount
+        description: Create Account
+        call: supermicro-redfish-accounts.createaccount
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accountservice/accounts/{accountid}
+      name: accountservice-accounts-accountid
+      description: REST surface for AccountService-Accounts-accountId.
+      operations:
+      - method: GET
+        name: getaccount
+        description: Get Account
+        call: supermicro-redfish-accounts.getaccount
+        with:
+          accountId: rest.accountId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateaccount
+        description: Update Account
+        call: supermicro-redfish-accounts.updateaccount
+        with:
+          accountId: rest.accountId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteaccount
+        description: Delete Account
+        call: supermicro-redfish-accounts.deleteaccount
+        with:
+          accountId: rest.accountId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: supermicro-redfish-accounts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Supermicro Redfish API — Accounts. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-accounts
+      description: List Accounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: supermicro-redfish-accounts.listaccounts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-account
+      description: Create Account
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: supermicro-redfish-accounts.createaccount
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-account
+      description: Get Account
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: supermicro-redfish-accounts.getaccount
+      with:
+        accountId: tools.accountId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-account
+      description: Update Account
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: supermicro-redfish-accounts.updateaccount
+      with:
+        accountId: tools.accountId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-account
+      description: Delete Account
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: supermicro-redfish-accounts.deleteaccount
+      with:
+        accountId: tools.accountId
+      outputParameters:
+      - type: object
+        mapping: $.
