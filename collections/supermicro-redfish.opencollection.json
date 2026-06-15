@@ -1,0 +1,675 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supermicro Redfish API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Service Root",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Service Root",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/"
+          },
+          "docs": "Returns the service root resource containing links to all top-level collections."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Systems",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Computer Systems",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Systems"
+          },
+          "docs": "Returns the collection of computer systems managed by this BMC."
+        },
+        {
+          "info": {
+            "name": "Get Computer System",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Systems/:systemId",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the computer system"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific computer system including CPU, memory, and health status."
+        },
+        {
+          "info": {
+            "name": "Update Computer System",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{bmc-ip}/redfish/v1/Systems/:systemId",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the computer system"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates properties of a specific computer system such as boot order or asset tag."
+        },
+        {
+          "info": {
+            "name": "Reset Computer System",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{bmc-ip}/redfish/v1/Systems/:systemId/Actions/ComputerSystem.Reset",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the computer system"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Performs a reset action on the computer system (power on, off, restart, etc.)."
+        },
+        {
+          "info": {
+            "name": "List Processors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Systems/:systemId/Processors",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the collection of processors in the computer system."
+        },
+        {
+          "info": {
+            "name": "List Memory Modules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Systems/:systemId/Memory",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the collection of memory modules in the computer system."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Storage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Storage Controllers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Systems/:systemId/Storage",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the collection of storage controllers in the computer system."
+        },
+        {
+          "info": {
+            "name": "Get Storage Controller",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Systems/:systemId/Storage/:storageId",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "storageId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific storage controller."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Network",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Ethernet Interfaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Systems/:systemId/EthernetInterfaces",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the collection of network interfaces in the computer system."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Chassis",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Chassis",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Chassis"
+          },
+          "docs": "Returns the collection of chassis managed by this BMC."
+        },
+        {
+          "info": {
+            "name": "Get Chassis",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Chassis/:chassisId",
+            "params": [
+              {
+                "name": "chassisId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the chassis"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific chassis including power and thermal data."
+        },
+        {
+          "info": {
+            "name": "Get Chassis Power",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Chassis/:chassisId/Power",
+            "params": [
+              {
+                "name": "chassisId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns power supply status, power consumption readings, and power control settings."
+        },
+        {
+          "info": {
+            "name": "Get Chassis Thermal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Chassis/:chassisId/Thermal",
+            "params": [
+              {
+                "name": "chassisId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns temperature sensor readings and fan speed data for the chassis."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Managers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Managers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Managers"
+          },
+          "docs": "Returns the collection of management controllers (BMCs) available."
+        },
+        {
+          "info": {
+            "name": "Get Manager",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Managers/:managerId",
+            "params": [
+              {
+                "name": "managerId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the manager"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific BMC manager including firmware version and network settings."
+        },
+        {
+          "info": {
+            "name": "Update Manager",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{bmc-ip}/redfish/v1/Managers/:managerId",
+            "params": [
+              {
+                "name": "managerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates properties of the BMC manager such as network configuration or time settings."
+        },
+        {
+          "info": {
+            "name": "Reset Manager",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{bmc-ip}/redfish/v1/Managers/:managerId/Actions/Manager.Reset",
+            "params": [
+              {
+                "name": "managerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resets the BMC manager (restarts the BMC)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/SessionService/Sessions"
+          },
+          "docs": "Returns all active Redfish sessions."
+        },
+        {
+          "info": {
+            "name": "Create Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{bmc-ip}/redfish/v1/SessionService/Sessions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Redfish session for authentication. Returns an auth token in the X-Auth-Token header."
+        },
+        {
+          "info": {
+            "name": "Get Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/SessionService/Sessions/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns details about a specific active session."
+        },
+        {
+          "info": {
+            "name": "Delete Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{bmc-ip}/redfish/v1/SessionService/Sessions/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes (logs out) a specific Redfish session."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/AccountService/Accounts"
+          },
+          "docs": "Returns all user accounts configured on the BMC."
+        },
+        {
+          "info": {
+            "name": "Create Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{bmc-ip}/redfish/v1/AccountService/Accounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user account on the BMC."
+        },
+        {
+          "info": {
+            "name": "Get Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/AccountService/Accounts/:accountId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns details about a specific user account."
+        },
+        {
+          "info": {
+            "name": "Update Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{bmc-ip}/redfish/v1/AccountService/Accounts/:accountId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates properties of a user account such as password or role."
+        },
+        {
+          "info": {
+            "name": "Delete Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{bmc-ip}/redfish/v1/AccountService/Accounts/:accountId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a user account from the BMC."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Event Service",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Event Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/EventService"
+          },
+          "docs": "Returns the event service resource with subscription management capabilities."
+        },
+        {
+          "info": {
+            "name": "List Event Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/EventService/Subscriptions"
+          },
+          "docs": "Returns all event subscriptions configured for this BMC."
+        },
+        {
+          "info": {
+            "name": "Create Event Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{bmc-ip}/redfish/v1/EventService/Subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new event subscription to receive server event notifications via webhook."
+        },
+        {
+          "info": {
+            "name": "Get Event Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/EventService/Subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns details about a specific event subscription."
+        },
+        {
+          "info": {
+            "name": "Delete Event Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{bmc-ip}/redfish/v1/EventService/Subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes an event subscription."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Update Service",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Update Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/UpdateService"
+          },
+          "docs": "Returns the firmware update service resource."
+        },
+        {
+          "info": {
+            "name": "List Firmware Inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/UpdateService/FirmwareInventory"
+          },
+          "docs": "Returns the current firmware inventory for all managed components."
+        },
+        {
+          "info": {
+            "name": "Perform Simple Firmware Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{bmc-ip}/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a firmware update for a target component using a specified firmware image URI."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
