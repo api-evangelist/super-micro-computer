@@ -3,16 +3,10 @@
   "feeds": [
     {
       "source": "https://www.supermicro.com/en/newsroom",
-      "error": "HTTPError"
-    },
-    {
-      "source": "https://github.com/supermicro",
-      "feed_url": "https://github.com/supermicro",
-      "title": "",
       "saved": 0,
-      "method": "none"
+      "error": "HTTP 403 Forbidden on scrape"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T13:13:43Z",
+  "post_count": 0
 }

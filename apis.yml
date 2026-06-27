@@ -71,7 +71,7 @@ common:
     url: https://www.linkedin.com/company/supermicro
   - type: Website
     url: https://www.supermicro.com
-  - type: Developer Portal
+  - type: DeveloperPortal
     url: https://www.supermicro.com/en/solutions/management-software
   - type: Documentation
     url: https://www.supermicro.com/manuals/other/redfish-ref-guide-html/Content/general-content/introduction.htm
