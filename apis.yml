@@ -67,6 +67,10 @@ apis:
         url: https://www.supermicro.com/en/support
         email: support@supermicro.com
 common:
+  - type: DomainSecurity
+    url: security/super-micro-computer-domain-security.yml
+  - type: Authentication
+    url: authentication/super-micro-computer-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/supermicro
   - type: Website

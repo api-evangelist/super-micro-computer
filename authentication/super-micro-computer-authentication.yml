@@ -1,0 +1,23 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/supermicro-redfish-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: BasicAuth
+  type: http
+  scheme: basic
+  description: HTTP Basic authentication using BMC username and password
+  sources:
+  - openapi/supermicro-redfish-openapi.yml
+- name: SessionAuth
+  type: apiKey
+  in: header
+  parameter: X-Auth-Token
+  description: Redfish session token obtained from POST /redfish/v1/SessionService/Sessions
+  sources:
+  - openapi/supermicro-redfish-openapi.yml
