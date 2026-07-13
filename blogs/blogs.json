@@ -2,11 +2,13 @@
   "repo": "super-micro-computer",
   "feeds": [
     {
-      "source": "https://www.supermicro.com/en/newsroom",
+      "source": "https://github.com/supermicro",
+      "feed_url": "https://github.com/supermicro",
+      "title": "",
       "saved": 0,
-      "error": "HTTP 403 Forbidden on scrape"
+      "method": "none"
     }
   ],
-  "fetched": "2026-06-27T13:13:43Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "post_count": 0
 }
