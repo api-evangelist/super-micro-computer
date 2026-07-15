@@ -67,6 +67,8 @@ apis:
         url: https://www.supermicro.com/en/support
         email: support@supermicro.com
 common:
+  - type: AgenticAccess
+    url: agentic-access/super-micro-computer-agentic-access.yml
   - type: DomainSecurity
     url: security/super-micro-computer-domain-security.yml
   - type: Authentication
