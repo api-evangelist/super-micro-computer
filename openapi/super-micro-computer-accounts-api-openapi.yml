@@ -1,0 +1,206 @@
+openapi: 3.0.3
+info:
+  title: Supermicro Redfish Accounts API
+  description: Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).
+  version: '1.0'
+  contact:
+    name: Supermicro Support
+    url: https://www.supermicro.com/en/support
+    email: support@supermicro.com
+  license:
+    name: Proprietary
+    url: https://www.supermicro.com/en/solutions/management-software/redfish
+servers:
+- url: https://{bmc-ip}/redfish/v1
+  description: Supermicro BMC Redfish endpoint
+  variables:
+    bmc-ip:
+      description: IP address or hostname of the BMC
+      default: 192.168.1.100
+security:
+- BasicAuth: []
+- SessionAuth: []
+tags:
+- name: Accounts
+  description: User account management
+paths:
+  /AccountService/Accounts:
+    get:
+      operationId: listAccounts
+      summary: List Accounts
+      description: Returns all user accounts configured on the BMC.
+      tags:
+      - Accounts
+      responses:
+        '200':
+          description: Collection of user accounts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+    post:
+      operationId: createAccount
+      summary: Create Account
+      description: Creates a new user account on the BMC.
+      tags:
+      - Accounts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountCreate'
+      responses:
+        '201':
+          description: Account created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+  /AccountService/Accounts/{accountId}:
+    get:
+      operationId: getAccount
+      summary: Get Account
+      description: Returns details about a specific user account.
+      tags:
+      - Accounts
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Account resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+    patch:
+      operationId: updateAccount
+      summary: Update Account
+      description: Updates properties of a user account such as password or role.
+      tags:
+      - Accounts
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountPatch'
+      responses:
+        '200':
+          description: Updated account resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+    delete:
+      operationId: deleteAccount
+      summary: Delete Account
+      description: Deletes a user account from the BMC.
+      tags:
+      - Accounts
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Account deleted
+components:
+  schemas:
+    AccountCreate:
+      type: object
+      required:
+      - UserName
+      - Password
+      - RoleId
+      properties:
+        UserName:
+          type: string
+        Password:
+          type: string
+          format: password
+        RoleId:
+          type: string
+          enum:
+          - Administrator
+          - Operator
+          - ReadOnly
+        Enabled:
+          type: boolean
+          default: true
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
+    AccountPatch:
+      type: object
+      properties:
+        Password:
+          type: string
+          format: password
+        RoleId:
+          type: string
+          enum:
+          - Administrator
+          - Operator
+          - ReadOnly
+        Enabled:
+          type: boolean
+    Collection:
+      type: object
+      description: A collection of resources with navigation links
+      properties:
+        '@odata.type':
+          type: string
+        Name:
+          type: string
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
+    Account:
+      type: object
+      description: A user account configured on the BMC
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        UserName:
+          type: string
+        RoleId:
+          type: string
+          enum:
+          - Administrator
+          - Operator
+          - ReadOnly
+        Enabled:
+          type: boolean
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication using BMC username and password
+    SessionAuth:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+      description: Redfish session token obtained from POST /redfish/v1/SessionService/Sessions

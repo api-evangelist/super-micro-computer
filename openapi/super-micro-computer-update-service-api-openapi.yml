@@ -1,0 +1,185 @@
+openapi: 3.0.3
+info:
+  title: Supermicro Redfish Accounts Update Service API
+  description: Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).
+  version: '1.0'
+  contact:
+    name: Supermicro Support
+    url: https://www.supermicro.com/en/support
+    email: support@supermicro.com
+  license:
+    name: Proprietary
+    url: https://www.supermicro.com/en/solutions/management-software/redfish
+servers:
+- url: https://{bmc-ip}/redfish/v1
+  description: Supermicro BMC Redfish endpoint
+  variables:
+    bmc-ip:
+      description: IP address or hostname of the BMC
+      default: 192.168.1.100
+security:
+- BasicAuth: []
+- SessionAuth: []
+tags:
+- name: Update Service
+  description: Firmware and BIOS update management
+paths:
+  /UpdateService:
+    get:
+      operationId: getUpdateService
+      summary: Get Update Service
+      description: Returns the firmware update service resource.
+      tags:
+      - Update Service
+      responses:
+        '200':
+          description: Update service resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateService'
+  /UpdateService/FirmwareInventory:
+    get:
+      operationId: listFirmwareInventory
+      summary: List Firmware Inventory
+      description: Returns the current firmware inventory for all managed components.
+      tags:
+      - Update Service
+      responses:
+        '200':
+          description: Firmware inventory collection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /UpdateService/Actions/UpdateService.SimpleUpdate:
+    post:
+      operationId: simpleUpdate
+      summary: Perform Simple Firmware Update
+      description: Initiates a firmware update for a target component using a specified firmware image URI.
+      tags:
+      - Update Service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SimpleUpdateAction'
+      responses:
+        '200':
+          description: Update initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResponse'
+components:
+  schemas:
+    ActionResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
+    Status:
+      type: object
+      description: Health and operational status
+      properties:
+        State:
+          type: string
+          enum:
+          - Enabled
+          - Disabled
+          - StandbyOffline
+          - StandbySpare
+          - InTest
+          - Starting
+          - Absent
+          - UnavailableOffline
+          - Deferring
+          - Quiescing
+          - Updating
+        Health:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+        HealthRollup:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+    SimpleUpdateAction:
+      type: object
+      required:
+      - ImageURI
+      - Targets
+      properties:
+        ImageURI:
+          type: string
+          format: uri
+          description: URI of the firmware image to install
+        Targets:
+          type: array
+          items:
+            type: string
+          description: Target component IDs to update
+        TransferProtocol:
+          type: string
+          enum:
+          - TFTP
+          - HTTPS
+          - HTTP
+          - SCP
+          - SFTP
+          - FTP
+          - NSF
+    Collection:
+      type: object
+      description: A collection of resources with navigation links
+      properties:
+        '@odata.type':
+          type: string
+        Name:
+          type: string
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
+    UpdateService:
+      type: object
+      description: The firmware update service
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        Status:
+          $ref: '#/components/schemas/Status'
+        FirmwareInventory:
+          $ref: '#/components/schemas/ODataId'
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication using BMC username and password
+    SessionAuth:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+      description: Redfish session token obtained from POST /redfish/v1/SessionService/Sessions

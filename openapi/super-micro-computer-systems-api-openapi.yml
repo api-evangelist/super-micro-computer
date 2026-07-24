@@ -1,0 +1,329 @@
+openapi: 3.0.3
+info:
+  title: Supermicro Redfish Accounts Systems API
+  description: Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).
+  version: '1.0'
+  contact:
+    name: Supermicro Support
+    url: https://www.supermicro.com/en/support
+    email: support@supermicro.com
+  license:
+    name: Proprietary
+    url: https://www.supermicro.com/en/solutions/management-software/redfish
+servers:
+- url: https://{bmc-ip}/redfish/v1
+  description: Supermicro BMC Redfish endpoint
+  variables:
+    bmc-ip:
+      description: IP address or hostname of the BMC
+      default: 192.168.1.100
+security:
+- BasicAuth: []
+- SessionAuth: []
+tags:
+- name: Systems
+  description: Computer system management and health monitoring
+paths:
+  /Systems:
+    get:
+      operationId: listSystems
+      summary: List Computer Systems
+      description: Returns the collection of computer systems managed by this BMC.
+      tags:
+      - Systems
+      responses:
+        '200':
+          description: Collection of computer systems
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /Systems/{systemId}:
+    get:
+      operationId: getSystem
+      summary: Get Computer System
+      description: Returns detailed information about a specific computer system including CPU, memory, and health status.
+      tags:
+      - Systems
+      parameters:
+      - name: systemId
+        in: path
+        required: true
+        description: Unique identifier for the computer system
+        schema:
+          type: string
+          example: '1'
+      responses:
+        '200':
+          description: Computer system resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComputerSystem'
+    patch:
+      operationId: updateSystem
+      summary: Update Computer System
+      description: Updates properties of a specific computer system such as boot order or asset tag.
+      tags:
+      - Systems
+      parameters:
+      - name: systemId
+        in: path
+        required: true
+        description: Unique identifier for the computer system
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComputerSystemPatch'
+      responses:
+        '200':
+          description: Updated computer system resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComputerSystem'
+  /Systems/{systemId}/Actions/ComputerSystem.Reset:
+    post:
+      operationId: resetSystem
+      summary: Reset Computer System
+      description: Performs a reset action on the computer system (power on, off, restart, etc.).
+      tags:
+      - Systems
+      parameters:
+      - name: systemId
+        in: path
+        required: true
+        description: Unique identifier for the computer system
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetAction'
+      responses:
+        '200':
+          description: Reset action accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResponse'
+        '204':
+          description: Reset action accepted, no content
+  /Systems/{systemId}/Processors:
+    get:
+      operationId: listProcessors
+      summary: List Processors
+      description: Returns the collection of processors in the computer system.
+      tags:
+      - Systems
+      parameters:
+      - name: systemId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Collection of processors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /Systems/{systemId}/Memory:
+    get:
+      operationId: listMemory
+      summary: List Memory Modules
+      description: Returns the collection of memory modules in the computer system.
+      tags:
+      - Systems
+      parameters:
+      - name: systemId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Collection of memory modules
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+components:
+  schemas:
+    ActionResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
+    Status:
+      type: object
+      description: Health and operational status
+      properties:
+        State:
+          type: string
+          enum:
+          - Enabled
+          - Disabled
+          - StandbyOffline
+          - StandbySpare
+          - InTest
+          - Starting
+          - Absent
+          - UnavailableOffline
+          - Deferring
+          - Quiescing
+          - Updating
+        Health:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+        HealthRollup:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+    Collection:
+      type: object
+      description: A collection of resources with navigation links
+      properties:
+        '@odata.type':
+          type: string
+        Name:
+          type: string
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
+    ComputerSystem:
+      type: object
+      description: A computer system managed by this BMC
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        Status:
+          $ref: '#/components/schemas/Status'
+        PowerState:
+          type: string
+          enum:
+          - true
+          - false
+          - PoweringOn
+          - PoweringOff
+        ProcessorSummary:
+          type: object
+          properties:
+            Count:
+              type: integer
+            Model:
+              type: string
+            Status:
+              $ref: '#/components/schemas/Status'
+        MemorySummary:
+          type: object
+          properties:
+            TotalSystemMemoryGiB:
+              type: number
+            Status:
+              $ref: '#/components/schemas/Status'
+        Manufacturer:
+          type: string
+        Model:
+          type: string
+        SerialNumber:
+          type: string
+        AssetTag:
+          type: string
+        BIOSVersion:
+          type: string
+        Boot:
+          type: object
+          properties:
+            BootSourceOverrideEnabled:
+              type: string
+              enum:
+              - Disabled
+              - Once
+              - Continuous
+            BootSourceOverrideTarget:
+              type: string
+    ComputerSystemPatch:
+      type: object
+      description: Updatable properties of a computer system
+      properties:
+        AssetTag:
+          type: string
+          description: Asset tag for the system
+        Boot:
+          type: object
+          properties:
+            BootSourceOverrideEnabled:
+              type: string
+              enum:
+              - Disabled
+              - Once
+              - Continuous
+            BootSourceOverrideTarget:
+              type: string
+              enum:
+              - None
+              - Pxe
+              - Floppy
+              - Cd
+              - Usb
+              - Hdd
+              - BiosSetup
+    ResetAction:
+      type: object
+      description: Reset action parameters
+      required:
+      - ResetType
+      properties:
+        ResetType:
+          type: string
+          enum:
+          - true
+          - ForceOff
+          - GracefulShutdown
+          - GracefulRestart
+          - ForceRestart
+          - Nmi
+          - ForceOn
+          - PushPowerButton
+          description: The type of reset to perform
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication using BMC username and password
+    SessionAuth:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+      description: Redfish session token obtained from POST /redfish/v1/SessionService/Sessions

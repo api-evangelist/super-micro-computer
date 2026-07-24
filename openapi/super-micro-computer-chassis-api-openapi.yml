@@ -1,0 +1,259 @@
+openapi: 3.0.3
+info:
+  title: Supermicro Redfish Accounts Chassis API
+  description: Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).
+  version: '1.0'
+  contact:
+    name: Supermicro Support
+    url: https://www.supermicro.com/en/support
+    email: support@supermicro.com
+  license:
+    name: Proprietary
+    url: https://www.supermicro.com/en/solutions/management-software/redfish
+servers:
+- url: https://{bmc-ip}/redfish/v1
+  description: Supermicro BMC Redfish endpoint
+  variables:
+    bmc-ip:
+      description: IP address or hostname of the BMC
+      default: 192.168.1.100
+security:
+- BasicAuth: []
+- SessionAuth: []
+tags:
+- name: Chassis
+  description: Chassis management including power and thermal
+paths:
+  /Chassis:
+    get:
+      operationId: listChassis
+      summary: List Chassis
+      description: Returns the collection of chassis managed by this BMC.
+      tags:
+      - Chassis
+      responses:
+        '200':
+          description: Collection of chassis
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /Chassis/{chassisId}:
+    get:
+      operationId: getChassis
+      summary: Get Chassis
+      description: Returns detailed information about a specific chassis including power and thermal data.
+      tags:
+      - Chassis
+      parameters:
+      - name: chassisId
+        in: path
+        required: true
+        description: Unique identifier for the chassis
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Chassis resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chassis'
+  /Chassis/{chassisId}/Power:
+    get:
+      operationId: getChassispower
+      summary: Get Chassis Power
+      description: Returns power supply status, power consumption readings, and power control settings.
+      tags:
+      - Chassis
+      parameters:
+      - name: chassisId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Power resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Power'
+  /Chassis/{chassisId}/Thermal:
+    get:
+      operationId: getChassisThermal
+      summary: Get Chassis Thermal
+      description: Returns temperature sensor readings and fan speed data for the chassis.
+      tags:
+      - Chassis
+      parameters:
+      - name: chassisId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Thermal resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Thermal'
+components:
+  schemas:
+    Power:
+      type: object
+      description: Power supply and consumption data for a chassis
+      properties:
+        '@odata.type':
+          type: string
+        PowerControl:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+              PowerConsumedWatts:
+                type: number
+              PowerCapacityWatts:
+                type: number
+        PowerSupplies:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+              Status:
+                $ref: '#/components/schemas/Status'
+              PowerInputWatts:
+                type: number
+              PowerOutputWatts:
+                type: number
+              FirmwareVersion:
+                type: string
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
+    Chassis:
+      type: object
+      description: A physical chassis container
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        ChassisType:
+          type: string
+          enum:
+          - RackMount
+          - Tower
+          - Blade
+          - Sidecar
+        Status:
+          $ref: '#/components/schemas/Status'
+        Manufacturer:
+          type: string
+        Model:
+          type: string
+        SerialNumber:
+          type: string
+        Power:
+          $ref: '#/components/schemas/ODataId'
+        Thermal:
+          $ref: '#/components/schemas/ODataId'
+    Status:
+      type: object
+      description: Health and operational status
+      properties:
+        State:
+          type: string
+          enum:
+          - Enabled
+          - Disabled
+          - StandbyOffline
+          - StandbySpare
+          - InTest
+          - Starting
+          - Absent
+          - UnavailableOffline
+          - Deferring
+          - Quiescing
+          - Updating
+        Health:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+        HealthRollup:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+    Thermal:
+      type: object
+      description: Temperature and fan data for a chassis
+      properties:
+        '@odata.type':
+          type: string
+        Temperatures:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+              ReadingCelsius:
+                type: number
+              Status:
+                $ref: '#/components/schemas/Status'
+              UpperThresholdCritical:
+                type: number
+        Fans:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+              Reading:
+                type: integer
+              ReadingUnits:
+                type: string
+                enum:
+                - RPM
+                - Percent
+              Status:
+                $ref: '#/components/schemas/Status'
+    Collection:
+      type: object
+      description: A collection of resources with navigation links
+      properties:
+        '@odata.type':
+          type: string
+        Name:
+          type: string
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication using BMC username and password
+    SessionAuth:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+      description: Redfish session token obtained from POST /redfish/v1/SessionService/Sessions

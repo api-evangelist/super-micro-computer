@@ -1,0 +1,245 @@
+openapi: 3.0.3
+info:
+  title: Supermicro Redfish Accounts Event Service API
+  description: Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).
+  version: '1.0'
+  contact:
+    name: Supermicro Support
+    url: https://www.supermicro.com/en/support
+    email: support@supermicro.com
+  license:
+    name: Proprietary
+    url: https://www.supermicro.com/en/solutions/management-software/redfish
+servers:
+- url: https://{bmc-ip}/redfish/v1
+  description: Supermicro BMC Redfish endpoint
+  variables:
+    bmc-ip:
+      description: IP address or hostname of the BMC
+      default: 192.168.1.100
+security:
+- BasicAuth: []
+- SessionAuth: []
+tags:
+- name: Event Service
+  description: Event subscription and notification management
+paths:
+  /EventService:
+    get:
+      operationId: getEventService
+      summary: Get Event Service
+      description: Returns the event service resource with subscription management capabilities.
+      tags:
+      - Event Service
+      responses:
+        '200':
+          description: Event service resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventService'
+  /EventService/Subscriptions:
+    get:
+      operationId: listEventSubscriptions
+      summary: List Event Subscriptions
+      description: Returns all event subscriptions configured for this BMC.
+      tags:
+      - Event Service
+      responses:
+        '200':
+          description: Collection of event subscriptions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+    post:
+      operationId: createEventSubscription
+      summary: Create Event Subscription
+      description: Creates a new event subscription to receive server event notifications via webhook.
+      tags:
+      - Event Service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventSubscriptionCreate'
+      responses:
+        '201':
+          description: Event subscription created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+  /EventService/Subscriptions/{subscriptionId}:
+    get:
+      operationId: getEventSubscription
+      summary: Get Event Subscription
+      description: Returns details about a specific event subscription.
+      tags:
+      - Event Service
+      parameters:
+      - name: subscriptionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Event subscription resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+    delete:
+      operationId: deleteEventSubscription
+      summary: Delete Event Subscription
+      description: Deletes an event subscription.
+      tags:
+      - Event Service
+      parameters:
+      - name: subscriptionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Subscription deleted
+components:
+  schemas:
+    EventSubscription:
+      type: object
+      description: An event subscription definition
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        Destination:
+          type: string
+          format: uri
+          description: Webhook URL to receive event notifications
+        EventTypes:
+          type: array
+          items:
+            type: string
+        Protocol:
+          type: string
+          enum:
+          - Redfish
+        Context:
+          type: string
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
+    EventSubscriptionCreate:
+      type: object
+      required:
+      - Destination
+      - Protocol
+      properties:
+        Destination:
+          type: string
+          format: uri
+          description: Webhook URL to receive event notifications
+        EventTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - StatusChange
+            - ResourceUpdated
+            - ResourceAdded
+            - ResourceRemoved
+            - Alert
+        Protocol:
+          type: string
+          enum:
+          - Redfish
+        Context:
+          type: string
+          description: Optional context string returned with each event
+    Status:
+      type: object
+      description: Health and operational status
+      properties:
+        State:
+          type: string
+          enum:
+          - Enabled
+          - Disabled
+          - StandbyOffline
+          - StandbySpare
+          - InTest
+          - Starting
+          - Absent
+          - UnavailableOffline
+          - Deferring
+          - Quiescing
+          - Updating
+        Health:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+        HealthRollup:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+    Collection:
+      type: object
+      description: A collection of resources with navigation links
+      properties:
+        '@odata.type':
+          type: string
+        Name:
+          type: string
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
+    EventService:
+      type: object
+      description: The event service for managing event subscriptions
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        Status:
+          $ref: '#/components/schemas/Status'
+        Subscriptions:
+          $ref: '#/components/schemas/ODataId'
+        EventTypesForSubscription:
+          type: array
+          items:
+            type: string
+            enum:
+            - StatusChange
+            - ResourceUpdated
+            - ResourceAdded
+            - ResourceRemoved
+            - Alert
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication using BMC username and password
+    SessionAuth:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+      description: Redfish session token obtained from POST /redfish/v1/SessionService/Sessions

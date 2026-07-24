@@ -1,0 +1,88 @@
+openapi: 3.0.3
+info:
+  title: Supermicro Redfish Accounts Service Root API
+  description: Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).
+  version: '1.0'
+  contact:
+    name: Supermicro Support
+    url: https://www.supermicro.com/en/support
+    email: support@supermicro.com
+  license:
+    name: Proprietary
+    url: https://www.supermicro.com/en/solutions/management-software/redfish
+servers:
+- url: https://{bmc-ip}/redfish/v1
+  description: Supermicro BMC Redfish endpoint
+  variables:
+    bmc-ip:
+      description: IP address or hostname of the BMC
+      default: 192.168.1.100
+security:
+- BasicAuth: []
+- SessionAuth: []
+tags:
+- name: Service Root
+  description: Root service discovery and metadata
+paths:
+  /:
+    get:
+      operationId: getServiceRoot
+      summary: Get Service Root
+      description: Returns the service root resource containing links to all top-level collections.
+      tags:
+      - Service Root
+      responses:
+        '200':
+          description: Service root resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceRoot'
+components:
+  schemas:
+    ServiceRoot:
+      type: object
+      description: The root service resource exposing links to all top-level collections
+      properties:
+        '@odata.type':
+          type: string
+          example: '#ServiceRoot.v1_5_0.ServiceRoot'
+        Id:
+          type: string
+          example: RootService
+        Name:
+          type: string
+          example: Root Service
+        RedfishVersion:
+          type: string
+          example: 1.9.0
+        Systems:
+          $ref: '#/components/schemas/ODataId'
+        Chassis:
+          $ref: '#/components/schemas/ODataId'
+        Managers:
+          $ref: '#/components/schemas/ODataId'
+        SessionService:
+          $ref: '#/components/schemas/ODataId'
+        AccountService:
+          $ref: '#/components/schemas/ODataId'
+        EventService:
+          $ref: '#/components/schemas/ODataId'
+        UpdateService:
+          $ref: '#/components/schemas/ODataId'
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication using BMC username and password
+    SessionAuth:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+      description: Redfish session token obtained from POST /redfish/v1/SessionService/Sessions

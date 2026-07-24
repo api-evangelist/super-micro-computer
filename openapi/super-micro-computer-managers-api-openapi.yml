@@ -1,0 +1,223 @@
+openapi: 3.0.3
+info:
+  title: Supermicro Redfish Accounts Managers API
+  description: Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).
+  version: '1.0'
+  contact:
+    name: Supermicro Support
+    url: https://www.supermicro.com/en/support
+    email: support@supermicro.com
+  license:
+    name: Proprietary
+    url: https://www.supermicro.com/en/solutions/management-software/redfish
+servers:
+- url: https://{bmc-ip}/redfish/v1
+  description: Supermicro BMC Redfish endpoint
+  variables:
+    bmc-ip:
+      description: IP address or hostname of the BMC
+      default: 192.168.1.100
+security:
+- BasicAuth: []
+- SessionAuth: []
+tags:
+- name: Managers
+  description: BMC manager configuration and management
+paths:
+  /Managers:
+    get:
+      operationId: listManagers
+      summary: List Managers
+      description: Returns the collection of management controllers (BMCs) available.
+      tags:
+      - Managers
+      responses:
+        '200':
+          description: Collection of managers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /Managers/{managerId}:
+    get:
+      operationId: getManager
+      summary: Get Manager
+      description: Returns detailed information about a specific BMC manager including firmware version and network settings.
+      tags:
+      - Managers
+      parameters:
+      - name: managerId
+        in: path
+        required: true
+        description: Unique identifier for the manager
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Manager resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Manager'
+    patch:
+      operationId: updateManager
+      summary: Update Manager
+      description: Updates properties of the BMC manager such as network configuration or time settings.
+      tags:
+      - Managers
+      parameters:
+      - name: managerId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated manager resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Manager'
+  /Managers/{managerId}/Actions/Manager.Reset:
+    post:
+      operationId: resetManager
+      summary: Reset Manager
+      description: Resets the BMC manager (restarts the BMC).
+      tags:
+      - Managers
+      parameters:
+      - name: managerId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManagerResetAction'
+      responses:
+        '200':
+          description: Reset action accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResponse'
+components:
+  schemas:
+    ActionResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
+    Manager:
+      type: object
+      description: A BMC management controller
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        ManagerType:
+          type: string
+          enum:
+          - BMC
+          - ManagementController
+          - EnclosureManager
+        Status:
+          $ref: '#/components/schemas/Status'
+        FirmwareVersion:
+          type: string
+        NetworkProtocol:
+          $ref: '#/components/schemas/ODataId'
+        EthernetInterfaces:
+          $ref: '#/components/schemas/ODataId'
+        DateTime:
+          type: string
+          format: date-time
+    ManagerResetAction:
+      type: object
+      description: Manager reset action parameters
+      required:
+      - ResetType
+      properties:
+        ResetType:
+          type: string
+          enum:
+          - GracefulRestart
+          - ForceRestart
+          description: The type of manager reset
+    Status:
+      type: object
+      description: Health and operational status
+      properties:
+        State:
+          type: string
+          enum:
+          - Enabled
+          - Disabled
+          - StandbyOffline
+          - StandbySpare
+          - InTest
+          - Starting
+          - Absent
+          - UnavailableOffline
+          - Deferring
+          - Quiescing
+          - Updating
+        Health:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+        HealthRollup:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+    Collection:
+      type: object
+      description: A collection of resources with navigation links
+      properties:
+        '@odata.type':
+          type: string
+        Name:
+          type: string
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication using BMC username and password
+    SessionAuth:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+      description: Redfish session token obtained from POST /redfish/v1/SessionService/Sessions

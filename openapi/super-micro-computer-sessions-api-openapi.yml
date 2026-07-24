@@ -1,0 +1,160 @@
+openapi: 3.0.3
+info:
+  title: Supermicro Redfish Accounts Sessions API
+  description: Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).
+  version: '1.0'
+  contact:
+    name: Supermicro Support
+    url: https://www.supermicro.com/en/support
+    email: support@supermicro.com
+  license:
+    name: Proprietary
+    url: https://www.supermicro.com/en/solutions/management-software/redfish
+servers:
+- url: https://{bmc-ip}/redfish/v1
+  description: Supermicro BMC Redfish endpoint
+  variables:
+    bmc-ip:
+      description: IP address or hostname of the BMC
+      default: 192.168.1.100
+security:
+- BasicAuth: []
+- SessionAuth: []
+tags:
+- name: Sessions
+  description: Session authentication and management
+paths:
+  /SessionService/Sessions:
+    get:
+      operationId: listSessions
+      summary: List Sessions
+      description: Returns all active Redfish sessions.
+      tags:
+      - Sessions
+      responses:
+        '200':
+          description: Collection of sessions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+    post:
+      operationId: createSession
+      summary: Create Session
+      description: Creates a new Redfish session for authentication. Returns an auth token in the X-Auth-Token header.
+      tags:
+      - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionCreate'
+      responses:
+        '201':
+          description: Session created
+          headers:
+            X-Auth-Token:
+              description: Authentication token for subsequent requests
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+  /SessionService/Sessions/{sessionId}:
+    get:
+      operationId: getSession
+      summary: Get Session
+      description: Returns details about a specific active session.
+      tags:
+      - Sessions
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Session resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+    delete:
+      operationId: deleteSession
+      summary: Delete Session
+      description: Deletes (logs out) a specific Redfish session.
+      tags:
+      - Sessions
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Session deleted
+components:
+  schemas:
+    Collection:
+      type: object
+      description: A collection of resources with navigation links
+      properties:
+        '@odata.type':
+          type: string
+        Name:
+          type: string
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
+    Session:
+      type: object
+      description: An active Redfish session
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        UserName:
+          type: string
+        CreatedTime:
+          type: string
+          format: date-time
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
+    SessionCreate:
+      type: object
+      required:
+      - UserName
+      - Password
+      properties:
+        UserName:
+          type: string
+          description: BMC username
+          example: admin
+        Password:
+          type: string
+          description: BMC password
+          format: password
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication using BMC username and password
+    SessionAuth:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+      description: Redfish session token obtained from POST /redfish/v1/SessionService/Sessions
