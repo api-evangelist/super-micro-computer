@@ -1,4 +1,18 @@
 aid: super-micro-computer
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/super-micro-computer.png
 name: Super Micro Computer
 description: >-
   Super Micro Computer (Supermicro) is a global leader in high-performance, high-efficiency server technology and
@@ -21,51 +35,326 @@ tags:
   - Infrastructure
   - Cloud
 apis:
-  - aid: super-micro-computer:redfish-api
-    name: Supermicro Redfish API
-    description: >-
-      Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC.
-      Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage
-      configuration, network configuration, user account management, and event logging across Supermicro server
-      platforms.
-    humanURL: https://www.supermicro.com/en/solutions/management-software/redfish
-    baseURL: https://{bmc-ip}/redfish/v1
-    tags:
-      - Redfish
-      - Server Management
-      - BMC
-      - IPMI
-      - Hardware
-      - Data Center
-    properties:
-      - type: Documentation
-        url: https://www.supermicro.com/manuals/other/redfish-ref-guide-html/Content/general-content/introduction.htm
-      - type: Documentation
-        url: https://www.supermicro.com/manuals/other/RedfishUserGuide.pdf
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/openapi/supermicro-redfish-openapi.yml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-schema/supermicro-computer-system-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-structure/supermicro-computer-system-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-ld/super-micro-computer-context.jsonld
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/rules/supermicro-redfish-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/vocabulary/super-micro-computer-vocabulary.yml
-      - type: GitHubRepository
-        url: https://github.com/supermicro/redfish
-    contact:
-      - FN: Supermicro Support
-        url: https://www.supermicro.com/en/support
-        email: support@supermicro.com
+- aid: super-micro-computer:super-micro-computer-accounts-api
+  name: Super Micro Computer Accounts API
+  description: User account management
+  humanURL: https://www.supermicro.com/en/solutions/management-software/redfish
+  baseURL: https://{bmc-ip}/redfish/v1
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/super-micro-computer-accounts-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.supermicro.com/manuals/other/redfish-ref-guide-html/Content/general-content/introduction.htm
+  - type: Documentation
+    url: https://www.supermicro.com/manuals/other/RedfishUserGuide.pdf
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-schema/supermicro-computer-system-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-structure/supermicro-computer-system-structure.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-ld/super-micro-computer-context.jsonld
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/rules/supermicro-redfish-rules.yml
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/vocabulary/super-micro-computer-vocabulary.yml
+  - type: GitHubRepository
+    url: https://github.com/supermicro/redfish
+- aid: super-micro-computer:super-micro-computer-chassis-api
+  name: Super Micro Computer Chassis API
+  description: Chassis management including power and thermal
+  humanURL: https://www.supermicro.com/en/solutions/management-software/redfish
+  baseURL: https://{bmc-ip}/redfish/v1
+  tags:
+  - Chassis
+  properties:
+  - type: OpenAPI
+    url: openapi/super-micro-computer-chassis-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.supermicro.com/manuals/other/redfish-ref-guide-html/Content/general-content/introduction.htm
+  - type: Documentation
+    url: https://www.supermicro.com/manuals/other/RedfishUserGuide.pdf
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-schema/supermicro-computer-system-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-structure/supermicro-computer-system-structure.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-ld/super-micro-computer-context.jsonld
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/rules/supermicro-redfish-rules.yml
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/vocabulary/super-micro-computer-vocabulary.yml
+  - type: GitHubRepository
+    url: https://github.com/supermicro/redfish
+- aid: super-micro-computer:super-micro-computer-event-service-api
+  name: Super Micro Computer Event Service API
+  description: Event subscription and notification management
+  humanURL: https://www.supermicro.com/en/solutions/management-software/redfish
+  baseURL: https://{bmc-ip}/redfish/v1
+  tags:
+  - Event Service
+  properties:
+  - type: OpenAPI
+    url: openapi/super-micro-computer-event-service-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.supermicro.com/manuals/other/redfish-ref-guide-html/Content/general-content/introduction.htm
+  - type: Documentation
+    url: https://www.supermicro.com/manuals/other/RedfishUserGuide.pdf
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-schema/supermicro-computer-system-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-structure/supermicro-computer-system-structure.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-ld/super-micro-computer-context.jsonld
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/rules/supermicro-redfish-rules.yml
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/vocabulary/super-micro-computer-vocabulary.yml
+  - type: GitHubRepository
+    url: https://github.com/supermicro/redfish
+- aid: super-micro-computer:super-micro-computer-managers-api
+  name: Super Micro Computer Managers API
+  description: BMC manager configuration and management
+  humanURL: https://www.supermicro.com/en/solutions/management-software/redfish
+  baseURL: https://{bmc-ip}/redfish/v1
+  tags:
+  - Managers
+  properties:
+  - type: OpenAPI
+    url: openapi/super-micro-computer-managers-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.supermicro.com/manuals/other/redfish-ref-guide-html/Content/general-content/introduction.htm
+  - type: Documentation
+    url: https://www.supermicro.com/manuals/other/RedfishUserGuide.pdf
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-schema/supermicro-computer-system-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-structure/supermicro-computer-system-structure.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-ld/super-micro-computer-context.jsonld
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/rules/supermicro-redfish-rules.yml
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/vocabulary/super-micro-computer-vocabulary.yml
+  - type: GitHubRepository
+    url: https://github.com/supermicro/redfish
+- aid: super-micro-computer:super-micro-computer-network-api
+  name: Super Micro Computer Network API
+  description: Network interface management
+  humanURL: https://www.supermicro.com/en/solutions/management-software/redfish
+  baseURL: https://{bmc-ip}/redfish/v1
+  tags:
+  - Network
+  properties:
+  - type: OpenAPI
+    url: openapi/super-micro-computer-network-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.supermicro.com/manuals/other/redfish-ref-guide-html/Content/general-content/introduction.htm
+  - type: Documentation
+    url: https://www.supermicro.com/manuals/other/RedfishUserGuide.pdf
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-schema/supermicro-computer-system-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-structure/supermicro-computer-system-structure.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-ld/super-micro-computer-context.jsonld
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/rules/supermicro-redfish-rules.yml
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/vocabulary/super-micro-computer-vocabulary.yml
+  - type: GitHubRepository
+    url: https://github.com/supermicro/redfish
+- aid: super-micro-computer:super-micro-computer-service-root-api
+  name: Super Micro Computer Service Root API
+  description: Root service discovery and metadata
+  humanURL: https://www.supermicro.com/en/solutions/management-software/redfish
+  baseURL: https://{bmc-ip}/redfish/v1
+  tags:
+  - Service Root
+  properties:
+  - type: OpenAPI
+    url: openapi/super-micro-computer-service-root-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.supermicro.com/manuals/other/redfish-ref-guide-html/Content/general-content/introduction.htm
+  - type: Documentation
+    url: https://www.supermicro.com/manuals/other/RedfishUserGuide.pdf
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-schema/supermicro-computer-system-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-structure/supermicro-computer-system-structure.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-ld/super-micro-computer-context.jsonld
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/rules/supermicro-redfish-rules.yml
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/vocabulary/super-micro-computer-vocabulary.yml
+  - type: GitHubRepository
+    url: https://github.com/supermicro/redfish
+- aid: super-micro-computer:super-micro-computer-sessions-api
+  name: Super Micro Computer Sessions API
+  description: Session authentication and management
+  humanURL: https://www.supermicro.com/en/solutions/management-software/redfish
+  baseURL: https://{bmc-ip}/redfish/v1
+  tags:
+  - Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/super-micro-computer-sessions-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.supermicro.com/manuals/other/redfish-ref-guide-html/Content/general-content/introduction.htm
+  - type: Documentation
+    url: https://www.supermicro.com/manuals/other/RedfishUserGuide.pdf
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-schema/supermicro-computer-system-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-structure/supermicro-computer-system-structure.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-ld/super-micro-computer-context.jsonld
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/rules/supermicro-redfish-rules.yml
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/vocabulary/super-micro-computer-vocabulary.yml
+  - type: GitHubRepository
+    url: https://github.com/supermicro/redfish
+- aid: super-micro-computer:super-micro-computer-storage-api
+  name: Super Micro Computer Storage API
+  description: Storage controller and drive management
+  humanURL: https://www.supermicro.com/en/solutions/management-software/redfish
+  baseURL: https://{bmc-ip}/redfish/v1
+  tags:
+  - Storage
+  properties:
+  - type: OpenAPI
+    url: openapi/super-micro-computer-storage-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.supermicro.com/manuals/other/redfish-ref-guide-html/Content/general-content/introduction.htm
+  - type: Documentation
+    url: https://www.supermicro.com/manuals/other/RedfishUserGuide.pdf
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-schema/supermicro-computer-system-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-structure/supermicro-computer-system-structure.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-ld/super-micro-computer-context.jsonld
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/rules/supermicro-redfish-rules.yml
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/vocabulary/super-micro-computer-vocabulary.yml
+  - type: GitHubRepository
+    url: https://github.com/supermicro/redfish
+- aid: super-micro-computer:super-micro-computer-systems-api
+  name: Super Micro Computer Systems API
+  description: Computer system management and health monitoring
+  humanURL: https://www.supermicro.com/en/solutions/management-software/redfish
+  baseURL: https://{bmc-ip}/redfish/v1
+  tags:
+  - Systems
+  properties:
+  - type: OpenAPI
+    url: openapi/super-micro-computer-systems-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.supermicro.com/manuals/other/redfish-ref-guide-html/Content/general-content/introduction.htm
+  - type: Documentation
+    url: https://www.supermicro.com/manuals/other/RedfishUserGuide.pdf
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-schema/supermicro-computer-system-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-structure/supermicro-computer-system-structure.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-ld/super-micro-computer-context.jsonld
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/rules/supermicro-redfish-rules.yml
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/vocabulary/super-micro-computer-vocabulary.yml
+  - type: GitHubRepository
+    url: https://github.com/supermicro/redfish
+- aid: super-micro-computer:super-micro-computer-update-service-api
+  name: Super Micro Computer Update Service API
+  description: Firmware and BIOS update management
+  humanURL: https://www.supermicro.com/en/solutions/management-software/redfish
+  baseURL: https://{bmc-ip}/redfish/v1
+  tags:
+  - Update Service
+  properties:
+  - type: OpenAPI
+    url: openapi/super-micro-computer-update-service-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://www.supermicro.com/manuals/other/redfish-ref-guide-html/Content/general-content/introduction.htm
+  - type: Documentation
+    url: https://www.supermicro.com/manuals/other/RedfishUserGuide.pdf
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-schema/supermicro-computer-system-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-structure/supermicro-computer-system-structure.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/json-ld/super-micro-computer-context.jsonld
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/rules/supermicro-redfish-rules.yml
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/vocabulary/super-micro-computer-vocabulary.yml
+  - type: GitHubRepository
+    url: https://github.com/supermicro/redfish
 common:
   - type: AgenticAccess
     url: agentic-access/super-micro-computer-agentic-access.yml
