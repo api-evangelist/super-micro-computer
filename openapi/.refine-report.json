@@ -1,0 +1,32 @@
+{
+  "provider": "super-micro-computer",
+  "sources": [
+    "super-micro-computer-accounts-api-openapi.yml",
+    "super-micro-computer-chassis-api-openapi.yml",
+    "super-micro-computer-event-service-api-openapi.yml",
+    "super-micro-computer-managers-api-openapi.yml",
+    "super-micro-computer-network-api-openapi.yml",
+    "super-micro-computer-service-root-api-openapi.yml",
+    "super-micro-computer-sessions-api-openapi.yml",
+    "super-micro-computer-storage-api-openapi.yml",
+    "super-micro-computer-systems-api-openapi.yml",
+    "super-micro-computer-update-service-api-openapi.yml"
+  ],
+  "outputs": [
+    "super-micro-computer-accounts-api-openapi.yml",
+    "super-micro-computer-chassis-api-openapi.yml",
+    "super-micro-computer-event-service-api-openapi.yml",
+    "super-micro-computer-managers-api-openapi.yml",
+    "super-micro-computer-network-api-openapi.yml",
+    "super-micro-computer-service-root-api-openapi.yml",
+    "super-micro-computer-sessions-api-openapi.yml",
+    "super-micro-computer-storage-api-openapi.yml",
+    "super-micro-computer-systems-api-openapi.yml",
+    "super-micro-computer-update-service-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
