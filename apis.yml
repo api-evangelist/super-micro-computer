@@ -356,6 +356,9 @@ apis:
   - type: GitHubRepository
     url: https://github.com/supermicro/redfish
 common:
+  - type: License
+    name: Apache-2.0
+    url: https://github.com/supermicro/redfish/blob/main/LICENSE
   - type: AgenticAccess
     url: agentic-access/super-micro-computer-agentic-access.yml
   - type: DomainSecurity
