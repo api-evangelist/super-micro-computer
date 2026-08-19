@@ -1,0 +1,357 @@
+{
+  "item": [
+    {
+      "id": "e0279242-0a63-4bfe-b651-d7f541f881ba",
+      "name": "Update Service",
+      "description": {
+        "content": "Firmware and BIOS update management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3599d1d2-9596-40b8-8786-7feaf33888eb",
+          "name": "Get Update Service",
+          "request": {
+            "name": "Get Update Service",
+            "description": {
+              "content": "Returns the firmware update service resource.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "UpdateService"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "IP address or hostname of the BMC",
+                  "type": "any",
+                  "value": "{{bmc-ip}}",
+                  "key": "bmc-ip"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "48ee80db-2656-4c48-b09b-aebe568d94f3",
+              "name": "Update service resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "UpdateService"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the BMC",
+                      "type": "any",
+                      "value": "{{bmc-ip}}",
+                      "key": "bmc-ip"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@odata.type\": \"string\",\n  \"Id\": \"string\",\n  \"Name\": \"string\",\n  \"Status\": {\n    \"State\": \"Absent\",\n    \"Health\": \"Critical\",\n    \"HealthRollup\": \"Critical\"\n  },\n  \"FirmwareInventory\": {\n    \"@odata.id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91387ee4-d469-41c8-81e8-cd8788e8290b",
+          "name": "List Firmware Inventory",
+          "request": {
+            "name": "List Firmware Inventory",
+            "description": {
+              "content": "Returns the current firmware inventory for all managed components.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "UpdateService",
+                "FirmwareInventory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "IP address or hostname of the BMC",
+                  "type": "any",
+                  "value": "{{bmc-ip}}",
+                  "key": "bmc-ip"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1f7c59cf-002e-4036-ab22-82f9e923a84d",
+              "name": "Firmware inventory collection",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "UpdateService",
+                    "FirmwareInventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the BMC",
+                      "type": "any",
+                      "value": "{{bmc-ip}}",
+                      "key": "bmc-ip"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@odata.type\": \"string\",\n  \"Name\": \"string\",\n  \"Members@odata.count\": 7704,\n  \"Members\": [\n    {\n      \"@odata.id\": \"string\"\n    },\n    {\n      \"@odata.id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95416611-a034-45e7-a951-68bd30aa085a",
+          "name": "Perform Simple Firmware Update",
+          "request": {
+            "name": "Perform Simple Firmware Update",
+            "description": {
+              "content": "Initiates a firmware update for a target component using a specified firmware image URI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "UpdateService",
+                "Actions",
+                "UpdateService.SimpleUpdate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "IP address or hostname of the BMC",
+                  "type": "any",
+                  "value": "{{bmc-ip}}",
+                  "key": "bmc-ip"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ImageURI\": \"<uri>\",\n  \"Targets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"TransferProtocol\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "745c7ae1-3c09-4b19-bbd4-d277ba9d49ed",
+              "name": "Update initiated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "UpdateService",
+                    "Actions",
+                    "UpdateService.SimpleUpdate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the BMC",
+                      "type": "any",
+                      "value": "{{bmc-ip}}",
+                      "key": "bmc-ip"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ImageURI\": \"<uri>\",\n  \"Targets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"TransferProtocol\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "IP address or hostname of the BMC",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "192.168.1.100",
+      "key": "bmc-ip"
+    },
+    {
+      "type": "string",
+      "value": "https://{{bmc-ip}}/redfish/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0d582b98-4156-400a-96a4-6b0e046ff767",
+    "name": "Supermicro Redfish Accounts Update Service API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).\n\nContact Support:\n Name: Supermicro Support\n Email: support@supermicro.com",
+      "type": "text/plain"
+    }
+  }
+}

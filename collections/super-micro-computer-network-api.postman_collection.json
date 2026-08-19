@@ -1,0 +1,164 @@
+{
+  "item": [
+    {
+      "id": "1047652b-480c-4b26-acb8-ddc169e064b9",
+      "name": "Network",
+      "description": {
+        "content": "Network interface management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "354e33c2-2cf1-4673-841a-b3825cf02ae2",
+          "name": "List Ethernet Interfaces",
+          "request": {
+            "name": "List Ethernet Interfaces",
+            "description": {
+              "content": "Returns the collection of network interfaces in the computer system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Systems",
+                ":systemId",
+                "EthernetInterfaces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "systemId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "IP address or hostname of the BMC",
+                  "type": "any",
+                  "value": "{{bmc-ip}}",
+                  "key": "bmc-ip"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "52d85729-26b6-4946-9f11-9541392b1015",
+              "name": "Collection of Ethernet interfaces",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Systems",
+                    ":systemId",
+                    "EthernetInterfaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "systemId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "IP address or hostname of the BMC",
+                      "type": "any",
+                      "value": "{{bmc-ip}}",
+                      "key": "bmc-ip"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@odata.type\": \"string\",\n  \"Name\": \"string\",\n  \"Members@odata.count\": 894,\n  \"Members\": [\n    {\n      \"@odata.id\": \"string\"\n    },\n    {\n      \"@odata.id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "IP address or hostname of the BMC",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "192.168.1.100",
+      "key": "bmc-ip"
+    },
+    {
+      "type": "string",
+      "value": "https://{{bmc-ip}}/redfish/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5270d9cc-872a-4a33-99ac-d91bfe485591",
+    "name": "Supermicro Redfish Accounts Network API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).\n\nContact Support:\n Name: Supermicro Support\n Email: support@supermicro.com",
+      "type": "text/plain"
+    }
+  }
+}

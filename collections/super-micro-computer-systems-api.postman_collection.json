@@ -1,0 +1,800 @@
+{
+  "item": [
+    {
+      "id": "e1414e6a-0a17-4915-9899-ba45d9ef025a",
+      "name": "Systems",
+      "description": {
+        "content": "Computer system management and health monitoring",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "08965556-b8d8-44f8-929f-e33ce693658b",
+          "name": "List Computer Systems",
+          "request": {
+            "name": "List Computer Systems",
+            "description": {
+              "content": "Returns the collection of computer systems managed by this BMC.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Systems"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "IP address or hostname of the BMC",
+                  "type": "any",
+                  "value": "{{bmc-ip}}",
+                  "key": "bmc-ip"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f3888a09-32ad-4cfe-b5eb-fb68e92cab1a",
+              "name": "Collection of computer systems",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Systems"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the BMC",
+                      "type": "any",
+                      "value": "{{bmc-ip}}",
+                      "key": "bmc-ip"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@odata.type\": \"string\",\n  \"Name\": \"string\",\n  \"Members@odata.count\": 9339,\n  \"Members\": [\n    {\n      \"@odata.id\": \"string\"\n    },\n    {\n      \"@odata.id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "62e04e8a-507f-4812-b27e-1029a980b8e1",
+          "name": "Get Computer System",
+          "request": {
+            "name": "Get Computer System",
+            "description": {
+              "content": "Returns detailed information about a specific computer system including CPU, memory, and health status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Systems",
+                ":systemId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "systemId",
+                  "description": "(Required) Unique identifier for the computer system"
+                },
+                {
+                  "description": "IP address or hostname of the BMC",
+                  "type": "any",
+                  "value": "{{bmc-ip}}",
+                  "key": "bmc-ip"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "57d84de8-55b4-4caa-8e74-8d95b3edbdaa",
+              "name": "Computer system resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Systems",
+                    ":systemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "systemId",
+                      "description": "(Required) Unique identifier for the computer system"
+                    },
+                    {
+                      "description": "IP address or hostname of the BMC",
+                      "type": "any",
+                      "value": "{{bmc-ip}}",
+                      "key": "bmc-ip"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@odata.type\": \"string\",\n  \"Id\": \"string\",\n  \"Name\": \"string\",\n  \"Status\": {\n    \"State\": \"Updating\",\n    \"Health\": \"Warning\",\n    \"HealthRollup\": \"Warning\"\n  },\n  \"PowerState\": \"false\",\n  \"ProcessorSummary\": {\n    \"Count\": 1222,\n    \"Model\": \"string\",\n    \"Status\": {\n      \"State\": \"Absent\",\n      \"Health\": \"Critical\",\n      \"HealthRollup\": \"OK\"\n    }\n  },\n  \"MemorySummary\": {\n    \"TotalSystemMemoryGiB\": 4055.5237560603896,\n    \"Status\": {\n      \"State\": \"Starting\",\n      \"Health\": \"Warning\",\n      \"HealthRollup\": \"Warning\"\n    }\n  },\n  \"Manufacturer\": \"string\",\n  \"Model\": \"string\",\n  \"SerialNumber\": \"string\",\n  \"AssetTag\": \"string\",\n  \"BIOSVersion\": \"string\",\n  \"Boot\": {\n    \"BootSourceOverrideEnabled\": \"Once\",\n    \"BootSourceOverrideTarget\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db076102-c96f-4691-939f-5ac020760c34",
+          "name": "Update Computer System",
+          "request": {
+            "name": "Update Computer System",
+            "description": {
+              "content": "Updates properties of a specific computer system such as boot order or asset tag.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Systems",
+                ":systemId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "systemId",
+                  "description": "(Required) Unique identifier for the computer system"
+                },
+                {
+                  "description": "IP address or hostname of the BMC",
+                  "type": "any",
+                  "value": "{{bmc-ip}}",
+                  "key": "bmc-ip"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"AssetTag\": \"<string>\",\n  \"Boot\": {\n    \"BootSourceOverrideEnabled\": \"<string>\",\n    \"BootSourceOverrideTarget\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e6efa458-e93c-40b1-9ddf-0cc5325aef2e",
+              "name": "Updated computer system resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Systems",
+                    ":systemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "systemId",
+                      "description": "(Required) Unique identifier for the computer system"
+                    },
+                    {
+                      "description": "IP address or hostname of the BMC",
+                      "type": "any",
+                      "value": "{{bmc-ip}}",
+                      "key": "bmc-ip"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"AssetTag\": \"<string>\",\n  \"Boot\": {\n    \"BootSourceOverrideEnabled\": \"<string>\",\n    \"BootSourceOverrideTarget\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@odata.type\": \"string\",\n  \"Id\": \"string\",\n  \"Name\": \"string\",\n  \"Status\": {\n    \"State\": \"Updating\",\n    \"Health\": \"Warning\",\n    \"HealthRollup\": \"Warning\"\n  },\n  \"PowerState\": \"false\",\n  \"ProcessorSummary\": {\n    \"Count\": 1222,\n    \"Model\": \"string\",\n    \"Status\": {\n      \"State\": \"Absent\",\n      \"Health\": \"Critical\",\n      \"HealthRollup\": \"OK\"\n    }\n  },\n  \"MemorySummary\": {\n    \"TotalSystemMemoryGiB\": 4055.5237560603896,\n    \"Status\": {\n      \"State\": \"Starting\",\n      \"Health\": \"Warning\",\n      \"HealthRollup\": \"Warning\"\n    }\n  },\n  \"Manufacturer\": \"string\",\n  \"Model\": \"string\",\n  \"SerialNumber\": \"string\",\n  \"AssetTag\": \"string\",\n  \"BIOSVersion\": \"string\",\n  \"Boot\": {\n    \"BootSourceOverrideEnabled\": \"Once\",\n    \"BootSourceOverrideTarget\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a0a028cd-0748-4a0d-bfbe-58321872f99f",
+          "name": "Reset Computer System",
+          "request": {
+            "name": "Reset Computer System",
+            "description": {
+              "content": "Performs a reset action on the computer system (power on, off, restart, etc.).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Systems",
+                ":systemId",
+                "Actions",
+                "ComputerSystem.Reset"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "systemId",
+                  "description": "(Required) Unique identifier for the computer system"
+                },
+                {
+                  "description": "IP address or hostname of the BMC",
+                  "type": "any",
+                  "value": "{{bmc-ip}}",
+                  "key": "bmc-ip"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ResetType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b3b17abf-a5a4-42c7-a0bc-9f0b56b8abc6",
+              "name": "Reset action accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Systems",
+                    ":systemId",
+                    "Actions",
+                    "ComputerSystem.Reset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "systemId",
+                      "description": "(Required) Unique identifier for the computer system"
+                    },
+                    {
+                      "description": "IP address or hostname of the BMC",
+                      "type": "any",
+                      "value": "{{bmc-ip}}",
+                      "key": "bmc-ip"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ResetType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93f7afd7-ae3c-41dc-8b0f-c25e7876ab72",
+              "name": "Reset action accepted, no content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Systems",
+                    ":systemId",
+                    "Actions",
+                    "ComputerSystem.Reset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "systemId",
+                      "description": "(Required) Unique identifier for the computer system"
+                    },
+                    {
+                      "description": "IP address or hostname of the BMC",
+                      "type": "any",
+                      "value": "{{bmc-ip}}",
+                      "key": "bmc-ip"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ResetType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f9381f29-5e96-4bda-b447-4f1f56697c4d",
+          "name": "List Processors",
+          "request": {
+            "name": "List Processors",
+            "description": {
+              "content": "Returns the collection of processors in the computer system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Systems",
+                ":systemId",
+                "Processors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "systemId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "IP address or hostname of the BMC",
+                  "type": "any",
+                  "value": "{{bmc-ip}}",
+                  "key": "bmc-ip"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "56bdf33d-4e61-48fa-99e4-1d53724f0ba6",
+              "name": "Collection of processors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Systems",
+                    ":systemId",
+                    "Processors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "systemId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "IP address or hostname of the BMC",
+                      "type": "any",
+                      "value": "{{bmc-ip}}",
+                      "key": "bmc-ip"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@odata.type\": \"string\",\n  \"Name\": \"string\",\n  \"Members@odata.count\": 8719,\n  \"Members\": [\n    {\n      \"@odata.id\": \"string\"\n    },\n    {\n      \"@odata.id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "292e2f96-67d2-4964-9c1a-e55931c038c4",
+          "name": "List Memory Modules",
+          "request": {
+            "name": "List Memory Modules",
+            "description": {
+              "content": "Returns the collection of memory modules in the computer system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Systems",
+                ":systemId",
+                "Memory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "systemId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "IP address or hostname of the BMC",
+                  "type": "any",
+                  "value": "{{bmc-ip}}",
+                  "key": "bmc-ip"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e07df7a1-562a-43a0-88b7-637af77ecee5",
+              "name": "Collection of memory modules",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Systems",
+                    ":systemId",
+                    "Memory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "systemId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "IP address or hostname of the BMC",
+                      "type": "any",
+                      "value": "{{bmc-ip}}",
+                      "key": "bmc-ip"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@odata.type\": \"string\",\n  \"Name\": \"string\",\n  \"Members@odata.count\": 8719,\n  \"Members\": [\n    {\n      \"@odata.id\": \"string\"\n    },\n    {\n      \"@odata.id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "IP address or hostname of the BMC",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "192.168.1.100",
+      "key": "bmc-ip"
+    },
+    {
+      "type": "string",
+      "value": "https://{{bmc-ip}}/redfish/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fe6b645a-8a7b-4551-8684-405a7a6ed84d",
+    "name": "Supermicro Redfish Accounts Systems API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).\n\nContact Support:\n Name: Supermicro Support\n Email: support@supermicro.com",
+      "type": "text/plain"
+    }
+  }
+}

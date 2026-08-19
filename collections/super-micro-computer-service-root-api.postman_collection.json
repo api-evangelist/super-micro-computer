@@ -1,0 +1,146 @@
+{
+  "item": [
+    {
+      "id": "abf32113-05a4-4ab8-a677-a4136c74d0dc",
+      "name": "Service Root",
+      "description": {
+        "content": "Root service discovery and metadata",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e912989e-9b3b-4bf1-9356-a5c013d7ead1",
+          "name": "Get Service Root",
+          "request": {
+            "name": "Get Service Root",
+            "description": {
+              "content": "Returns the service root resource containing links to all top-level collections.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "IP address or hostname of the BMC",
+                  "type": "any",
+                  "value": "{{bmc-ip}}",
+                  "key": "bmc-ip"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0aa47c5d-26b1-4092-a415-3332fb441c4b",
+              "name": "Service root resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the BMC",
+                      "type": "any",
+                      "value": "{{bmc-ip}}",
+                      "key": "bmc-ip"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@odata.type\": \"#ServiceRoot.v1_5_0.ServiceRoot\",\n  \"Id\": \"RootService\",\n  \"Name\": \"Root Service\",\n  \"RedfishVersion\": \"1.9.0\",\n  \"Systems\": {\n    \"@odata.id\": \"string\"\n  },\n  \"Chassis\": {\n    \"@odata.id\": \"string\"\n  },\n  \"Managers\": {\n    \"@odata.id\": \"string\"\n  },\n  \"SessionService\": {\n    \"@odata.id\": \"string\"\n  },\n  \"AccountService\": {\n    \"@odata.id\": \"string\"\n  },\n  \"EventService\": {\n    \"@odata.id\": \"string\"\n  },\n  \"UpdateService\": {\n    \"@odata.id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "IP address or hostname of the BMC",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "192.168.1.100",
+      "key": "bmc-ip"
+    },
+    {
+      "type": "string",
+      "value": "https://{{bmc-ip}}/redfish/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "720677b2-92f1-4000-af5c-549b2c268448",
+    "name": "Supermicro Redfish Accounts Service Root API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).\n\nContact Support:\n Name: Supermicro Support\n Email: support@supermicro.com",
+      "type": "text/plain"
+    }
+  }
+}

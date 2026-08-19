@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supermicro Redfish Accounts Event Service API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Event Service",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Event Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/EventService"
+          },
+          "docs": "Returns the event service resource with subscription management capabilities."
+        },
+        {
+          "info": {
+            "name": "List Event Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/EventService/Subscriptions"
+          },
+          "docs": "Returns all event subscriptions configured for this BMC."
+        },
+        {
+          "info": {
+            "name": "Create Event Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{bmc-ip}/redfish/v1/EventService/Subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new event subscription to receive server event notifications via webhook."
+        },
+        {
+          "info": {
+            "name": "Get Event Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/EventService/Subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns details about a specific event subscription."
+        },
+        {
+          "info": {
+            "name": "Delete Event Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{bmc-ip}/redfish/v1/EventService/Subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes an event subscription."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

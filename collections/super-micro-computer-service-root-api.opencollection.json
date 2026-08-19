@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supermicro Redfish Accounts Service Root API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Service Root",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Service Root",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/"
+          },
+          "docs": "Returns the service root resource containing links to all top-level collections."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

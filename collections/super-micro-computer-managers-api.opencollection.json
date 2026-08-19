@@ -1,0 +1,99 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supermicro Redfish Accounts Managers API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Managers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Managers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Managers"
+          },
+          "docs": "Returns the collection of management controllers (BMCs) available."
+        },
+        {
+          "info": {
+            "name": "Get Manager",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Managers/:managerId",
+            "params": [
+              {
+                "name": "managerId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the manager"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific BMC manager including firmware version and network settings."
+        },
+        {
+          "info": {
+            "name": "Update Manager",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{bmc-ip}/redfish/v1/Managers/:managerId",
+            "params": [
+              {
+                "name": "managerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates properties of the BMC manager such as network configuration or time settings."
+        },
+        {
+          "info": {
+            "name": "Reset Manager",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{bmc-ip}/redfish/v1/Managers/:managerId/Actions/Manager.Reset",
+            "params": [
+              {
+                "name": "managerId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resets the BMC manager (restarts the BMC)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

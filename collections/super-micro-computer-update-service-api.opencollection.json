@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supermicro Redfish Accounts Update Service API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Update Service",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Update Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/UpdateService"
+          },
+          "docs": "Returns the firmware update service resource."
+        },
+        {
+          "info": {
+            "name": "List Firmware Inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/UpdateService/FirmwareInventory"
+          },
+          "docs": "Returns the current firmware inventory for all managed components."
+        },
+        {
+          "info": {
+            "name": "Perform Simple Firmware Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{bmc-ip}/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a firmware update for a target component using a specified firmware image URI."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

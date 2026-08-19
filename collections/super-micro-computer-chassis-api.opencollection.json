@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supermicro Redfish Accounts Chassis API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chassis",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Chassis",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Chassis"
+          },
+          "docs": "Returns the collection of chassis managed by this BMC."
+        },
+        {
+          "info": {
+            "name": "Get Chassis",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Chassis/:chassisId",
+            "params": [
+              {
+                "name": "chassisId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the chassis"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific chassis including power and thermal data."
+        },
+        {
+          "info": {
+            "name": "Get Chassis Power",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Chassis/:chassisId/Power",
+            "params": [
+              {
+                "name": "chassisId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns power supply status, power consumption readings, and power control settings."
+        },
+        {
+          "info": {
+            "name": "Get Chassis Thermal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Chassis/:chassisId/Thermal",
+            "params": [
+              {
+                "name": "chassisId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns temperature sensor readings and fan speed data for the chassis."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

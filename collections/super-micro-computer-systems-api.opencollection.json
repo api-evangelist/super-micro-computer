@@ -1,0 +1,137 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supermicro Redfish Accounts Systems API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Systems",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Computer Systems",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Systems"
+          },
+          "docs": "Returns the collection of computer systems managed by this BMC."
+        },
+        {
+          "info": {
+            "name": "Get Computer System",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Systems/:systemId",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the computer system"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific computer system including CPU, memory, and health status."
+        },
+        {
+          "info": {
+            "name": "Update Computer System",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{bmc-ip}/redfish/v1/Systems/:systemId",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the computer system"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates properties of a specific computer system such as boot order or asset tag."
+        },
+        {
+          "info": {
+            "name": "Reset Computer System",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{bmc-ip}/redfish/v1/Systems/:systemId/Actions/ComputerSystem.Reset",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the computer system"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Performs a reset action on the computer system (power on, off, restart, etc.)."
+        },
+        {
+          "info": {
+            "name": "List Processors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Systems/:systemId/Processors",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the collection of processors in the computer system."
+        },
+        {
+          "info": {
+            "name": "List Memory Modules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Systems/:systemId/Memory",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the collection of memory modules in the computer system."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

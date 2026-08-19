@@ -1,0 +1,474 @@
+{
+  "item": [
+    {
+      "id": "f848f15b-04ca-48f8-817a-f2a7208f44d2",
+      "name": "Chassis",
+      "description": {
+        "content": "Chassis management including power and thermal",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d5af4209-7d03-4c72-a359-8b81785f648e",
+          "name": "List Chassis",
+          "request": {
+            "name": "List Chassis",
+            "description": {
+              "content": "Returns the collection of chassis managed by this BMC.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Chassis"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "IP address or hostname of the BMC",
+                  "type": "any",
+                  "value": "{{bmc-ip}}",
+                  "key": "bmc-ip"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e867827b-fdcb-4527-8f3c-e4519c36e6fc",
+              "name": "Collection of chassis",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Chassis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "IP address or hostname of the BMC",
+                      "type": "any",
+                      "value": "{{bmc-ip}}",
+                      "key": "bmc-ip"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@odata.type\": \"string\",\n  \"Name\": \"string\",\n  \"Members@odata.count\": 3938,\n  \"Members\": [\n    {\n      \"@odata.id\": \"string\"\n    },\n    {\n      \"@odata.id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "21044233-0193-417d-97e4-b905fcf15b31",
+          "name": "Get Chassis",
+          "request": {
+            "name": "Get Chassis",
+            "description": {
+              "content": "Returns detailed information about a specific chassis including power and thermal data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Chassis",
+                ":chassisId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chassisId",
+                  "description": "(Required) Unique identifier for the chassis"
+                },
+                {
+                  "description": "IP address or hostname of the BMC",
+                  "type": "any",
+                  "value": "{{bmc-ip}}",
+                  "key": "bmc-ip"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d7e835cb-f23e-468d-ab49-921fa3b7e576",
+              "name": "Chassis resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Chassis",
+                    ":chassisId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chassisId",
+                      "description": "(Required) Unique identifier for the chassis"
+                    },
+                    {
+                      "description": "IP address or hostname of the BMC",
+                      "type": "any",
+                      "value": "{{bmc-ip}}",
+                      "key": "bmc-ip"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@odata.type\": \"string\",\n  \"Id\": \"string\",\n  \"Name\": \"string\",\n  \"ChassisType\": \"Tower\",\n  \"Status\": {\n    \"State\": \"Absent\",\n    \"Health\": \"Critical\",\n    \"HealthRollup\": \"OK\"\n  },\n  \"Manufacturer\": \"string\",\n  \"Model\": \"string\",\n  \"SerialNumber\": \"string\",\n  \"Power\": {\n    \"@odata.id\": \"string\"\n  },\n  \"Thermal\": {\n    \"@odata.id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e89a2513-5085-4a13-becf-456eb7689699",
+          "name": "Get Chassis Power",
+          "request": {
+            "name": "Get Chassis Power",
+            "description": {
+              "content": "Returns power supply status, power consumption readings, and power control settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Chassis",
+                ":chassisId",
+                "Power"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chassisId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "IP address or hostname of the BMC",
+                  "type": "any",
+                  "value": "{{bmc-ip}}",
+                  "key": "bmc-ip"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3d37cbb3-8f09-405f-8f94-a3517b635302",
+              "name": "Power resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Chassis",
+                    ":chassisId",
+                    "Power"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chassisId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "IP address or hostname of the BMC",
+                      "type": "any",
+                      "value": "{{bmc-ip}}",
+                      "key": "bmc-ip"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@odata.type\": \"string\",\n  \"PowerControl\": [\n    {\n      \"Name\": \"string\",\n      \"PowerConsumedWatts\": 9320.802787612587,\n      \"PowerCapacityWatts\": 8326.136606832411\n    },\n    {\n      \"Name\": \"string\",\n      \"PowerConsumedWatts\": 9187.262603529029,\n      \"PowerCapacityWatts\": 2505.866221191846\n    }\n  ],\n  \"PowerSupplies\": [\n    {\n      \"Name\": \"string\",\n      \"Status\": {\n        \"State\": \"StandbySpare\",\n        \"Health\": \"OK\",\n        \"HealthRollup\": \"Critical\"\n      },\n      \"PowerInputWatts\": 6436.013476293292,\n      \"PowerOutputWatts\": 4884.192828276597,\n      \"FirmwareVersion\": \"string\"\n    },\n    {\n      \"Name\": \"string\",\n      \"Status\": {\n        \"State\": \"Starting\",\n        \"Health\": \"Critical\",\n        \"HealthRollup\": \"Critical\"\n      },\n      \"PowerInputWatts\": 8009.329368883696,\n      \"PowerOutputWatts\": 6808.266802879438,\n      \"FirmwareVersion\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f8ed15f-260c-41a0-8d4b-b01aa1421e08",
+          "name": "Get Chassis Thermal",
+          "request": {
+            "name": "Get Chassis Thermal",
+            "description": {
+              "content": "Returns temperature sensor readings and fan speed data for the chassis.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Chassis",
+                ":chassisId",
+                "Thermal"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chassisId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "IP address or hostname of the BMC",
+                  "type": "any",
+                  "value": "{{bmc-ip}}",
+                  "key": "bmc-ip"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9e31e165-391b-47ae-8ffd-a06d12e269dc",
+              "name": "Thermal resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Chassis",
+                    ":chassisId",
+                    "Thermal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chassisId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "IP address or hostname of the BMC",
+                      "type": "any",
+                      "value": "{{bmc-ip}}",
+                      "key": "bmc-ip"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@odata.type\": \"string\",\n  \"Temperatures\": [\n    {\n      \"Name\": \"string\",\n      \"ReadingCelsius\": 9347.86401502413,\n      \"Status\": {\n        \"State\": \"StandbyOffline\",\n        \"Health\": \"Critical\",\n        \"HealthRollup\": \"Critical\"\n      },\n      \"UpperThresholdCritical\": 5066.35507082977\n    },\n    {\n      \"Name\": \"string\",\n      \"ReadingCelsius\": 1332.1581879111177,\n      \"Status\": {\n        \"State\": \"UnavailableOffline\",\n        \"Health\": \"OK\",\n        \"HealthRollup\": \"Critical\"\n      },\n      \"UpperThresholdCritical\": 9143.247592849475\n    }\n  ],\n  \"Fans\": [\n    {\n      \"Name\": \"string\",\n      \"Reading\": 4412,\n      \"ReadingUnits\": \"RPM\",\n      \"Status\": {\n        \"State\": \"Deferring\",\n        \"Health\": \"Critical\",\n        \"HealthRollup\": \"Critical\"\n      }\n    },\n    {\n      \"Name\": \"string\",\n      \"Reading\": 400,\n      \"ReadingUnits\": \"RPM\",\n      \"Status\": {\n        \"State\": \"Deferring\",\n        \"Health\": \"Warning\",\n        \"HealthRollup\": \"Warning\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "IP address or hostname of the BMC",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "192.168.1.100",
+      "key": "bmc-ip"
+    },
+    {
+      "type": "string",
+      "value": "https://{{bmc-ip}}/redfish/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c4b5b3b2-dc3e-4ef2-9ba0-a46dbec56475",
+    "name": "Supermicro Redfish Accounts Chassis API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).\n\nContact Support:\n Name: Supermicro Support\n Email: support@supermicro.com",
+      "type": "text/plain"
+    }
+  }
+}

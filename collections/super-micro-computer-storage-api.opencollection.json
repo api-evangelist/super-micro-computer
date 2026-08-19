@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supermicro Redfish Accounts Storage API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Storage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Storage Controllers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Systems/:systemId/Storage",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the collection of storage controllers in the computer system."
+        },
+        {
+          "info": {
+            "name": "Get Storage Controller",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{bmc-ip}/redfish/v1/Systems/:systemId/Storage/:storageId",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "storageId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific storage controller."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
