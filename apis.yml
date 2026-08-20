@@ -25,6 +25,17 @@ modified: '2026-05-19'
 specificationVersion: '0.23'
 tags:
   - Servers
+  - Data-Center
+  - Hardware
+  - Server Management
+  - Redfish
+  - BMC
+  - IPMI
+  - Fortune 500
+  - Infrastructure
+  - Cloud
+tags_raw:
+  - Servers
   - Data Center
   - Hardware
   - Server Management
@@ -41,6 +52,8 @@ apis:
   humanURL: https://www.supermicro.com/en/solutions/management-software/redfish
   baseURL: https://{bmc-ip}/redfish/v1
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -105,6 +118,8 @@ apis:
   humanURL: https://www.supermicro.com/en/solutions/management-software/redfish
   baseURL: https://{bmc-ip}/redfish/v1
   tags:
+  - EventService
+  tags_raw:
   - Event Service
   properties:
   - type: OpenAPI
