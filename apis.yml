@@ -385,6 +385,9 @@ apis:
   - type: GitHubRepository
     url: https://github.com/supermicro/redfish
 common:
+  - type: CapabilityMap
+    url: capabilities/super-micro-computer-capability-edges.yml
+    name: Super Micro Computer Business Capability Map
   - type: IssueTracker
     url: https://github.com/supermicro/redfish/issues
   - type: License
