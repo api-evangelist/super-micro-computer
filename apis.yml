@@ -132,7 +132,7 @@ apis:
   humanURL: https://www.supermicro.com/en/solutions/management-software/redfish
   baseURL: https://{bmc-ip}/redfish/v1
   tags:
-  - Event Service
+  - EventService
   tags_raw:
   - Event Service
   properties:
