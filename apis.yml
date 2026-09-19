@@ -199,6 +199,8 @@ apis:
   humanURL: https://www.supermicro.com/en/solutions/management-software/redfish
   baseURL: https://{bmc-ip}/redfish/v1
   tags:
+  - Networks
+  tags_raw:
   - Network
   properties:
   - type: OpenAPI
