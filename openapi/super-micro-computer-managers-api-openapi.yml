@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Supermicro Redfish Accounts Managers API
+  title: Supermicro Redfish Managers API
   description: Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).
   version: '1.0'
   contact:
@@ -112,6 +112,32 @@ paths:
                 $ref: '#/components/schemas/ActionResponse'
 components:
   schemas:
+    ManagerResetAction:
+      type: object
+      description: Manager reset action parameters
+      required:
+      - ResetType
+      properties:
+        ResetType:
+          type: string
+          enum:
+          - GracefulRestart
+          - ForceRestart
+          description: The type of manager reset
+    Collection:
+      type: object
+      description: A collection of resources with navigation links
+      properties:
+        '@odata.type':
+          type: string
+        Name:
+          type: string
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
     ActionResponse:
       type: object
       properties:
@@ -122,12 +148,6 @@ components:
               type: string
             message:
               type: string
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
     Manager:
       type: object
       description: A BMC management controller
@@ -155,18 +175,12 @@ components:
         DateTime:
           type: string
           format: date-time
-    ManagerResetAction:
+    ODataId:
       type: object
-      description: Manager reset action parameters
-      required:
-      - ResetType
       properties:
-        ResetType:
+        '@odata.id':
           type: string
-          enum:
-          - GracefulRestart
-          - ForceRestart
-          description: The type of manager reset
+          description: OData link to the resource
     Status:
       type: object
       description: Health and operational status
@@ -197,20 +211,6 @@ components:
           - OK
           - Warning
           - Critical
-    Collection:
-      type: object
-      description: A collection of resources with navigation links
-      properties:
-        '@odata.type':
-          type: string
-        Name:
-          type: string
-        Members@odata.count:
-          type: integer
-        Members:
-          type: array
-          items:
-            $ref: '#/components/schemas/ODataId'
   securitySchemes:
     BasicAuth:
       type: http

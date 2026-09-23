@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Supermicro Redfish Accounts Systems API
+  title: Supermicro Redfish Systems API
   description: Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).
   version: '1.0'
   contact:
@@ -157,52 +157,6 @@ paths:
                 $ref: '#/components/schemas/Collection'
 components:
   schemas:
-    ActionResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
-    Status:
-      type: object
-      description: Health and operational status
-      properties:
-        State:
-          type: string
-          enum:
-          - Enabled
-          - Disabled
-          - StandbyOffline
-          - StandbySpare
-          - InTest
-          - Starting
-          - Absent
-          - UnavailableOffline
-          - Deferring
-          - Quiescing
-          - Updating
-        Health:
-          type: string
-          enum:
-          - OK
-          - Warning
-          - Critical
-        HealthRollup:
-          type: string
-          enum:
-          - OK
-          - Warning
-          - Critical
     Collection:
       type: object
       description: A collection of resources with navigation links
@@ -217,6 +171,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ODataId'
+    ResetAction:
+      type: object
+      description: Reset action parameters
+      required:
+      - ResetType
+      properties:
+        ResetType:
+          type: string
+          enum:
+          - true
+          - ForceOff
+          - GracefulShutdown
+          - GracefulRestart
+          - ForceRestart
+          - Nmi
+          - ForceOn
+          - PushPowerButton
+          description: The type of reset to perform
     ComputerSystem:
       type: object
       description: A computer system managed by this BMC
@@ -273,6 +245,22 @@ components:
               - Continuous
             BootSourceOverrideTarget:
               type: string
+    ActionResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
     ComputerSystemPatch:
       type: object
       description: Updatable properties of a computer system
@@ -299,24 +287,36 @@ components:
               - Usb
               - Hdd
               - BiosSetup
-    ResetAction:
+    Status:
       type: object
-      description: Reset action parameters
-      required:
-      - ResetType
+      description: Health and operational status
       properties:
-        ResetType:
+        State:
           type: string
           enum:
-          - true
-          - ForceOff
-          - GracefulShutdown
-          - GracefulRestart
-          - ForceRestart
-          - Nmi
-          - ForceOn
-          - PushPowerButton
-          description: The type of reset to perform
+          - Enabled
+          - Disabled
+          - StandbyOffline
+          - StandbySpare
+          - InTest
+          - Starting
+          - Absent
+          - UnavailableOffline
+          - Deferring
+          - Quiescing
+          - Updating
+        Health:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+        HealthRollup:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
   securitySchemes:
     BasicAuth:
       type: http

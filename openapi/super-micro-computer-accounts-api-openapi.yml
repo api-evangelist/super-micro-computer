@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Supermicro Redfish Accounts API
   description: Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).
@@ -119,47 +119,6 @@ paths:
           description: Account deleted
 components:
   schemas:
-    AccountCreate:
-      type: object
-      required:
-      - UserName
-      - Password
-      - RoleId
-      properties:
-        UserName:
-          type: string
-        Password:
-          type: string
-          format: password
-        RoleId:
-          type: string
-          enum:
-          - Administrator
-          - Operator
-          - ReadOnly
-        Enabled:
-          type: boolean
-          default: true
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
-    AccountPatch:
-      type: object
-      properties:
-        Password:
-          type: string
-          format: password
-        RoleId:
-          type: string
-          enum:
-          - Administrator
-          - Operator
-          - ReadOnly
-        Enabled:
-          type: boolean
     Collection:
       type: object
       description: A collection of resources with navigation links
@@ -194,6 +153,47 @@ components:
           - ReadOnly
         Enabled:
           type: boolean
+    AccountPatch:
+      type: object
+      properties:
+        Password:
+          type: string
+          format: password
+        RoleId:
+          type: string
+          enum:
+          - Administrator
+          - Operator
+          - ReadOnly
+        Enabled:
+          type: boolean
+    AccountCreate:
+      type: object
+      required:
+      - UserName
+      - Password
+      - RoleId
+      properties:
+        UserName:
+          type: string
+        Password:
+          type: string
+          format: password
+        RoleId:
+          type: string
+          enum:
+          - Administrator
+          - Operator
+          - ReadOnly
+        Enabled:
+          type: boolean
+          default: true
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
   securitySchemes:
     BasicAuth:
       type: http

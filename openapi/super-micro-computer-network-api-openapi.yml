@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Supermicro Redfish Accounts Network API
+  title: Supermicro Redfish Network API
   description: Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).
   version: '1.0'
   contact:
@@ -46,6 +46,12 @@ paths:
                 $ref: '#/components/schemas/Collection'
 components:
   schemas:
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
     Collection:
       type: object
       description: A collection of resources with navigation links
@@ -60,12 +66,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ODataId'
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
   securitySchemes:
     BasicAuth:
       type: http

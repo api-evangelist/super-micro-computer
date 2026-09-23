@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Supermicro Redfish Accounts Service Root API
+  title: Supermicro Redfish Service Root API
   description: Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).
   version: '1.0'
   contact:
@@ -40,6 +40,12 @@ paths:
                 $ref: '#/components/schemas/ServiceRoot'
 components:
   schemas:
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
     ServiceRoot:
       type: object
       description: The root service resource exposing links to all top-level collections
@@ -70,12 +76,6 @@ components:
           $ref: '#/components/schemas/ODataId'
         UpdateService:
           $ref: '#/components/schemas/ODataId'
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
   securitySchemes:
     BasicAuth:
       type: http

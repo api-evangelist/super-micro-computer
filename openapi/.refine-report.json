@@ -1,16 +1,7 @@
 {
   "provider": "super-micro-computer",
   "sources": [
-    "super-micro-computer-accounts-api-openapi.yml",
-    "super-micro-computer-chassis-api-openapi.yml",
-    "super-micro-computer-event-service-api-openapi.yml",
-    "super-micro-computer-managers-api-openapi.yml",
-    "super-micro-computer-network-api-openapi.yml",
-    "super-micro-computer-service-root-api-openapi.yml",
-    "super-micro-computer-sessions-api-openapi.yml",
-    "super-micro-computer-storage-api-openapi.yml",
-    "super-micro-computer-systems-api-openapi.yml",
-    "super-micro-computer-update-service-api-openapi.yml"
+    "_original/supermicro-redfish-openapi.yml"
   ],
   "outputs": [
     "super-micro-computer-accounts-api-openapi.yml",
@@ -27,6 +18,21 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "supermicro-redfish-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "super-micro-computer-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "super-micro-computer-chassis-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "super-micro-computer-event-service-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "super-micro-computer-managers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "super-micro-computer-network-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "super-micro-computer-service-root-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "super-micro-computer-sessions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "super-micro-computer-storage-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "super-micro-computer-systems-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "super-micro-computer-update-service-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

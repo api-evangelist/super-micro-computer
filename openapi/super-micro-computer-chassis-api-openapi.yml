@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Supermicro Redfish Accounts Chassis API
+  title: Supermicro Redfish Chassis API
   description: Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).
   version: '1.0'
   contact:
@@ -101,103 +101,20 @@ paths:
                 $ref: '#/components/schemas/Thermal'
 components:
   schemas:
-    Power:
+    Collection:
       type: object
-      description: Power supply and consumption data for a chassis
+      description: A collection of resources with navigation links
       properties:
         '@odata.type':
-          type: string
-        PowerControl:
-          type: array
-          items:
-            type: object
-            properties:
-              Name:
-                type: string
-              PowerConsumedWatts:
-                type: number
-              PowerCapacityWatts:
-                type: number
-        PowerSupplies:
-          type: array
-          items:
-            type: object
-            properties:
-              Name:
-                type: string
-              Status:
-                $ref: '#/components/schemas/Status'
-              PowerInputWatts:
-                type: number
-              PowerOutputWatts:
-                type: number
-              FirmwareVersion:
-                type: string
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
-    Chassis:
-      type: object
-      description: A physical chassis container
-      properties:
-        '@odata.type':
-          type: string
-        Id:
           type: string
         Name:
           type: string
-        ChassisType:
-          type: string
-          enum:
-          - RackMount
-          - Tower
-          - Blade
-          - Sidecar
-        Status:
-          $ref: '#/components/schemas/Status'
-        Manufacturer:
-          type: string
-        Model:
-          type: string
-        SerialNumber:
-          type: string
-        Power:
-          $ref: '#/components/schemas/ODataId'
-        Thermal:
-          $ref: '#/components/schemas/ODataId'
-    Status:
-      type: object
-      description: Health and operational status
-      properties:
-        State:
-          type: string
-          enum:
-          - Enabled
-          - Disabled
-          - StandbyOffline
-          - StandbySpare
-          - InTest
-          - Starting
-          - Absent
-          - UnavailableOffline
-          - Deferring
-          - Quiescing
-          - Updating
-        Health:
-          type: string
-          enum:
-          - OK
-          - Warning
-          - Critical
-        HealthRollup:
-          type: string
-          enum:
-          - OK
-          - Warning
-          - Critical
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
     Thermal:
       type: object
       description: Temperature and fan data for a chassis
@@ -233,20 +150,103 @@ components:
                 - Percent
               Status:
                 $ref: '#/components/schemas/Status'
-    Collection:
+    Chassis:
       type: object
-      description: A collection of resources with navigation links
+      description: A physical chassis container
       properties:
         '@odata.type':
           type: string
+        Id:
+          type: string
         Name:
           type: string
-        Members@odata.count:
-          type: integer
-        Members:
+        ChassisType:
+          type: string
+          enum:
+          - RackMount
+          - Tower
+          - Blade
+          - Sidecar
+        Status:
+          $ref: '#/components/schemas/Status'
+        Manufacturer:
+          type: string
+        Model:
+          type: string
+        SerialNumber:
+          type: string
+        Power:
+          $ref: '#/components/schemas/ODataId'
+        Thermal:
+          $ref: '#/components/schemas/ODataId'
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
+    Power:
+      type: object
+      description: Power supply and consumption data for a chassis
+      properties:
+        '@odata.type':
+          type: string
+        PowerControl:
           type: array
           items:
-            $ref: '#/components/schemas/ODataId'
+            type: object
+            properties:
+              Name:
+                type: string
+              PowerConsumedWatts:
+                type: number
+              PowerCapacityWatts:
+                type: number
+        PowerSupplies:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+              Status:
+                $ref: '#/components/schemas/Status'
+              PowerInputWatts:
+                type: number
+              PowerOutputWatts:
+                type: number
+              FirmwareVersion:
+                type: string
+    Status:
+      type: object
+      description: Health and operational status
+      properties:
+        State:
+          type: string
+          enum:
+          - Enabled
+          - Disabled
+          - StandbyOffline
+          - StandbySpare
+          - InTest
+          - Starting
+          - Absent
+          - UnavailableOffline
+          - Deferring
+          - Quiescing
+          - Updating
+        Health:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+        HealthRollup:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
   securitySchemes:
     BasicAuth:
       type: http

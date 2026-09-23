@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Supermicro Redfish Accounts Event Service API
+  title: Supermicro Redfish Event Service API
   description: Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).
   version: '1.0'
   contact:
@@ -108,93 +108,6 @@ paths:
           description: Subscription deleted
 components:
   schemas:
-    EventSubscription:
-      type: object
-      description: An event subscription definition
-      properties:
-        '@odata.type':
-          type: string
-        Id:
-          type: string
-        Name:
-          type: string
-        Destination:
-          type: string
-          format: uri
-          description: Webhook URL to receive event notifications
-        EventTypes:
-          type: array
-          items:
-            type: string
-        Protocol:
-          type: string
-          enum:
-          - Redfish
-        Context:
-          type: string
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
-    EventSubscriptionCreate:
-      type: object
-      required:
-      - Destination
-      - Protocol
-      properties:
-        Destination:
-          type: string
-          format: uri
-          description: Webhook URL to receive event notifications
-        EventTypes:
-          type: array
-          items:
-            type: string
-            enum:
-            - StatusChange
-            - ResourceUpdated
-            - ResourceAdded
-            - ResourceRemoved
-            - Alert
-        Protocol:
-          type: string
-          enum:
-          - Redfish
-        Context:
-          type: string
-          description: Optional context string returned with each event
-    Status:
-      type: object
-      description: Health and operational status
-      properties:
-        State:
-          type: string
-          enum:
-          - Enabled
-          - Disabled
-          - StandbyOffline
-          - StandbySpare
-          - InTest
-          - Starting
-          - Absent
-          - UnavailableOffline
-          - Deferring
-          - Quiescing
-          - Updating
-        Health:
-          type: string
-          enum:
-          - OK
-          - Warning
-          - Critical
-        HealthRollup:
-          type: string
-          enum:
-          - OK
-          - Warning
-          - Critical
     Collection:
       type: object
       description: A collection of resources with navigation links
@@ -233,6 +146,93 @@ components:
             - ResourceAdded
             - ResourceRemoved
             - Alert
+    EventSubscription:
+      type: object
+      description: An event subscription definition
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        Destination:
+          type: string
+          format: uri
+          description: Webhook URL to receive event notifications
+        EventTypes:
+          type: array
+          items:
+            type: string
+        Protocol:
+          type: string
+          enum:
+          - Redfish
+        Context:
+          type: string
+    EventSubscriptionCreate:
+      type: object
+      required:
+      - Destination
+      - Protocol
+      properties:
+        Destination:
+          type: string
+          format: uri
+          description: Webhook URL to receive event notifications
+        EventTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - StatusChange
+            - ResourceUpdated
+            - ResourceAdded
+            - ResourceRemoved
+            - Alert
+        Protocol:
+          type: string
+          enum:
+          - Redfish
+        Context:
+          type: string
+          description: Optional context string returned with each event
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
+    Status:
+      type: object
+      description: Health and operational status
+      properties:
+        State:
+          type: string
+          enum:
+          - Enabled
+          - Disabled
+          - StandbyOffline
+          - StandbySpare
+          - InTest
+          - Starting
+          - Absent
+          - UnavailableOffline
+          - Deferring
+          - Quiescing
+          - Updating
+        Health:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+        HealthRollup:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
   securitySchemes:
     BasicAuth:
       type: http

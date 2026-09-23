@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Supermicro Redfish Accounts Sessions API
+  title: Supermicro Redfish Sessions API
   description: Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).
   version: '1.0'
   contact:
@@ -99,20 +99,12 @@ paths:
           description: Session deleted
 components:
   schemas:
-    Collection:
+    ODataId:
       type: object
-      description: A collection of resources with navigation links
       properties:
-        '@odata.type':
+        '@odata.id':
           type: string
-        Name:
-          type: string
-        Members@odata.count:
-          type: integer
-        Members:
-          type: array
-          items:
-            $ref: '#/components/schemas/ODataId'
+          description: OData link to the resource
     Session:
       type: object
       description: An active Redfish session
@@ -128,12 +120,20 @@ components:
         CreatedTime:
           type: string
           format: date-time
-    ODataId:
+    Collection:
       type: object
+      description: A collection of resources with navigation links
       properties:
-        '@odata.id':
+        '@odata.type':
           type: string
-          description: OData link to the resource
+        Name:
+          type: string
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
     SessionCreate:
       type: object
       required:
