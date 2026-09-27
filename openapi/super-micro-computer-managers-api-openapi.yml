@@ -112,42 +112,12 @@ paths:
                 $ref: '#/components/schemas/ActionResponse'
 components:
   schemas:
-    ManagerResetAction:
-      type: object
-      description: Manager reset action parameters
-      required:
-      - ResetType
-      properties:
-        ResetType:
-          type: string
-          enum:
-          - GracefulRestart
-          - ForceRestart
-          description: The type of manager reset
-    Collection:
-      type: object
-      description: A collection of resources with navigation links
-      properties:
-        '@odata.type':
-          type: string
-        Name:
-          type: string
-        Members@odata.count:
-          type: integer
-        Members:
-          type: array
-          items:
-            $ref: '#/components/schemas/ODataId'
-    ActionResponse:
+    ODataId:
       type: object
       properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
+        '@odata.id':
+          type: string
+          description: OData link to the resource
     Manager:
       type: object
       description: A BMC management controller
@@ -175,12 +145,18 @@ components:
         DateTime:
           type: string
           format: date-time
-    ODataId:
+    ManagerResetAction:
       type: object
+      description: Manager reset action parameters
+      required:
+      - ResetType
       properties:
-        '@odata.id':
+        ResetType:
           type: string
-          description: OData link to the resource
+          enum:
+          - GracefulRestart
+          - ForceRestart
+          description: The type of manager reset
     Status:
       type: object
       description: Health and operational status
@@ -211,6 +187,30 @@ components:
           - OK
           - Warning
           - Critical
+    Collection:
+      type: object
+      description: A collection of resources with navigation links
+      properties:
+        '@odata.type':
+          type: string
+        Name:
+          type: string
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
+    ActionResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
   securitySchemes:
     BasicAuth:
       type: http

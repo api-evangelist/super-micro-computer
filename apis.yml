@@ -40,7 +40,7 @@ modified: '2026-05-19'
 specificationVersion: '0.23'
 tags:
   - Servers
-  - Data-Center
+  - Data Center
   - Hardware
   - Server Management
   - Redfish
@@ -60,6 +60,7 @@ tags_raw:
   - Fortune 500
   - Infrastructure
   - Cloud
+  - Data-Center
 apis:
 - aid: super-micro-computer:super-micro-computer-accounts-api
   name: Super Micro Computer Accounts API

@@ -105,6 +105,20 @@ components:
         '@odata.id':
           type: string
           description: OData link to the resource
+    Collection:
+      type: object
+      description: A collection of resources with navigation links
+      properties:
+        '@odata.type':
+          type: string
+        Name:
+          type: string
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
     Session:
       type: object
       description: An active Redfish session
@@ -120,20 +134,6 @@ components:
         CreatedTime:
           type: string
           format: date-time
-    Collection:
-      type: object
-      description: A collection of resources with navigation links
-      properties:
-        '@odata.type':
-          type: string
-        Name:
-          type: string
-        Members@odata.count:
-          type: integer
-        Members:
-          type: array
-          items:
-            $ref: '#/components/schemas/ODataId'
     SessionCreate:
       type: object
       required:

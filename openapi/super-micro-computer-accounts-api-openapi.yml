@@ -119,20 +119,12 @@ paths:
           description: Account deleted
 components:
   schemas:
-    Collection:
+    ODataId:
       type: object
-      description: A collection of resources with navigation links
       properties:
-        '@odata.type':
+        '@odata.id':
           type: string
-        Name:
-          type: string
-        Members@odata.count:
-          type: integer
-        Members:
-          type: array
-          items:
-            $ref: '#/components/schemas/ODataId'
+          description: OData link to the resource
     Account:
       type: object
       description: A user account configured on the BMC
@@ -167,6 +159,20 @@ components:
           - ReadOnly
         Enabled:
           type: boolean
+    Collection:
+      type: object
+      description: A collection of resources with navigation links
+      properties:
+        '@odata.type':
+          type: string
+        Name:
+          type: string
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
     AccountCreate:
       type: object
       required:
@@ -188,12 +194,6 @@ components:
         Enabled:
           type: boolean
           default: true
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
   securitySchemes:
     BasicAuth:
       type: http

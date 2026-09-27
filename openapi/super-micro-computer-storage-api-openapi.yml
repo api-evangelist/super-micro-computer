@@ -77,37 +77,6 @@ components:
         '@odata.id':
           type: string
           description: OData link to the resource
-    Storage:
-      type: object
-      description: A storage controller and its drives
-      properties:
-        '@odata.type':
-          type: string
-        Id:
-          type: string
-        Name:
-          type: string
-        Status:
-          $ref: '#/components/schemas/Status'
-        StorageControllers:
-          type: array
-          items:
-            type: object
-            properties:
-              Name:
-                type: string
-              Manufacturer:
-                type: string
-              Model:
-                type: string
-              FirmwareVersion:
-                type: string
-              Status:
-                $ref: '#/components/schemas/Status'
-        Drives:
-          type: array
-          items:
-            $ref: '#/components/schemas/ODataId'
     Collection:
       type: object
       description: A collection of resources with navigation links
@@ -152,6 +121,37 @@ components:
           - OK
           - Warning
           - Critical
+    Storage:
+      type: object
+      description: A storage controller and its drives
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        Status:
+          $ref: '#/components/schemas/Status'
+        StorageControllers:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+              Manufacturer:
+                type: string
+              Model:
+                type: string
+              FirmwareVersion:
+                type: string
+              Status:
+                $ref: '#/components/schemas/Status'
+        Drives:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
   securitySchemes:
     BasicAuth:
       type: http

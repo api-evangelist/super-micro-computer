@@ -101,6 +101,103 @@ paths:
                 $ref: '#/components/schemas/Thermal'
 components:
   schemas:
+    Power:
+      type: object
+      description: Power supply and consumption data for a chassis
+      properties:
+        '@odata.type':
+          type: string
+        PowerControl:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+              PowerConsumedWatts:
+                type: number
+              PowerCapacityWatts:
+                type: number
+        PowerSupplies:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+              Status:
+                $ref: '#/components/schemas/Status'
+              PowerInputWatts:
+                type: number
+              PowerOutputWatts:
+                type: number
+              FirmwareVersion:
+                type: string
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
+    Chassis:
+      type: object
+      description: A physical chassis container
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        ChassisType:
+          type: string
+          enum:
+          - RackMount
+          - Tower
+          - Blade
+          - Sidecar
+        Status:
+          $ref: '#/components/schemas/Status'
+        Manufacturer:
+          type: string
+        Model:
+          type: string
+        SerialNumber:
+          type: string
+        Power:
+          $ref: '#/components/schemas/ODataId'
+        Thermal:
+          $ref: '#/components/schemas/ODataId'
+    Status:
+      type: object
+      description: Health and operational status
+      properties:
+        State:
+          type: string
+          enum:
+          - Enabled
+          - Disabled
+          - StandbyOffline
+          - StandbySpare
+          - InTest
+          - Starting
+          - Absent
+          - UnavailableOffline
+          - Deferring
+          - Quiescing
+          - Updating
+        Health:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+        HealthRollup:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
     Collection:
       type: object
       description: A collection of resources with navigation links
@@ -150,103 +247,6 @@ components:
                 - Percent
               Status:
                 $ref: '#/components/schemas/Status'
-    Chassis:
-      type: object
-      description: A physical chassis container
-      properties:
-        '@odata.type':
-          type: string
-        Id:
-          type: string
-        Name:
-          type: string
-        ChassisType:
-          type: string
-          enum:
-          - RackMount
-          - Tower
-          - Blade
-          - Sidecar
-        Status:
-          $ref: '#/components/schemas/Status'
-        Manufacturer:
-          type: string
-        Model:
-          type: string
-        SerialNumber:
-          type: string
-        Power:
-          $ref: '#/components/schemas/ODataId'
-        Thermal:
-          $ref: '#/components/schemas/ODataId'
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
-    Power:
-      type: object
-      description: Power supply and consumption data for a chassis
-      properties:
-        '@odata.type':
-          type: string
-        PowerControl:
-          type: array
-          items:
-            type: object
-            properties:
-              Name:
-                type: string
-              PowerConsumedWatts:
-                type: number
-              PowerCapacityWatts:
-                type: number
-        PowerSupplies:
-          type: array
-          items:
-            type: object
-            properties:
-              Name:
-                type: string
-              Status:
-                $ref: '#/components/schemas/Status'
-              PowerInputWatts:
-                type: number
-              PowerOutputWatts:
-                type: number
-              FirmwareVersion:
-                type: string
-    Status:
-      type: object
-      description: Health and operational status
-      properties:
-        State:
-          type: string
-          enum:
-          - Enabled
-          - Disabled
-          - StandbyOffline
-          - StandbySpare
-          - InTest
-          - Starting
-          - Absent
-          - UnavailableOffline
-          - Deferring
-          - Quiescing
-          - Updating
-        Health:
-          type: string
-          enum:
-          - OK
-          - Warning
-          - Critical
-        HealthRollup:
-          type: string
-          enum:
-          - OK
-          - Warning
-          - Critical
   securitySchemes:
     BasicAuth:
       type: http
