@@ -157,12 +157,6 @@ paths:
                 $ref: '#/components/schemas/Collection'
 components:
   schemas:
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
     ResetAction:
       type: object
       description: Reset action parameters
@@ -172,7 +166,7 @@ components:
         ResetType:
           type: string
           enum:
-          - true
+          - 'On'
           - ForceOff
           - GracefulShutdown
           - GracefulRestart
@@ -181,6 +175,22 @@ components:
           - ForceOn
           - PushPowerButton
           description: The type of reset to perform
+    ActionResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
     ComputerSystemPatch:
       type: object
       description: Updatable properties of a computer system
@@ -222,8 +232,8 @@ components:
         PowerState:
           type: string
           enum:
-          - true
-          - false
+          - 'On'
+          - 'Off'
           - PoweringOn
           - PoweringOff
         ProcessorSummary:
@@ -307,16 +317,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ODataId'
-    ActionResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
   securitySchemes:
     BasicAuth:
       type: http

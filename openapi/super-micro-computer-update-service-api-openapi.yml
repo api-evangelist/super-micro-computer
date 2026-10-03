@@ -74,12 +74,6 @@ paths:
                 $ref: '#/components/schemas/ActionResponse'
 components:
   schemas:
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
     SimpleUpdateAction:
       type: object
       required:
@@ -119,6 +113,22 @@ components:
           $ref: '#/components/schemas/Status'
         FirmwareInventory:
           $ref: '#/components/schemas/ODataId'
+    ActionResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
     Status:
       type: object
       description: Health and operational status
@@ -163,16 +173,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ODataId'
-    ActionResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
   securitySchemes:
     BasicAuth:
       type: http

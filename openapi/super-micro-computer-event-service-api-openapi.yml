@@ -108,12 +108,6 @@ paths:
           description: Subscription deleted
 components:
   schemas:
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
     EventSubscriptionCreate:
       type: object
       required:
@@ -141,6 +135,12 @@ components:
         Context:
           type: string
           description: Optional context string returned with each event
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
     EventService:
       type: object
       description: The event service for managing event subscriptions

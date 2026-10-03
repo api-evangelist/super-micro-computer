@@ -119,6 +119,27 @@ paths:
           description: Account deleted
 components:
   schemas:
+    AccountCreate:
+      type: object
+      required:
+      - UserName
+      - Password
+      - RoleId
+      properties:
+        UserName:
+          type: string
+        Password:
+          type: string
+          format: password
+        RoleId:
+          type: string
+          enum:
+          - Administrator
+          - Operator
+          - ReadOnly
+        Enabled:
+          type: boolean
+          default: true
     ODataId:
       type: object
       properties:
@@ -173,27 +194,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ODataId'
-    AccountCreate:
-      type: object
-      required:
-      - UserName
-      - Password
-      - RoleId
-      properties:
-        UserName:
-          type: string
-        Password:
-          type: string
-          format: password
-        RoleId:
-          type: string
-          enum:
-          - Administrator
-          - Operator
-          - ReadOnly
-        Enabled:
-          type: boolean
-          default: true
   securitySchemes:
     BasicAuth:
       type: http

@@ -112,6 +112,16 @@ paths:
                 $ref: '#/components/schemas/ActionResponse'
 components:
   schemas:
+    ActionResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
     ODataId:
       type: object
       properties:
@@ -201,16 +211,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ODataId'
-    ActionResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
   securitySchemes:
     BasicAuth:
       type: http

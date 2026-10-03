@@ -105,20 +105,20 @@ components:
         '@odata.id':
           type: string
           description: OData link to the resource
-    Collection:
+    SessionCreate:
       type: object
-      description: A collection of resources with navigation links
+      required:
+      - UserName
+      - Password
       properties:
-        '@odata.type':
+        UserName:
           type: string
-        Name:
+          description: BMC username
+          example: admin
+        Password:
           type: string
-        Members@odata.count:
-          type: integer
-        Members:
-          type: array
-          items:
-            $ref: '#/components/schemas/ODataId'
+          description: BMC password
+          format: password
     Session:
       type: object
       description: An active Redfish session
@@ -134,20 +134,20 @@ components:
         CreatedTime:
           type: string
           format: date-time
-    SessionCreate:
+    Collection:
       type: object
-      required:
-      - UserName
-      - Password
+      description: A collection of resources with navigation links
       properties:
-        UserName:
+        '@odata.type':
           type: string
-          description: BMC username
-          example: admin
-        Password:
+        Name:
           type: string
-          description: BMC password
-          format: password
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
   securitySchemes:
     BasicAuth:
       type: http
