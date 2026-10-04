@@ -40,12 +40,6 @@ paths:
                 $ref: '#/components/schemas/ServiceRoot'
 components:
   schemas:
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
     ServiceRoot:
       type: object
       description: The root service resource exposing links to all top-level collections
@@ -76,6 +70,12 @@ components:
           $ref: '#/components/schemas/ODataId'
         UpdateService:
           $ref: '#/components/schemas/ODataId'
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
   securitySchemes:
     BasicAuth:
       type: http

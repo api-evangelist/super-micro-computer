@@ -71,42 +71,6 @@ paths:
                 $ref: '#/components/schemas/Storage'
 components:
   schemas:
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
-    Status:
-      type: object
-      description: Health and operational status
-      properties:
-        State:
-          type: string
-          enum:
-          - Enabled
-          - Disabled
-          - StandbyOffline
-          - StandbySpare
-          - InTest
-          - Starting
-          - Absent
-          - UnavailableOffline
-          - Deferring
-          - Quiescing
-          - Updating
-        Health:
-          type: string
-          enum:
-          - OK
-          - Warning
-          - Critical
-        HealthRollup:
-          type: string
-          enum:
-          - OK
-          - Warning
-          - Critical
     Storage:
       type: object
       description: A storage controller and its drives
@@ -138,6 +102,42 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ODataId'
+    Status:
+      type: object
+      description: Health and operational status
+      properties:
+        State:
+          type: string
+          enum:
+          - Enabled
+          - Disabled
+          - StandbyOffline
+          - StandbySpare
+          - InTest
+          - Starting
+          - Absent
+          - UnavailableOffline
+          - Deferring
+          - Quiescing
+          - Updating
+        Health:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+        HealthRollup:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
     Collection:
       type: object
       description: A collection of resources with navigation links

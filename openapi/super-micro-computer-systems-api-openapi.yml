@@ -157,6 +157,56 @@ paths:
                 $ref: '#/components/schemas/Collection'
 components:
   schemas:
+    Status:
+      type: object
+      description: Health and operational status
+      properties:
+        State:
+          type: string
+          enum:
+          - Enabled
+          - Disabled
+          - StandbyOffline
+          - StandbySpare
+          - InTest
+          - Starting
+          - Absent
+          - UnavailableOffline
+          - Deferring
+          - Quiescing
+          - Updating
+        Health:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+        HealthRollup:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
+    Collection:
+      type: object
+      description: A collection of resources with navigation links
+      properties:
+        '@odata.type':
+          type: string
+        Name:
+          type: string
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
     ResetAction:
       type: object
       description: Reset action parameters
@@ -175,22 +225,6 @@ components:
           - ForceOn
           - PushPowerButton
           description: The type of reset to perform
-    ActionResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
     ComputerSystemPatch:
       type: object
       description: Updatable properties of a computer system
@@ -273,50 +307,16 @@ components:
               - Continuous
             BootSourceOverrideTarget:
               type: string
-    Status:
+    ActionResponse:
       type: object
-      description: Health and operational status
       properties:
-        State:
-          type: string
-          enum:
-          - Enabled
-          - Disabled
-          - StandbyOffline
-          - StandbySpare
-          - InTest
-          - Starting
-          - Absent
-          - UnavailableOffline
-          - Deferring
-          - Quiescing
-          - Updating
-        Health:
-          type: string
-          enum:
-          - OK
-          - Warning
-          - Critical
-        HealthRollup:
-          type: string
-          enum:
-          - OK
-          - Warning
-          - Critical
-    Collection:
-      type: object
-      description: A collection of resources with navigation links
-      properties:
-        '@odata.type':
-          type: string
-        Name:
-          type: string
-        Members@odata.count:
-          type: integer
-        Members:
-          type: array
-          items:
-            $ref: '#/components/schemas/ODataId'
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
   securitySchemes:
     BasicAuth:
       type: http

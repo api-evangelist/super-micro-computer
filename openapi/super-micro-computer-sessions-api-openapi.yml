@@ -99,12 +99,6 @@ paths:
           description: Session deleted
 components:
   schemas:
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
     SessionCreate:
       type: object
       required:
@@ -134,6 +128,12 @@ components:
         CreatedTime:
           type: string
           format: date-time
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
     Collection:
       type: object
       description: A collection of resources with navigation links

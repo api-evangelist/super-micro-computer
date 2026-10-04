@@ -101,55 +101,6 @@ paths:
                 $ref: '#/components/schemas/Thermal'
 components:
   schemas:
-    Chassis:
-      type: object
-      description: A physical chassis container
-      properties:
-        '@odata.type':
-          type: string
-        Id:
-          type: string
-        Name:
-          type: string
-        ChassisType:
-          type: string
-          enum:
-          - RackMount
-          - Tower
-          - Blade
-          - Sidecar
-        Status:
-          $ref: '#/components/schemas/Status'
-        Manufacturer:
-          type: string
-        Model:
-          type: string
-        SerialNumber:
-          type: string
-        Power:
-          $ref: '#/components/schemas/ODataId'
-        Thermal:
-          $ref: '#/components/schemas/ODataId'
-    Collection:
-      type: object
-      description: A collection of resources with navigation links
-      properties:
-        '@odata.type':
-          type: string
-        Name:
-          type: string
-        Members@odata.count:
-          type: integer
-        Members:
-          type: array
-          items:
-            $ref: '#/components/schemas/ODataId'
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
     Power:
       type: object
       description: Power supply and consumption data for a chassis
@@ -212,6 +163,26 @@ components:
           - OK
           - Warning
           - Critical
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
+    Collection:
+      type: object
+      description: A collection of resources with navigation links
+      properties:
+        '@odata.type':
+          type: string
+        Name:
+          type: string
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
     Thermal:
       type: object
       description: Temperature and fan data for a chassis
@@ -247,6 +218,35 @@ components:
                 - Percent
               Status:
                 $ref: '#/components/schemas/Status'
+    Chassis:
+      type: object
+      description: A physical chassis container
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        ChassisType:
+          type: string
+          enum:
+          - RackMount
+          - Tower
+          - Blade
+          - Sidecar
+        Status:
+          $ref: '#/components/schemas/Status'
+        Manufacturer:
+          type: string
+        Model:
+          type: string
+        SerialNumber:
+          type: string
+        Power:
+          $ref: '#/components/schemas/ODataId'
+        Thermal:
+          $ref: '#/components/schemas/ODataId'
   securitySchemes:
     BasicAuth:
       type: http
