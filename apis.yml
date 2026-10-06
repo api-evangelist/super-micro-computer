@@ -36,7 +36,7 @@ description: >-
   enabling programmatic management of servers, storage, and networking hardware via BMC.
 url: https://raw.githubusercontent.com/api-evangelist/super-micro-computer/refs/heads/main/apis.yml
 created: '2026-03-21'
-modified: '2026-05-19'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 tags:
   - Servers
@@ -389,6 +389,10 @@ apis:
   - type: GitHubRepository
     url: https://github.com/supermicro/redfish
 common:
+  - url: https://learn-more.supermicro.com/data-center-stories
+    type: Blog
+  - url: https://learn-more.supermicro.com/data-center-stories/rss.xml
+    type: BlogRSS
   - type: CapabilityMap
     url: capabilities/super-micro-computer-capability-edges.yml
     name: Super Micro Computer Business Capability Map
