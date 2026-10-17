@@ -71,34 +71,23 @@ paths:
                 $ref: '#/components/schemas/Storage'
 components:
   schemas:
-    Storage:
+    ODataId:
       type: object
-      description: A storage controller and its drives
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
+    Collection:
+      type: object
+      description: A collection of resources with navigation links
       properties:
         '@odata.type':
           type: string
-        Id:
-          type: string
         Name:
           type: string
-        Status:
-          $ref: '#/components/schemas/Status'
-        StorageControllers:
-          type: array
-          items:
-            type: object
-            properties:
-              Name:
-                type: string
-              Manufacturer:
-                type: string
-              Model:
-                type: string
-              FirmwareVersion:
-                type: string
-              Status:
-                $ref: '#/components/schemas/Status'
-        Drives:
+        Members@odata.count:
+          type: integer
+        Members:
           type: array
           items:
             $ref: '#/components/schemas/ODataId'
@@ -132,23 +121,34 @@ components:
           - OK
           - Warning
           - Critical
-    ODataId:
+    Storage:
       type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
-    Collection:
-      type: object
-      description: A collection of resources with navigation links
+      description: A storage controller and its drives
       properties:
         '@odata.type':
           type: string
+        Id:
+          type: string
         Name:
           type: string
-        Members@odata.count:
-          type: integer
-        Members:
+        Status:
+          $ref: '#/components/schemas/Status'
+        StorageControllers:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+              Manufacturer:
+                type: string
+              Model:
+                type: string
+              FirmwareVersion:
+                type: string
+              Status:
+                $ref: '#/components/schemas/Status'
+        Drives:
           type: array
           items:
             $ref: '#/components/schemas/ODataId'

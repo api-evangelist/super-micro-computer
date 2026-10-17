@@ -108,80 +108,6 @@ paths:
           description: Subscription deleted
 components:
   schemas:
-    Status:
-      type: object
-      description: Health and operational status
-      properties:
-        State:
-          type: string
-          enum:
-          - Enabled
-          - Disabled
-          - StandbyOffline
-          - StandbySpare
-          - InTest
-          - Starting
-          - Absent
-          - UnavailableOffline
-          - Deferring
-          - Quiescing
-          - Updating
-        Health:
-          type: string
-          enum:
-          - OK
-          - Warning
-          - Critical
-        HealthRollup:
-          type: string
-          enum:
-          - OK
-          - Warning
-          - Critical
-    ODataId:
-      type: object
-      properties:
-        '@odata.id':
-          type: string
-          description: OData link to the resource
-    Collection:
-      type: object
-      description: A collection of resources with navigation links
-      properties:
-        '@odata.type':
-          type: string
-        Name:
-          type: string
-        Members@odata.count:
-          type: integer
-        Members:
-          type: array
-          items:
-            $ref: '#/components/schemas/ODataId'
-    EventService:
-      type: object
-      description: The event service for managing event subscriptions
-      properties:
-        '@odata.type':
-          type: string
-        Id:
-          type: string
-        Name:
-          type: string
-        Status:
-          $ref: '#/components/schemas/Status'
-        Subscriptions:
-          $ref: '#/components/schemas/ODataId'
-        EventTypesForSubscription:
-          type: array
-          items:
-            type: string
-            enum:
-            - StatusChange
-            - ResourceUpdated
-            - ResourceAdded
-            - ResourceRemoved
-            - Alert
     EventSubscription:
       type: object
       description: An event subscription definition
@@ -233,6 +159,80 @@ components:
         Context:
           type: string
           description: Optional context string returned with each event
+    ODataId:
+      type: object
+      properties:
+        '@odata.id':
+          type: string
+          description: OData link to the resource
+    Status:
+      type: object
+      description: Health and operational status
+      properties:
+        State:
+          type: string
+          enum:
+          - Enabled
+          - Disabled
+          - StandbyOffline
+          - StandbySpare
+          - InTest
+          - Starting
+          - Absent
+          - UnavailableOffline
+          - Deferring
+          - Quiescing
+          - Updating
+        Health:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+        HealthRollup:
+          type: string
+          enum:
+          - OK
+          - Warning
+          - Critical
+    Collection:
+      type: object
+      description: A collection of resources with navigation links
+      properties:
+        '@odata.type':
+          type: string
+        Name:
+          type: string
+        Members@odata.count:
+          type: integer
+        Members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODataId'
+    EventService:
+      type: object
+      description: The event service for managing event subscriptions
+      properties:
+        '@odata.type':
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+        Status:
+          $ref: '#/components/schemas/Status'
+        Subscriptions:
+          $ref: '#/components/schemas/ODataId'
+        EventTypesForSubscription:
+          type: array
+          items:
+            type: string
+            enum:
+            - StatusChange
+            - ResourceUpdated
+            - ResourceAdded
+            - ResourceRemoved
+            - Alert
   securitySchemes:
     BasicAuth:
       type: http
