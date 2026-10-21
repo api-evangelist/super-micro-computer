@@ -45,6 +45,108 @@ edges:
     detected: '2026-10-15'
   detected_by: sweep-mlops.py
   first_seen: '2026-10-15'
+- partner_name: Open Compute Project Foundation
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.opencompute.org/membership/membership-directory
+  category: open data center hardware standards membership
+  contract_reference:
+    register: Open Compute Project membership directory (opencompute.org/membership/membership-directory)
+    standard: Open Compute Project (OCP) specifications
+    spec_file: null
+    role: ocp-member
+    registered_name: Supermicro
+    register_id: https://www.supermicro.com/
+    matched_domain: supermicro.com
+    matched_by: domain
+    member_since: '2019'
+    signal_note: 'participation only: corporate membership of the Open Compute Project (level recorded as partner_tier);
+      membership is not product conformance (OCP Accepted / Inspired products are a separate marketplace, not read)'
+    detected_by: sweep-data-center-tier-certification.py
+    detected: '2026-10-21'
+  detected_by: sweep-data-center-tier-certification.py
+  first_seen: '2026-10-21'
+  partner_tier: Platinum
+- partner_name: Open Compute Project marketplace
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.opencompute.org/marketplace/facilities-physical-infrastructure/supermicro-mgx-1-2-rack/
+  category: data-center hardware recognition
+  contract_reference:
+    register: Open Compute Project marketplace (opencompute.org/products; /wp-json/wp/v2/marketplace + /companies)
+    standard: Open Compute Project
+    spec_file: null
+    role: ocp-recognised-product-vendor
+    registered_name: Supermicro
+    register_id: https://www.opencompute.org/members/supermicro/
+    matched_domain: supermicro.com
+    matched_by: domain
+    listings: 29
+    recognised_listings: 28
+    products_sample:
+    - Supermicro 4U 8-GPU AI Server SYS-420GP-TNAR+
+    - Supermicro 8U 8-GPU AI Server SYS-821GE-TNHR
+    - Supermicro ARS-222GT-HEO-LCC | 2 OU GrandTwin® Server
+    - Supermicro AS -1127FT7-DEO-ALC | 1-OU FlexTwin Server
+    - Supermicro CloudDC A+ Server AS -1116CS-TN
+    - Supermicro CloudDC SuperServer SYS-112C-TN
+    - Supermicro CloudDC SuperServer SYS-122C-TN
+    - Supermicro CloudDC SuperServer SYS-222C-TN
+    - Supermicro GPU SuperServer AS -4125GR-TNHR2-LCC (HGX)
+    - Supermicro GPU SuperServer AS -4126GS-NBR-LCC (HGX)
+    signal_note: certified_products = one entry per product type (OCP recognition + most specific marketplace segment)
+      among OCP-recognised listings; unrecognised listings are listing alone (participation). The REST data marks
+      no listing archived, so lapsed is false. Listing counts are context, never counted
+    detected_by: sweep-semiconductor-consortia.py
+    detected: '2026-10-21'
+    certified_products:
+    - product: 'OCP Accepted: Dual-Socket Servers'
+      recognition: OCP Accepted
+      product_type: Dual-Socket Servers
+      lapsed: false
+      listings: 2
+      newest_listing: '2026-08-05'
+    - product: 'OCP Accepted: GPU Systems'
+      recognition: OCP Accepted
+      product_type: GPU Systems
+      lapsed: false
+      listings: 18
+      newest_listing: '2026-03-23'
+    - product: 'OCP Accepted: IT Infrastructure'
+      recognition: OCP Accepted
+      product_type: IT Infrastructure
+      lapsed: false
+      listings: 24
+      newest_listing: '2026-03-23'
+    - product: 'OCP Accepted: Modular Hardware Systems (MHS)'
+      recognition: OCP Accepted
+      product_type: Modular Hardware Systems (MHS)
+      lapsed: false
+      listings: 6
+      newest_listing: '2024-12-13'
+    - product: 'OCP Accepted: Open Rack Wide (ORW)'
+      recognition: OCP Accepted
+      product_type: Open Rack Wide (ORW)
+      lapsed: false
+      listings: 1
+      newest_listing: '2026-10-15'
+    - product: 'OCP Accepted: Open Rack v3 (ORv3)'
+      recognition: OCP Accepted
+      product_type: Open Rack v3 (ORv3)
+      lapsed: false
+      listings: 1
+      newest_listing: '2026-08-05'
+  detected_by: sweep-semiconductor-consortia.py
+  first_seen: '2026-10-21'
+  partner_tier: OCP Accepted
 generated: '2026-10-15'
 method: searched
 source:
@@ -54,3 +156,14 @@ checked:
 - https://github.com/kubeflow/website
 - https://github.com/lfai/landscape
 - https://github.com/mlcommons
+- https://uptimeinstitute.com/uptime-institute-awards/list
+- https://www.climateneutraldatacentre.net/signatories/
+- https://www.opencompute.org/membership/membership-directory
+- https://www.thegreengrid.org/en/about-us/members
+- https://riscv.landscape2.io/data/full.json
+- https://riscv.org/members/
+- https://www.nist.gov/chips/chips-program-office-awards
+- https://www.nist.gov/chips/chips-rd-office-awards
+- https://www.opencompute.org/products
+- https://www.opencompute.org/wp-json/wp/v2/companies
+- https://www.opencompute.org/wp-json/wp/v2/marketplace
