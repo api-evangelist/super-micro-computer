@@ -389,6 +389,8 @@ apis:
   - type: GitHubRepository
     url: https://github.com/supermicro/redfish
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/super-micro-computer/overview
   - type: Plans
     url: plans/super-micro-computer-plans-pricing.yml
   - type: RateLimits
