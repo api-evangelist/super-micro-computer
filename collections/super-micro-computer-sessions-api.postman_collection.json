@@ -1,457 +1,394 @@
 {
+  "info": {
+    "_postman_id": "ff755920-bb6e-46d8-85f8-e9db62fd2bd5",
+    "name": "Supermicro Redfish Sessions API",
+    "description": "Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).\n\nContact Support:\n Name: Supermicro Support\n Email: support@supermicro.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:16:00.000Z",
+    "updatedAt": "2026-10-22T01:16:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ff755920-bb6e-46d8-85f8-e9db62fd2bd5"
+  },
   "item": [
     {
-      "id": "3c96b3a8-ce19-45dd-91f2-f3d740a8e5a1",
-      "name": "Sessions",
-      "description": {
-        "content": "Session authentication and management",
-        "type": "text/plain"
-      },
+      "name": "SessionService",
       "item": [
         {
-          "id": "4ba7fb8a-c7bf-4834-860d-56ce0c637538",
-          "name": "List Sessions",
-          "request": {
-            "name": "List Sessions",
-            "description": {
-              "content": "Returns all active Redfish sessions.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "SessionService",
-                "Sessions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "IP address or hostname of the BMC",
-                  "type": "any",
-                  "value": "{{bmc-ip}}",
-                  "key": "bmc-ip"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "Sessions",
+          "item": [
             {
-              "id": "36fd7ee7-61b0-4473-bd04-3ef2c2f98be8",
-              "name": "Collection of sessions",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "SessionService",
-                    "Sessions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "IP address or hostname of the BMC",
-                      "type": "any",
-                      "value": "{{bmc-ip}}",
-                      "key": "bmc-ip"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+              "name": "{sessionId}",
+              "item": [
+                {
+                  "name": "Get Session",
+                  "id": "7f459a07-248f-495e-97f8-30a1a91fa5c8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/SessionService/Sessions/:sessionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "SessionService",
+                        "Sessions",
+                        ":sessionId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "407efd29-731e-4f35-a976-6531bfddb98b",
+                          "key": "sessionId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Returns details about a specific active session."
+                  },
+                  "response": [
+                    {
+                      "id": "c4ae41a0-c75f-4055-b0aa-f49d953d8669",
+                      "name": "Session resource",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/SessionService/Sessions/:sessionId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "SessionService",
+                            "Sessions",
+                            ":sessionId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "sessionId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"@odata.type\": \"<string>\",\n  \"Id\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"UserName\": \"<string>\",\n  \"CreatedTime\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-10-22T01:16:01.000Z",
+                      "updatedAt": "2026-10-22T01:16:01.000Z",
+                      "uid": "35240-c4ae41a0-c75f-4055-b0aa-f49d953d8669"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:16:01.000Z",
+                  "updatedAt": "2026-10-22T01:16:01.000Z",
+                  "uid": "35240-7f459a07-248f-495e-97f8-30a1a91fa5c8"
+                },
+                {
+                  "name": "Delete Session",
+                  "id": "c045d4b5-1d8e-4d4b-b21b-6889f631eea6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/SessionService/Sessions/:sessionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "SessionService",
+                        "Sessions",
+                        ":sessionId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "9711061c-280e-416c-818c-49f02ab94355",
+                          "key": "sessionId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Deletes (logs out) a specific Redfish session."
+                  },
+                  "response": [
+                    {
+                      "id": "3312c91a-9d29-4575-9d4d-748bb4247747",
+                      "name": "Session deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/SessionService/Sessions/:sessionId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "SessionService",
+                            "Sessions",
+                            ":sessionId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "sessionId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:16:01.000Z",
+                      "updatedAt": "2026-10-22T01:16:01.000Z",
+                      "uid": "35240-3312c91a-9d29-4575-9d4d-748bb4247747"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:16:01.000Z",
+                  "updatedAt": "2026-10-22T01:16:01.000Z",
+                  "uid": "35240-c045d4b5-1d8e-4d4b-b21b-6889f631eea6"
+                }
+              ],
+              "id": "9e82fd11-52dd-4b43-94f8-34fe37c3afae",
+              "createdAt": "2026-10-22T01:16:01.000Z",
+              "updatedAt": "2026-10-22T01:16:01.000Z",
+              "uid": "35240-9e82fd11-52dd-4b43-94f8-34fe37c3afae"
+            },
+            {
+              "name": "List Sessions",
+              "id": "2785d0a2-38cb-41d3-9be1-811646416b53",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
                 "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"@odata.type\": \"string\",\n  \"Name\": \"string\",\n  \"Members@odata.count\": 6739,\n  \"Members\": [\n    {\n      \"@odata.id\": \"string\"\n    },\n    {\n      \"@odata.id\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "1e97283b-dafc-4bcf-8331-9ab26291a320",
-          "name": "Create Session",
-          "request": {
-            "name": "Create Session",
-            "description": {
-              "content": "Creates a new Redfish session for authentication. Returns an auth token in the X-Auth-Token header.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "SessionService",
-                "Sessions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "IP address or hostname of the BMC",
-                  "type": "any",
-                  "value": "{{bmc-ip}}",
-                  "key": "bmc-ip"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"UserName\": \"<string>\",\n  \"Password\": \"<password>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "54400681-c9cd-4514-9ae5-57ea470a96c7",
-              "name": "Session created",
-              "originalRequest": {
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "SessionService",
-                    "Sessions"
-                  ],
+                  "raw": "{{baseUrl}}/SessionService/Sessions",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "IP address or hostname of the BMC",
-                      "type": "any",
-                      "value": "{{bmc-ip}}",
-                      "key": "bmc-ip"
-                    }
+                  "path": [
+                    "SessionService",
+                    "Sessions"
                   ]
                 },
+                "description": "Returns all active Redfish sessions."
+              },
+              "response": [
+                {
+                  "id": "8e6db706-cb41-4380-b212-43c5c9b0c423",
+                  "name": "Collection of sessions",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/SessionService/Sessions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "SessionService",
+                        "Sessions"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"@odata.type\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"Members@odata.count\": \"<integer>\",\n  \"Members\": [\n    {\n      \"@odata.id\": \"<string>\"\n    },\n    {\n      \"@odata.id\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:16:01.000Z",
+                  "updatedAt": "2026-10-22T01:16:01.000Z",
+                  "uid": "35240-8e6db706-cb41-4380-b212-43c5c9b0c423"
+                }
+              ],
+              "createdAt": "2026-10-22T01:16:01.000Z",
+              "updatedAt": "2026-10-22T01:16:01.000Z",
+              "uid": "35240-2785d0a2-38cb-41d3-9be1-811646416b53"
+            },
+            {
+              "name": "Create Session",
+              "id": "4298742e-8946-405e-8811-20d280d4d5d6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"UserName\": \"admin\",\n  \"Password\": \"<password>\"\n}",
+                  "raw": "{\n  \"UserName\": \"<string>\",\n  \"Password\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "disabled": false,
-                  "description": "Authentication token for subsequent requests",
-                  "key": "X-Auth-Token",
-                  "value": "string"
                 },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"@odata.type\": \"string\",\n  \"Id\": \"string\",\n  \"Name\": \"string\",\n  \"UserName\": \"string\",\n  \"CreatedTime\": \"2014-07-02T19:03:36.932Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "2a67d9c9-b421-4491-a054-fd5f5d9b8d1d",
-          "name": "Get Session",
-          "request": {
-            "name": "Get Session",
-            "description": {
-              "content": "Returns details about a specific active session.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "SessionService",
-                "Sessions",
-                ":sessionId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "sessionId",
-                  "description": "(Required) "
-                },
-                {
-                  "description": "IP address or hostname of the BMC",
-                  "type": "any",
-                  "value": "{{bmc-ip}}",
-                  "key": "bmc-ip"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "8db3154d-6e7c-4222-929d-55a3b5a6ce2b",
-              "name": "Session resource",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "SessionService",
-                    "Sessions",
-                    ":sessionId"
-                  ],
+                  "raw": "{{baseUrl}}/SessionService/Sessions",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "sessionId",
-                      "description": "(Required) "
-                    },
-                    {
-                      "description": "IP address or hostname of the BMC",
-                      "type": "any",
-                      "value": "{{bmc-ip}}",
-                      "key": "bmc-ip"
-                    }
+                  "path": [
+                    "SessionService",
+                    "Sessions"
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
+                "description": "Creates a new Redfish session for authentication. Returns an auth token in the X-Auth-Token header."
+              },
+              "response": [
+                {
+                  "id": "5dd13599-bb4b-400c-a7e0-7d8e99bca40c",
+                  "name": "Session created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"UserName\": \"<string>\",\n  \"Password\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "url": {
+                      "raw": "{{baseUrl}}/SessionService/Sessions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "SessionService",
+                        "Sessions"
+                      ]
+                    }
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"@odata.type\": \"string\",\n  \"Id\": \"string\",\n  \"Name\": \"string\",\n  \"UserName\": \"string\",\n  \"CreatedTime\": \"2014-07-02T19:03:36.932Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c080e547-923f-4ebe-9d9c-fc7b1ddf342f",
-          "name": "Delete Session",
-          "request": {
-            "name": "Delete Session",
-            "description": {
-              "content": "Deletes (logs out) a specific Redfish session.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "SessionService",
-                "Sessions",
-                ":sessionId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "sessionId",
-                  "description": "(Required) "
-                },
-                {
-                  "description": "IP address or hostname of the BMC",
-                  "type": "any",
-                  "value": "{{bmc-ip}}",
-                  "key": "bmc-ip"
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "aa7765d0-92ed-4570-8a31-b27da762a532",
-              "name": "Session deleted",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "SessionService",
-                    "Sessions",
-                    ":sessionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
                     {
                       "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "sessionId",
-                      "description": "(Required) "
-                    },
-                    {
-                      "description": "IP address or hostname of the BMC",
-                      "type": "any",
-                      "value": "{{bmc-ip}}",
-                      "key": "bmc-ip"
+                      "description": {
+                        "content": "Authentication token for subsequent requests",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Auth-Token",
+                      "value": "<string>"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"@odata.type\": \"<string>\",\n  \"Id\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"UserName\": \"<string>\",\n  \"CreatedTime\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-10-22T01:16:01.000Z",
+                  "updatedAt": "2026-10-22T01:16:01.000Z",
+                  "uid": "35240-5dd13599-bb4b-400c-a7e0-7d8e99bca40c"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-22T01:16:01.000Z",
+              "updatedAt": "2026-10-22T01:16:01.000Z",
+              "uid": "35240-4298742e-8946-405e-8811-20d280d4d5d6"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "d1d290e3-0cac-4e9a-a9ed-b081f9d131e6",
+          "createdAt": "2026-10-22T01:16:01.000Z",
+          "updatedAt": "2026-10-22T01:16:01.000Z",
+          "uid": "35240-d1d290e3-0cac-4e9a-a9ed-b081f9d131e6"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "IP address or hostname of the BMC",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "192.168.1.100",
-      "key": "bmc-ip"
-    },
-    {
-      "type": "string",
-      "value": "https://{{bmc-ip}}/redfish/v1",
-      "key": "baseUrl"
+      "id": "e0b7b6d5-2e16-4aa8-b613-e3db63a824d3",
+      "createdAt": "2026-10-22T01:16:01.000Z",
+      "updatedAt": "2026-10-22T01:16:01.000Z",
+      "uid": "35240-e0b7b6d5-2e16-4aa8-b613-e3db63a824d3"
     }
   ],
   "auth": {
@@ -459,21 +396,24 @@
     "basic": [
       {
         "key": "username",
-        "value": "{{basicAuthUsername}}"
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
       },
       {
         "key": "password",
-        "value": "{{basicAuthPassword}}"
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "342fedea-91fe-459c-916e-0e729af43cff",
-    "name": "Supermicro Redfish Accounts Sessions API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).\n\nContact Support:\n Name: Supermicro Support\n Email: support@supermicro.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "bmc-ip",
+      "value": "192.168.1.100"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{bmc-ip}}/redfish/v1"
     }
-  }
+  ]
 }

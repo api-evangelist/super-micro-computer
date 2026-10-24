@@ -1,142 +1,131 @@
 {
+  "info": {
+    "_postman_id": "798db9e3-5dbe-4d40-92c6-f8dd1e878b9c",
+    "name": "Supermicro Redfish Network API",
+    "description": "Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).\n\nContact Support:\n Name: Supermicro Support\n Email: support@supermicro.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:15:53.000Z",
+    "updatedAt": "2026-10-22T01:15:53.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-798db9e3-5dbe-4d40-92c6-f8dd1e878b9c"
+  },
   "item": [
     {
-      "id": "1047652b-480c-4b26-acb8-ddc169e064b9",
-      "name": "Network",
-      "description": {
-        "content": "Network interface management",
-        "type": "text/plain"
-      },
+      "name": "Systems",
       "item": [
         {
-          "id": "354e33c2-2cf1-4673-841a-b3825cf02ae2",
-          "name": "List Ethernet Interfaces",
-          "request": {
-            "name": "List Ethernet Interfaces",
-            "description": {
-              "content": "Returns the collection of network interfaces in the computer system.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "Systems",
-                ":systemId",
-                "EthernetInterfaces"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "systemId",
-                  "description": "(Required) "
-                },
-                {
-                  "description": "IP address or hostname of the BMC",
-                  "type": "any",
-                  "value": "{{bmc-ip}}",
-                  "key": "bmc-ip"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{systemId}",
+          "item": [
             {
-              "id": "52d85729-26b6-4946-9f11-9541392b1015",
-              "name": "Collection of Ethernet interfaces",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "Systems",
-                    ":systemId",
-                    "EthernetInterfaces"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "systemId",
-                      "description": "(Required) "
-                    },
-                    {
-                      "description": "IP address or hostname of the BMC",
-                      "type": "any",
-                      "value": "{{bmc-ip}}",
-                      "key": "bmc-ip"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "EthernetInterfaces",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "List Ethernet Interfaces",
+                  "id": "48de6c4b-0cd4-4c1d-9316-4b8509d33350",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/Systems/:systemId/EthernetInterfaces",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Systems",
+                        ":systemId",
+                        "EthernetInterfaces"
+                      ],
+                      "variable": [
+                        {
+                          "id": "41dee448-853e-430e-80f3-49ebe2fcca64",
+                          "key": "systemId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Returns the collection of network interfaces in the computer system."
+                  },
+                  "response": [
+                    {
+                      "id": "0fe97626-a34d-4ead-a230-2e6968d43f9f",
+                      "name": "Collection of Ethernet interfaces",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/Systems/:systemId/EthernetInterfaces",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "Systems",
+                            ":systemId",
+                            "EthernetInterfaces"
+                          ],
+                          "variable": [
+                            {
+                              "key": "systemId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"@odata.type\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"Members@odata.count\": \"<integer>\",\n  \"Members\": [\n    {\n      \"@odata.id\": \"<string>\"\n    },\n    {\n      \"@odata.id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:15:53.000Z",
+                      "updatedAt": "2026-10-22T01:15:53.000Z",
+                      "uid": "35240-0fe97626-a34d-4ead-a230-2e6968d43f9f"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:15:53.000Z",
+                  "updatedAt": "2026-10-22T01:15:53.000Z",
+                  "uid": "35240-48de6c4b-0cd4-4c1d-9316-4b8509d33350"
                 }
               ],
-              "body": "{\n  \"@odata.type\": \"string\",\n  \"Name\": \"string\",\n  \"Members@odata.count\": 894,\n  \"Members\": [\n    {\n      \"@odata.id\": \"string\"\n    },\n    {\n      \"@odata.id\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "3e3adbac-b77c-4ed2-adb8-438e9d6a2cf1",
+              "createdAt": "2026-10-22T01:15:53.000Z",
+              "updatedAt": "2026-10-22T01:15:53.000Z",
+              "uid": "35240-3e3adbac-b77c-4ed2-adb8-438e9d6a2cf1"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "496678c2-7346-40c5-bccf-fd365410728d",
+          "createdAt": "2026-10-22T01:15:53.000Z",
+          "updatedAt": "2026-10-22T01:15:53.000Z",
+          "uid": "35240-496678c2-7346-40c5-bccf-fd365410728d"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "IP address or hostname of the BMC",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "192.168.1.100",
-      "key": "bmc-ip"
-    },
-    {
-      "type": "string",
-      "value": "https://{{bmc-ip}}/redfish/v1",
-      "key": "baseUrl"
+      "id": "8c55897d-35e1-4844-b081-7d3d06d081e6",
+      "createdAt": "2026-10-22T01:15:53.000Z",
+      "updatedAt": "2026-10-22T01:15:53.000Z",
+      "uid": "35240-8c55897d-35e1-4844-b081-7d3d06d081e6"
     }
   ],
   "auth": {
@@ -144,21 +133,24 @@
     "basic": [
       {
         "key": "username",
-        "value": "{{basicAuthUsername}}"
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
       },
       {
         "key": "password",
-        "value": "{{basicAuthPassword}}"
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "5270d9cc-872a-4a33-99ac-d91bfe485591",
-    "name": "Supermicro Redfish Accounts Network API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).\n\nContact Support:\n Name: Supermicro Support\n Email: support@supermicro.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "bmc-ip",
+      "value": "192.168.1.100"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{bmc-ip}}/redfish/v1"
     }
-  }
+  ]
 }

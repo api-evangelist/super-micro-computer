@@ -1,582 +1,503 @@
 {
+  "info": {
+    "_postman_id": "d36f63ac-18d0-44fc-bc43-25a105b2cbc6",
+    "name": "Supermicro Redfish Accounts API",
+    "description": "Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).\n\nContact Support:\n Name: Supermicro Support\n Email: support@supermicro.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:15:26.000Z",
+    "updatedAt": "2026-10-22T01:15:26.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d36f63ac-18d0-44fc-bc43-25a105b2cbc6"
+  },
   "item": [
     {
-      "id": "b1dc30b8-fa64-423c-aa99-59a0ae745ee5",
-      "name": "Accounts",
-      "description": {
-        "content": "User account management",
-        "type": "text/plain"
-      },
+      "name": "AccountService",
       "item": [
         {
-          "id": "6ccfe702-34fe-415a-a5d4-d8e2be81014d",
-          "name": "List Accounts",
-          "request": {
-            "name": "List Accounts",
-            "description": {
-              "content": "Returns all user accounts configured on the BMC.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "AccountService",
-                "Accounts"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "IP address or hostname of the BMC",
-                  "type": "any",
-                  "value": "{{bmc-ip}}",
-                  "key": "bmc-ip"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "Accounts",
+          "item": [
             {
-              "id": "347b8941-af88-4f38-bc5f-7ad3cef21538",
-              "name": "Collection of user accounts",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "AccountService",
-                    "Accounts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "IP address or hostname of the BMC",
-                      "type": "any",
-                      "value": "{{bmc-ip}}",
-                      "key": "bmc-ip"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+              "name": "{accountId}",
+              "item": [
+                {
+                  "name": "Get Account",
+                  "id": "d27b1ba7-18fd-4019-be56-456d2320182f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/AccountService/Accounts/:accountId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "AccountService",
+                        "Accounts",
+                        ":accountId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "9fee6a9f-6f71-467f-85f2-09396a7a2560",
+                          "key": "accountId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Returns details about a specific user account."
+                  },
+                  "response": [
+                    {
+                      "id": "3be3de02-6c55-4cae-b920-cac8d5422649",
+                      "name": "Account resource",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/AccountService/Accounts/:accountId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "AccountService",
+                            "Accounts",
+                            ":accountId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"@odata.type\": \"<string>\",\n  \"Id\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"UserName\": \"<string>\",\n  \"RoleId\": \"ReadOnly\",\n  \"Enabled\": \"<boolean>\"\n}",
+                      "createdAt": "2026-10-22T01:15:27.000Z",
+                      "updatedAt": "2026-10-22T01:15:27.000Z",
+                      "uid": "35240-3be3de02-6c55-4cae-b920-cac8d5422649"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:15:27.000Z",
+                  "updatedAt": "2026-10-22T01:15:27.000Z",
+                  "uid": "35240-d27b1ba7-18fd-4019-be56-456d2320182f"
+                },
+                {
+                  "name": "Update Account",
+                  "id": "083342c1-7e7f-4cf9-b530-3954dc685c18",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"Password\": \"<string>\",\n  \"RoleId\": \"Operator\",\n  \"Enabled\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/AccountService/Accounts/:accountId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "AccountService",
+                        "Accounts",
+                        ":accountId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "ce9e1bb8-3356-4c96-87ff-cf763992e68b",
+                          "key": "accountId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Updates properties of a user account such as password or role."
+                  },
+                  "response": [
+                    {
+                      "id": "83b13e85-ed70-477c-a6e3-efb8ded50c35",
+                      "name": "Updated account resource",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"Password\": \"<string>\",\n  \"RoleId\": \"Operator\",\n  \"Enabled\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/AccountService/Accounts/:accountId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "AccountService",
+                            "Accounts",
+                            ":accountId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"@odata.type\": \"<string>\",\n  \"Id\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"UserName\": \"<string>\",\n  \"RoleId\": \"ReadOnly\",\n  \"Enabled\": \"<boolean>\"\n}",
+                      "createdAt": "2026-10-22T01:15:27.000Z",
+                      "updatedAt": "2026-10-22T01:15:27.000Z",
+                      "uid": "35240-83b13e85-ed70-477c-a6e3-efb8ded50c35"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:15:27.000Z",
+                  "updatedAt": "2026-10-22T01:15:27.000Z",
+                  "uid": "35240-083342c1-7e7f-4cf9-b530-3954dc685c18"
+                },
+                {
+                  "name": "Delete Account",
+                  "id": "08bf77d1-fbbf-42a0-91f9-f2bdc51b4dbe",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/AccountService/Accounts/:accountId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "AccountService",
+                        "Accounts",
+                        ":accountId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "930d9310-eafb-45a9-af3e-ac17b6da12fd",
+                          "key": "accountId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Deletes a user account from the BMC."
+                  },
+                  "response": [
+                    {
+                      "id": "3e72b01d-a31e-4e77-8cbb-e7a3259ffee8",
+                      "name": "Account deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/AccountService/Accounts/:accountId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "AccountService",
+                            "Accounts",
+                            ":accountId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accountId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:15:27.000Z",
+                      "updatedAt": "2026-10-22T01:15:27.000Z",
+                      "uid": "35240-3e72b01d-a31e-4e77-8cbb-e7a3259ffee8"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:15:27.000Z",
+                  "updatedAt": "2026-10-22T01:15:27.000Z",
+                  "uid": "35240-08bf77d1-fbbf-42a0-91f9-f2bdc51b4dbe"
+                }
+              ],
+              "id": "4f91887f-9d3a-4332-b94a-11cb849ee382",
+              "createdAt": "2026-10-22T01:15:27.000Z",
+              "updatedAt": "2026-10-22T01:15:27.000Z",
+              "uid": "35240-4f91887f-9d3a-4332-b94a-11cb849ee382"
+            },
+            {
+              "name": "List Accounts",
+              "id": "03b2efcd-6427-4d7c-a009-0a1ca78fb799",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
                 "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"@odata.type\": \"string\",\n  \"Name\": \"string\",\n  \"Members@odata.count\": 843,\n  \"Members\": [\n    {\n      \"@odata.id\": \"string\"\n    },\n    {\n      \"@odata.id\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "65f34bed-91aa-441e-baa5-aad3729d8731",
-          "name": "Create Account",
-          "request": {
-            "name": "Create Account",
-            "description": {
-              "content": "Creates a new user account on the BMC.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "AccountService",
-                "Accounts"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "IP address or hostname of the BMC",
-                  "type": "any",
-                  "value": "{{bmc-ip}}",
-                  "key": "bmc-ip"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"UserName\": \"<string>\",\n  \"Password\": \"<password>\",\n  \"RoleId\": \"<string>\",\n  \"Enabled\": true\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "97538a88-9e5b-4217-a3d1-ebcd29d8d272",
-              "name": "Account created",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "AccountService",
-                    "Accounts"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "IP address or hostname of the BMC",
-                      "type": "any",
-                      "value": "{{bmc-ip}}",
-                      "key": "bmc-ip"
-                    }
-                  ]
-                },
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
+                "url": {
+                  "raw": "{{baseUrl}}/AccountService/Accounts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "AccountService",
+                    "Accounts"
+                  ]
+                },
+                "description": "Returns all user accounts configured on the BMC."
+              },
+              "response": [
+                {
+                  "id": "81c39637-c2b0-437b-b7ca-d47e6c87f4e3",
+                  "name": "Collection of user accounts",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/AccountService/Accounts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "AccountService",
+                        "Accounts"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"@odata.type\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"Members@odata.count\": \"<integer>\",\n  \"Members\": [\n    {\n      \"@odata.id\": \"<string>\"\n    },\n    {\n      \"@odata.id\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:15:27.000Z",
+                  "updatedAt": "2026-10-22T01:15:27.000Z",
+                  "uid": "35240-81c39637-c2b0-437b-b7ca-d47e6c87f4e3"
+                }
+              ],
+              "createdAt": "2026-10-22T01:15:27.000Z",
+              "updatedAt": "2026-10-22T01:15:27.000Z",
+              "uid": "35240-03b2efcd-6427-4d7c-a009-0a1ca78fb799"
+            },
+            {
+              "name": "Create Account",
+              "id": "9d41f998-1b8a-4bcf-8890-3f575377939f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
                 "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"UserName\": \"<string>\",\n  \"Password\": \"<password>\",\n  \"RoleId\": \"<string>\",\n  \"Enabled\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"@odata.type\": \"string\",\n  \"Id\": \"string\",\n  \"Name\": \"string\",\n  \"UserName\": \"string\",\n  \"RoleId\": \"Administrator\",\n  \"Enabled\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "a7dcf9f7-5f3f-47b5-8ced-ab97a29c985f",
-          "name": "Get Account",
-          "request": {
-            "name": "Get Account",
-            "description": {
-              "content": "Returns details about a specific user account.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "AccountService",
-                "Accounts",
-                ":accountId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "accountId",
-                  "description": "(Required) "
-                },
-                {
-                  "description": "IP address or hostname of the BMC",
-                  "type": "any",
-                  "value": "{{bmc-ip}}",
-                  "key": "bmc-ip"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "5cd73070-3652-4197-aaf9-ca94b9dcbed4",
-              "name": "Account resource",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "AccountService",
-                    "Accounts",
-                    ":accountId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "accountId",
-                      "description": "(Required) "
-                    },
-                    {
-                      "description": "IP address or hostname of the BMC",
-                      "type": "any",
-                      "value": "{{bmc-ip}}",
-                      "key": "bmc-ip"
-                    }
-                  ]
-                },
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"@odata.type\": \"string\",\n  \"Id\": \"string\",\n  \"Name\": \"string\",\n  \"UserName\": \"string\",\n  \"RoleId\": \"Administrator\",\n  \"Enabled\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "63bfb144-5bf1-44ec-9151-ef7c3f471557",
-          "name": "Update Account",
-          "request": {
-            "name": "Update Account",
-            "description": {
-              "content": "Updates properties of a user account such as password or role.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "AccountService",
-                "Accounts",
-                ":accountId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "accountId",
-                  "description": "(Required) "
-                },
-                {
-                  "description": "IP address or hostname of the BMC",
-                  "type": "any",
-                  "value": "{{bmc-ip}}",
-                  "key": "bmc-ip"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"Password\": \"<password>\",\n  \"RoleId\": \"<string>\",\n  \"Enabled\": \"<boolean>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "03f82526-0a31-42a4-8383-a8ec9c18d18a",
-              "name": "Updated account resource",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "AccountService",
-                    "Accounts",
-                    ":accountId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "accountId",
-                      "description": "(Required) "
-                    },
-                    {
-                      "description": "IP address or hostname of the BMC",
-                      "type": "any",
-                      "value": "{{bmc-ip}}",
-                      "key": "bmc-ip"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"Password\": \"<password>\",\n  \"RoleId\": \"<string>\",\n  \"Enabled\": \"<boolean>\"\n}",
+                  "raw": "{\n  \"UserName\": \"<string>\",\n  \"Password\": \"<string>\",\n  \"RoleId\": \"Administrator\",\n  \"Enabled\": true\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"@odata.type\": \"string\",\n  \"Id\": \"string\",\n  \"Name\": \"string\",\n  \"UserName\": \"string\",\n  \"RoleId\": \"Administrator\",\n  \"Enabled\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "40e6014b-b6a6-4021-b040-28917b594147",
-          "name": "Delete Account",
-          "request": {
-            "name": "Delete Account",
-            "description": {
-              "content": "Deletes a user account from the BMC.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "AccountService",
-                "Accounts",
-                ":accountId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "accountId",
-                  "description": "(Required) "
                 },
-                {
-                  "description": "IP address or hostname of the BMC",
-                  "type": "any",
-                  "value": "{{bmc-ip}}",
-                  "key": "bmc-ip"
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "ef292553-0718-4987-b1da-7c30efd9727c",
-              "name": "Account deleted",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "AccountService",
-                    "Accounts",
-                    ":accountId"
-                  ],
+                  "raw": "{{baseUrl}}/AccountService/Accounts",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "accountId",
-                      "description": "(Required) "
-                    },
-                    {
-                      "description": "IP address or hostname of the BMC",
-                      "type": "any",
-                      "value": "{{bmc-ip}}",
-                      "key": "bmc-ip"
-                    }
+                  "path": [
+                    "AccountService",
+                    "Accounts"
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
+                "description": "Creates a new user account on the BMC."
               },
-              "status": "No Content",
-              "code": 204,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "066cacc9-31cc-4491-8620-8c266c9308bb",
+                  "name": "Account created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"UserName\": \"<string>\",\n  \"Password\": \"<string>\",\n  \"RoleId\": \"Administrator\",\n  \"Enabled\": true\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/AccountService/Accounts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "AccountService",
+                        "Accounts"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"@odata.type\": \"<string>\",\n  \"Id\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"UserName\": \"<string>\",\n  \"RoleId\": \"ReadOnly\",\n  \"Enabled\": \"<boolean>\"\n}",
+                  "createdAt": "2026-10-22T01:15:27.000Z",
+                  "updatedAt": "2026-10-22T01:15:27.000Z",
+                  "uid": "35240-066cacc9-31cc-4491-8620-8c266c9308bb"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-22T01:15:27.000Z",
+              "updatedAt": "2026-10-22T01:15:27.000Z",
+              "uid": "35240-9d41f998-1b8a-4bcf-8890-3f575377939f"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "f20fac73-f84e-4ef2-9df0-17ccf458015f",
+          "createdAt": "2026-10-22T01:15:27.000Z",
+          "updatedAt": "2026-10-22T01:15:27.000Z",
+          "uid": "35240-f20fac73-f84e-4ef2-9df0-17ccf458015f"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "IP address or hostname of the BMC",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "192.168.1.100",
-      "key": "bmc-ip"
-    },
-    {
-      "type": "string",
-      "value": "https://{{bmc-ip}}/redfish/v1",
-      "key": "baseUrl"
+      "id": "07a57fe0-86cc-4e07-bb3d-2249709db282",
+      "createdAt": "2026-10-22T01:15:27.000Z",
+      "updatedAt": "2026-10-22T01:15:27.000Z",
+      "uid": "35240-07a57fe0-86cc-4e07-bb3d-2249709db282"
     }
   ],
   "auth": {
@@ -584,21 +505,24 @@
     "basic": [
       {
         "key": "username",
-        "value": "{{basicAuthUsername}}"
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
       },
       {
         "key": "password",
-        "value": "{{basicAuthPassword}}"
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "6a6656fe-f603-442e-8438-ec502302bcdd",
-    "name": "Supermicro Redfish Accounts API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).\n\nContact Support:\n Name: Supermicro Support\n Email: support@supermicro.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "bmc-ip",
+      "value": "192.168.1.100"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{bmc-ip}}/redfish/v1"
     }
-  }
+  ]
 }

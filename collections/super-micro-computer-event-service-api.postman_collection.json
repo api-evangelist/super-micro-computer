@@ -1,543 +1,458 @@
 {
+  "info": {
+    "_postman_id": "3da72c7b-285e-48c1-afd0-3de2ae3b3b36",
+    "name": "Supermicro Redfish Event Service API",
+    "description": "Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).\n\nContact Support:\n Name: Supermicro Support\n Email: support@supermicro.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:15:41.000Z",
+    "updatedAt": "2026-10-22T01:15:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3da72c7b-285e-48c1-afd0-3de2ae3b3b36"
+  },
   "item": [
     {
-      "id": "1fc89746-5f2e-4425-bc56-df1cd17ef60b",
-      "name": "Event Service",
-      "description": {
-        "content": "Event subscription and notification management",
-        "type": "text/plain"
-      },
+      "name": "EventService",
       "item": [
         {
-          "id": "b96dc5c9-64ba-4e55-8d58-a5b4dc3cdba3",
-          "name": "Get Event Service",
-          "request": {
-            "name": "Get Event Service",
-            "description": {
-              "content": "Returns the event service resource with subscription management capabilities.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "EventService"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "IP address or hostname of the BMC",
-                  "type": "any",
-                  "value": "{{bmc-ip}}",
-                  "key": "bmc-ip"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "Subscriptions",
+          "item": [
             {
-              "id": "9f91211f-4974-444a-9c19-6e3606779512",
-              "name": "Event service resource",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "EventService"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "IP address or hostname of the BMC",
-                      "type": "any",
-                      "value": "{{bmc-ip}}",
-                      "key": "bmc-ip"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+              "name": "{subscriptionId}",
+              "item": [
+                {
+                  "name": "Get Event Subscription",
+                  "id": "cccb9e8b-f2d9-46d2-943c-acc503637ef5",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/EventService/Subscriptions/:subscriptionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "EventService",
+                        "Subscriptions",
+                        ":subscriptionId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "97932c45-c7fb-49a9-bd72-b073ea859125",
+                          "key": "subscriptionId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Returns details about a specific event subscription."
+                  },
+                  "response": [
+                    {
+                      "id": "e4dd6c5b-c66e-4069-92bc-5a916cb7c9bc",
+                      "name": "Event subscription resource",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/EventService/Subscriptions/:subscriptionId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "EventService",
+                            "Subscriptions",
+                            ":subscriptionId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "subscriptionId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"@odata.type\": \"<string>\",\n  \"Id\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"Destination\": \"<uri>\",\n  \"EventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Protocol\": \"Redfish\",\n  \"Context\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:15:42.000Z",
+                      "updatedAt": "2026-10-22T01:15:42.000Z",
+                      "uid": "35240-e4dd6c5b-c66e-4069-92bc-5a916cb7c9bc"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:15:42.000Z",
+                  "updatedAt": "2026-10-22T01:15:42.000Z",
+                  "uid": "35240-cccb9e8b-f2d9-46d2-943c-acc503637ef5"
+                },
+                {
+                  "name": "Delete Event Subscription",
+                  "id": "da9a9582-895f-4bd3-a387-ed512f9cab1c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/EventService/Subscriptions/:subscriptionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "EventService",
+                        "Subscriptions",
+                        ":subscriptionId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "42f1ac3b-8836-4273-8eb4-165e527dde54",
+                          "key": "subscriptionId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Deletes an event subscription."
+                  },
+                  "response": [
+                    {
+                      "id": "e1a74c36-c946-429e-acb7-b38b41df5df3",
+                      "name": "Subscription deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/EventService/Subscriptions/:subscriptionId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "EventService",
+                            "Subscriptions",
+                            ":subscriptionId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "subscriptionId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:15:42.000Z",
+                      "updatedAt": "2026-10-22T01:15:42.000Z",
+                      "uid": "35240-e1a74c36-c946-429e-acb7-b38b41df5df3"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:15:42.000Z",
+                  "updatedAt": "2026-10-22T01:15:42.000Z",
+                  "uid": "35240-da9a9582-895f-4bd3-a387-ed512f9cab1c"
+                }
+              ],
+              "id": "f0a8e554-9868-436f-9b7e-fcbb78a69d3f",
+              "createdAt": "2026-10-22T01:15:42.000Z",
+              "updatedAt": "2026-10-22T01:15:42.000Z",
+              "uid": "35240-f0a8e554-9868-436f-9b7e-fcbb78a69d3f"
+            },
+            {
+              "name": "List Event Subscriptions",
+              "id": "4dd1357f-a137-4a02-ae66-f8c3e1854ecb",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"@odata.type\": \"string\",\n  \"Id\": \"string\",\n  \"Name\": \"string\",\n  \"Status\": {\n    \"State\": \"Absent\",\n    \"Health\": \"OK\",\n    \"HealthRollup\": \"OK\"\n  },\n  \"Subscriptions\": {\n    \"@odata.id\": \"string\"\n  },\n  \"EventTypesForSubscription\": [\n    \"StatusChange\",\n    \"ResourceUpdated\"\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "d970932b-2c34-4e61-861b-fcfbe96476f9",
-          "name": "List Event Subscriptions",
-          "request": {
-            "name": "List Event Subscriptions",
-            "description": {
-              "content": "Returns all event subscriptions configured for this BMC.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "EventService",
-                "Subscriptions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "IP address or hostname of the BMC",
-                  "type": "any",
-                  "value": "{{bmc-ip}}",
-                  "key": "bmc-ip"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "1f15b132-49ed-48a7-a624-59cdcf9876f1",
-              "name": "Collection of event subscriptions",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/EventService/Subscriptions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "EventService",
                     "Subscriptions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "IP address or hostname of the BMC",
-                      "type": "any",
-                      "value": "{{bmc-ip}}",
-                      "key": "bmc-ip"
-                    }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                "description": "Returns all event subscriptions configured for this BMC."
+              },
+              "response": [
+                {
+                  "id": "418082f7-686b-4326-9bf5-19dd3065fc07",
+                  "name": "Collection of event subscriptions",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/EventService/Subscriptions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "EventService",
+                        "Subscriptions"
+                      ]
+                    }
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"@odata.type\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"Members@odata.count\": \"<integer>\",\n  \"Members\": [\n    {\n      \"@odata.id\": \"<string>\"\n    },\n    {\n      \"@odata.id\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:15:42.000Z",
+                  "updatedAt": "2026-10-22T01:15:42.000Z",
+                  "uid": "35240-418082f7-686b-4326-9bf5-19dd3065fc07"
                 }
               ],
-              "body": "{\n  \"@odata.type\": \"string\",\n  \"Name\": \"string\",\n  \"Members@odata.count\": 9083,\n  \"Members\": [\n    {\n      \"@odata.id\": \"string\"\n    },\n    {\n      \"@odata.id\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "60d099ba-75a3-4e6d-9db4-e5f49edba71e",
-          "name": "Create Event Subscription",
-          "request": {
-            "name": "Create Event Subscription",
-            "description": {
-              "content": "Creates a new event subscription to receive server event notifications via webhook.",
-              "type": "text/plain"
+              "createdAt": "2026-10-22T01:15:42.000Z",
+              "updatedAt": "2026-10-22T01:15:42.000Z",
+              "uid": "35240-4dd1357f-a137-4a02-ae66-f8c3e1854ecb"
             },
-            "url": {
-              "path": [
-                "EventService",
-                "Subscriptions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "IP address or hostname of the BMC",
-                  "type": "any",
-                  "value": "{{bmc-ip}}",
-                  "key": "bmc-ip"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"Destination\": \"<uri>\",\n  \"Protocol\": \"<string>\",\n  \"EventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Context\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
             {
-              "id": "7ef38562-0a5a-4e12-82b6-339bb981cf72",
-              "name": "Event subscription created",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "EventService",
-                    "Subscriptions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "IP address or hostname of the BMC",
-                      "type": "any",
-                      "value": "{{bmc-ip}}",
-                      "key": "bmc-ip"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
+              "name": "Create Event Subscription",
+              "id": "fe63a82d-fcce-416c-8708-97db1a77a412",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
                 "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"Destination\": \"<uri>\",\n  \"Protocol\": \"<string>\",\n  \"EventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Context\": \"<string>\"\n}",
+                  "raw": "{\n  \"Destination\": \"<uri>\",\n  \"Protocol\": \"Redfish\",\n  \"EventTypes\": [\n    \"StatusChange\",\n    \"ResourceRemoved\"\n  ],\n  \"Context\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/EventService/Subscriptions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "EventService",
+                    "Subscriptions"
+                  ]
+                },
+                "description": "Creates a new event subscription to receive server event notifications via webhook."
               },
-              "status": "Created",
-              "code": 201,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "07228c6c-d670-414d-99c6-f2f585fd644f",
+                  "name": "Event subscription created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"Destination\": \"<uri>\",\n  \"Protocol\": \"Redfish\",\n  \"EventTypes\": [\n    \"StatusChange\",\n    \"ResourceRemoved\"\n  ],\n  \"Context\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/EventService/Subscriptions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "EventService",
+                        "Subscriptions"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"@odata.type\": \"<string>\",\n  \"Id\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"Destination\": \"<uri>\",\n  \"EventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Protocol\": \"Redfish\",\n  \"Context\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:15:42.000Z",
+                  "updatedAt": "2026-10-22T01:15:42.000Z",
+                  "uid": "35240-07228c6c-d670-414d-99c6-f2f585fd644f"
                 }
               ],
-              "body": "{\n  \"@odata.type\": \"string\",\n  \"Id\": \"string\",\n  \"Name\": \"string\",\n  \"Destination\": \"https://BeJmpxctjQpYOqHVhHaDDLt.gvoekNc+xLIoo4hVvFVPLXe5mj5JdT6BnGHe2IivCMXCU7f+cGX.IhQrZZQLSwqPVoCyq.q\",\n  \"EventTypes\": [\n    \"string\",\n    \"string\"\n  ],\n  \"Protocol\": \"Redfish\",\n  \"Context\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T01:15:42.000Z",
+              "updatedAt": "2026-10-22T01:15:42.000Z",
+              "uid": "35240-fe63a82d-fcce-416c-8708-97db1a77a412"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "4a03f934-ba87-4974-a1d5-ba49525de977",
+          "createdAt": "2026-10-22T01:15:42.000Z",
+          "updatedAt": "2026-10-22T01:15:42.000Z",
+          "uid": "35240-4a03f934-ba87-4974-a1d5-ba49525de977"
         },
         {
-          "id": "aa9a5461-3ee2-426e-b3d1-501481f49828",
-          "name": "Get Event Subscription",
+          "name": "Get Event Service",
+          "id": "a223f2e2-a960-42d3-882f-e6b2cc54319e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Get Event Subscription",
-            "description": {
-              "content": "Returns details about a specific event subscription.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "EventService",
-                "Subscriptions",
-                ":subscriptionId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "subscriptionId",
-                  "description": "(Required) "
-                },
-                {
-                  "description": "IP address or hostname of the BMC",
-                  "type": "any",
-                  "value": "{{bmc-ip}}",
-                  "key": "bmc-ip"
-                }
-              ]
-            },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/EventService",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "EventService"
+              ]
+            },
+            "description": "Returns the event service resource with subscription management capabilities."
           },
           "response": [
             {
-              "id": "2bbad0f2-9a06-49b7-bee0-0978b09e8e5e",
-              "name": "Event subscription resource",
+              "id": "6dc08dd6-1f08-440c-a71e-35e9770d414f",
+              "name": "Event service resource",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "EventService",
-                    "Subscriptions",
-                    ":subscriptionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "subscriptionId",
-                      "description": "(Required) "
-                    },
-                    {
-                      "description": "IP address or hostname of the BMC",
-                      "type": "any",
-                      "value": "{{bmc-ip}}",
-                      "key": "bmc-ip"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/EventService",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "EventService"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"@odata.type\": \"string\",\n  \"Id\": \"string\",\n  \"Name\": \"string\",\n  \"Destination\": \"http://OwmZEJRwWcPDcCf.yzgjtmuGbBD9lGnrG4WBz-saKu\",\n  \"EventTypes\": [\n    \"string\",\n    \"string\"\n  ],\n  \"Protocol\": \"Redfish\",\n  \"Context\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"@odata.type\": \"<string>\",\n  \"Id\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"Status\": {\n    \"State\": \"Starting\",\n    \"Health\": \"Warning\",\n    \"HealthRollup\": \"OK\"\n  },\n  \"Subscriptions\": {\n    \"@odata.id\": \"<string>\"\n  },\n  \"EventTypesForSubscription\": [\n    \"Alert\",\n    \"ResourceRemoved\"\n  ]\n}",
+              "createdAt": "2026-10-22T01:15:42.000Z",
+              "updatedAt": "2026-10-22T01:15:42.000Z",
+              "uid": "35240-6dc08dd6-1f08-440c-a71e-35e9770d414f"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "85c37b4c-78de-4b62-9bbc-da6093a5af7f",
-          "name": "Delete Event Subscription",
-          "request": {
-            "name": "Delete Event Subscription",
-            "description": {
-              "content": "Deletes an event subscription.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "EventService",
-                "Subscriptions",
-                ":subscriptionId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "subscriptionId",
-                  "description": "(Required) "
-                },
-                {
-                  "description": "IP address or hostname of the BMC",
-                  "type": "any",
-                  "value": "{{bmc-ip}}",
-                  "key": "bmc-ip"
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "0182763d-1683-4c65-b94f-fb48196908a3",
-              "name": "Subscription deleted",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "EventService",
-                    "Subscriptions",
-                    ":subscriptionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "subscriptionId",
-                      "description": "(Required) "
-                    },
-                    {
-                      "description": "IP address or hostname of the BMC",
-                      "type": "any",
-                      "value": "{{bmc-ip}}",
-                      "key": "bmc-ip"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:15:42.000Z",
+          "updatedAt": "2026-10-22T01:15:42.000Z",
+          "uid": "35240-a223f2e2-a960-42d3-882f-e6b2cc54319e"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "IP address or hostname of the BMC",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "192.168.1.100",
-      "key": "bmc-ip"
-    },
-    {
-      "type": "string",
-      "value": "https://{{bmc-ip}}/redfish/v1",
-      "key": "baseUrl"
+      "id": "5dcd8d27-d475-46fe-beac-db371c0a53c4",
+      "createdAt": "2026-10-22T01:15:42.000Z",
+      "updatedAt": "2026-10-22T01:15:42.000Z",
+      "uid": "35240-5dcd8d27-d475-46fe-beac-db371c0a53c4"
     }
   ],
   "auth": {
@@ -545,21 +460,24 @@
     "basic": [
       {
         "key": "username",
-        "value": "{{basicAuthUsername}}"
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
       },
       {
         "key": "password",
-        "value": "{{basicAuthPassword}}"
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "7eee1341-9515-4b78-854b-01b2879e4d0c",
-    "name": "Supermicro Redfish Accounts Event Service API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Supermicro's implementation of the DMTF Redfish RESTful API standard for out-of-band server management via BMC (Baseboard Management Controller). Provides programmatic access to server health monitoring, power management, BIOS/BMC firmware updates, storage configuration, network configuration, user account management, and event logging across Supermicro server platforms (X10 and later Intel-based, H11 and later AMD-based platforms).\n\nContact Support:\n Name: Supermicro Support\n Email: support@supermicro.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "bmc-ip",
+      "value": "192.168.1.100"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{bmc-ip}}/redfish/v1"
     }
-  }
+  ]
 }
